@@ -68,11 +68,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/*$(function(){
-		var t = new TimelineMax();
-		t.to( "#div1",1,{left:300},1 );
-	});*/
-
 	//Animate:动画
 	var sheel = {};
 	//初始化
@@ -84,11 +79,11 @@
 	sheel.note();
 
 	//导航条
-	sheel.nav = _nav.nav;
+	sheel.nav = _nav.nav; //导航条事件
 	sheel.nav();
 
 	//第一屏
-	sheel.userImg = _contentImg.userImg;
+	sheel.userImg = _contentImg.userImg; //
 	sheel.userImg();
 
 	sheel.contentImgArr = (0, _contentImg.contentImgArr)();
@@ -109,6 +104,20 @@
 	sheel.noteConten = _note.noteConten;
 	sheel.noteConten();
 
+	sheel.close = _note.close;
+	sheel.close();
+
+	//第三屏
+	sheel.workAnimate = _work.workAnimate;
+	sheel.workAnimate();
+
+	//第四屏
+	sheel.profileInit = _profile.profileInit;
+	sheel.profileInit();
+
+	sheel.profileEvent = _profile.profileEvent;
+	sheel.profileEvent();
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -116,9 +125,8 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+					value: true
 	});
-	exports.h1 = h1;
 	exports.init = init;
 
 	var _nav = __webpack_require__(2);
@@ -131,11 +139,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function h1() {
-		//return '初始化';
-		console.log('初始化');
-	} /*初始化*/
-	;
 	/*
 		初始化需要做的事：
 			1、设置每一屏的快高
@@ -146,26 +149,27 @@
 			
 	*/
 	function init() {
-		Height();
-		(0, _nav.navInitAnimate)();
-		(0, _contentImg.cUserHeight)();
-		//imgInitAnimate();
-	}
+					Height();
+					(0, _nav.navInitAnimate)();
+					(0, _contentImg.cUserHeight)();
+					//imgInitAnimate();
+	} /*初始化*/
+	;
 
 	function Height() {
-		var iHeight = document.documentElement.clientHeight;
-		var acemn = document.querySelector(".contentImg");
-		acemn.style.height = iHeight + 'px';
-		var cStart = document.querySelectorAll('.start');
-		for (var i = 0; i < cStart.length; i++) {
-			cStart[i].style.height = parseInt(iHeight) - 85 + 'px';
-			cStart[i].style.marginTop = '85px';
-		}
+					var iHeight = document.documentElement.clientHeight;
+					var acemn = document.querySelector(".contentImg");
+					acemn.style.height = iHeight + 'px';
+					var cStart = document.querySelectorAll('.start');
+					for (var i = 0; i < cStart.length; i++) {
+									cStart[i].style.height = parseInt(iHeight) - 85 + 'px';
+									cStart[i].style.marginTop = '85px';
+					}
 
-		var cStart1 = document.querySelectorAll('.start1');
-		for (var i = 0; i < cStart1.length; i++) {
-			cStart1[i].style.height = Number(iHeight) - 85 + 'px';
-		}
+					var cStart1 = document.querySelectorAll('.start1');
+					for (var i = 0; i < cStart1.length; i++) {
+									cStart1[i].style.height = Number(iHeight) - 85 + 'px';
+					}
 	}
 
 /***/ },
@@ -213,7 +217,7 @@
 
 					t.to('.item', 1, { rotation: $rotate }, 0);
 
-					var arr = ['contentImg', 'note', 'demo', 'profile', 'memo'];
+					var arr = ['contentImg', 'photos', 'note', 'profile', 'memo'];
 					(0, _jquery2.default)(this).find('a').attr('href', '#' + arr[(0, _jquery2.default)(this).index()]);
 			}).delegate('li', 'mouseenter', function () {
 					var t = new TimelineMax();
@@ -1887,10 +1891,9 @@
 			left: $height,
 			opacity: 1
 		}, 4);
-	}
+	};
 
 	function contentImgArr() {
-		//border没有获取到？
 
 		var arr = [];
 		var $len = (0, _jquery2.default)('.c_img ul').find('li').length;
@@ -1900,7 +1903,7 @@
 			var $liTop = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('top');
 			var $liOpacity = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('opacity');
 			var $liZindex = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('zIndex');
-			var $liBorder = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('border');
+			var $liBorder = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('borderWidth');
 			arr.push([parseInt($liLeft), parseInt($liTop), $liOpacity, parseInt($liZindex), $img.width(), $liBorder]);
 		}
 
@@ -1922,7 +1925,7 @@
 					left: obj[w][0],
 					top: obj[w][1],
 					opacity: obj[w][2],
-					border: obj[w][5]
+					"border-width": obj[w][5]
 				});
 				$img.animate({
 					width: obj[w][4]
@@ -1946,7 +1949,7 @@
 					left: obj[e][0],
 					top: obj[e][1],
 					opacity: obj[e][2],
-					border: obj[e][5]
+					"border-width": obj[e][5]
 				});
 				$img.animate({
 					width: obj[e][4]
@@ -1971,7 +1974,7 @@
 					left: obj[e][0],
 					top: obj[e][1],
 					opacity: obj[e][2],
-					border: obj[e][5]
+					"border-width": obj[e][5]
 				});
 				$img.animate({
 					width: obj[e][4]
@@ -1994,7 +1997,7 @@
 						left: obj[e][0],
 						top: obj[e][1],
 						opacity: obj[e][2],
-						border: obj[e][5]
+						"border-width": obj[e][5]
 					});
 					$img.animate({
 						width: obj[e][4]
@@ -2018,7 +2021,7 @@
 						left: obj[e][0],
 						top: obj[e][1],
 						opacity: obj[e][2],
-						border: obj[e][5]
+						"border-width": obj[e][5]
 					});
 					$img.animate({
 						width: obj[e][4]
@@ -2074,7 +2077,7 @@
 				opacity: 0
 			});
 		});
-	}
+	};
 
 /***/ },
 /* 6 */
@@ -2085,21 +2088,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.h3 = h3;
 	exports.note = note;
 	exports.noteConten = noteConten;
+	exports.close = close;
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function h3() {
-	    //return '第二屏';
-	    console.log('第二屏');
-	} /*第二屏*/
-	;
 
 	function note() {
 	    var cDivPh = document.getElementsByClassName('photo');
@@ -2108,48 +2105,83 @@
 	        left: "4%",
 	        top: "7%",
 	        src: "html",
-	        alt: "html"
+	        alt: "html",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "28%",
 	        top: "7%",
 	        src: "css",
-	        alt: "css"
+	        alt: "css",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "52%",
 	        top: "7%",
 	        src: "javascript",
-	        alt: "javascript"
+	        alt: "javascript",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "76%",
 	        top: "7%",
 	        src: "html5",
-	        alt: "html5"
+	        alt: "html5",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "4%",
 	        top: "52%",
 	        src: "css3",
-	        alt: "css3"
+	        alt: "css3",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "28%",
 	        top: "52%",
 	        src: "react",
-	        alt: "react"
+	        alt: "react",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "52%",
 	        top: "52%",
 	        src: "ES6",
-	        alt: "ES6"
+	        alt: "ES6",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }, {
 	        left: "76%",
 	        top: "52%",
 	        src: "node",
-	        alt: "node"
+	        alt: "node",
+	        test: {
+	            testLeft: 'xhtml和html有什么区别?',
+	            testRight: '对WEB标准以及W3C的理解与认识.'
+	        }
 	    }];
 
 	    for (var i = 0; i < data.length; i++) {
 	        CreatePhoto(data[i]);
 	        cDivPh[i].style.left = data[i].left;
 	        cDivPh[i].style.top = data[i].top;
+	    }
+	    for (var j = 0; j < data[0].test.length; j++) {
+	        desc(data[0].test[j]);
 	    }
 
 	    for (var i = 0; i < data.length; i++) {
@@ -2174,7 +2206,8 @@
 	            };
 	        })(i);
 	    }
-	};
+	} /*第二屏 --未完成*/
+	;
 
 	function CreatePhoto(obj) {
 	    var str = '<div class="photo photo_front phWH">\
@@ -2185,49 +2218,359 @@
 	                            </p>\
 	                        </div>\
 	                        <div class="side side-back">\
-	                            <p class="desc">html</p>\
+	                            <p class="desc">' + obj.test.testLeft + '</p>\
+	                            <p class="desc">' + obj.test.testRight + '</p>\
 	                        </div>\
 	                    </div>\
 	                </div>';
 	    var $str = (0, _jquery2.default)(str);
-	    (0, _jquery2.default)('.wrap').append($str);
+	    (0, _jquery2.default)('.wrap').eq(0).append($str);
 	}
 
 	function noteConten() {
-	    var $leng = (0, _jquery2.default)('.photo').length;
-	    console.log($leng);
+	    var $leng = (0, _jquery2.default)('.photo').length - 1;
+
+	    var $height = parseInt((0, _jquery2.default)('.note').height()) + 85;
+	    var $width = parseInt((0, _jquery2.default)('.note').width());
+	    for (var i = 0; i < $leng; i++) {
+	        (0, _jquery2.default)('.photo').eq(i).on('click', function () {
+	            var t = new TimelineMax();
+	            (0, _jquery2.default)('.mark').css('display', 'block');
+	            t.to('.content', 1, {
+	                width: $width * 0.6,
+	                height: $height * 0.7,
+	                left: $width * 0.2,
+	                top: $height * 0.15,
+	                opacity: 1,
+	                background: '#000',
+	                display: 'block'
+	            });
+	        });
+	    }
+	};
+	function close() {
+
+	    (0, _jquery2.default)('.close').on('click', function () {
+	        var t = new TimelineMax();
+	        t.to('.content', 1, {
+	            width: 0,
+	            height: 0,
+	            left: 0,
+	            top: 0,
+	            opacity: 0,
+	            background: '#000',
+	            display: 'none'
+	        });
+	        (0, _jquery2.default)('.mark').css('display', 'none');
+	    });
 	};
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.h5 = h5;
-	/*第三屏*/
-	function h5() {
-		//return '第三屏';
-		console.log('第三屏');
+	exports.workAnimate = workAnimate;
+	exports.workEvent = workEvent;
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function workAnimate() {
+		var t = new TimelineMax();
+		var $width = parseInt((0, _jquery2.default)('.work').width());
+
+		t.to('.t-work', 1, { width: $width * 0.05 }, 0);
+		circleFirst(0, $width * 0.05, 1000);
+
+		t.to('.t-work', 1, { width: $width * 0.15 }, 2.5);
+		circleSecond(1, $width * 0.15, 3500);
+
+		t.to('.t-work', 1, { width: $width * 0.3 }, 4.5);
+		circleFirst(2, $width * 0.3, 5500);
+
+		t.to('.t-work', 1, { width: $width * 0.5 }, 6.5);
+		circleSecond(3, $width * 0.5, 7500);
+
+		t.to('.t-work', 1, { width: $width * 0.75 }, 8.5);
+		circleFirst(4, $width * 0.75, 9500);
+
+		t.to('.t-work', 1, { width: $width * 0.95 }, 10.5);
+		circleSecond(5, $width * 0.95, 11500);
+
+		t.to('.t-work', 1, { width: $width }, 12.5);
+	} /*第三屏*/
+	;
+
+	function circleFirst(index, num, time) {
+		var time2 = parseInt(time) + 500;
+		var time3 = parseInt(time) + 1000;
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
+				opacity: 1,
+				width: 20,
+				height: 20
+			}, 500);
+		}, time);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-line').eq(index).animate({
+				opacity: 1,
+				height: 100
+			}, 500);
+		}, time2);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 500);
+		}, time3);
+	}
+	function circleSecond(index, num, time) {
+		var time2 = parseInt(time) + 500;
+		var time3 = parseInt(time) + 1000;
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
+				opacity: 1,
+				width: 20,
+				height: 20
+			}, 500);
+		}, time);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-line').eq(index).animate({
+				opacity: 1,
+				height: 100
+			}, 500);
+		}, time2);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 500);
+		}, time3);
+	}
+
+	function workEvent() {//点击事件
+
 	};
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.h6 = h6;
-	/*第四屏*/
-	function h6() {
-		//return '第四屏';
-		console.log('第四屏');
+	exports.profileInit = profileInit;
+	exports.profileEvent = profileEvent;
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function profileInit() {
+		var arr = null;
+		var json = [];
+		var $width = parseInt((0, _jquery2.default)('.profile').width());
+		var $height = parseInt((0, _jquery2.default)('.profile').height());
+
+		var data = [{
+			item: '标题1',
+			content: 'hello',
+			time: '2016-6-12'
+		}, {
+			item: '标题2',
+			content: 'hello2',
+			time: '2016-6-13'
+		}, {
+			item: '标题3',
+			content: 'hello3',
+			time: '2016-6-14'
+		}, {
+			item: '标题4',
+			content: 'hello4',
+			time: '2016-6-15'
+		}, {
+			item: '标题5',
+			content: 'hello4',
+			time: '2016-6-16'
+		}];
+
+		for (var i = 0; i < data.length; i++) {
+			createArticle(data[i].item, data[i].content, data[i].time);
+			arr = randomNumber(40, 20);
+			json.push(positionNum($width, $height));
+
+			(0, _jquery2.default)('.articleBox').eq(i).css({
+				width: $width - 80,
+				height: $height - 80
+			});
+			(0, _jquery2.default)('.article').eq(i).animate({
+				width: ($width - 80) / 4,
+				height: ($height - 80) / 2,
+				transform: "skew(" + arr[0] + "deg," + arr[1] + "deg)",
+				top: json[i].top,
+				left: json[i].left
+			});
+			(0, _jquery2.default)('.articleContent').eq(i).css({
+				height: ($height - 80) / 2 - 74,
+				padding: 3
+			});
+		}
+	} /*第四屏*/
+	;
+
+	function createArticle(item, content, time) {
+		var str = '<div class="article">\
+	                    <h3>' + item + '</h3>\
+	                    <div class="articleContent"><p>' + content + '</p></div>\
+	                    <p class="articleTime">' + time + '</p>\
+	                </div>';
+		(0, _jquery2.default)('.articleBox').append((0, _jquery2.default)(str));
+	}
+
+	function randomNumber(num1, num2) {
+		var arr = [];
+		for (var i = 0; i < arguments.length; i++) {
+			arr.push(Math.ceil(Math.random() * num1 - num2));
+		}
+		return arr;
+	}
+
+	function positionNum(width, height) {
+
+		var json = {};
+		var minLeft = -((width - 80) / 4) / 3;
+		var maxLeft = width - 80 + minLeft;
+		var minTop = -((height - 80) / 2) / 5;
+		var maxTop = height - 80 + minTop;
+
+		console.log(minLeft, maxLeft);
+		console.log(minTop, maxTop);
+
+		json.left = minMaxNum(minLeft, maxLeft);
+		json.top = minMaxNum(minTop, maxTop);
+
+		return json;
+	}
+
+	function minMaxNum(min, max) {
+		return Math.round(Math.random() * (max - min) + min);
+	}
+
+	function profileEvent() {
+		var $width = parseInt((0, _jquery2.default)('.profile').width()) - 80 - parseInt((0, _jquery2.default)('.article').width());
+		var $height = parseInt((0, _jquery2.default)('.profile').height()) - 80 - parseInt((0, _jquery2.default)('.article').height());
+
+		(0, _jquery2.default)('.articleBox').delegate('.article', 'mouseenter', function () {
+			//移入
+			var $left = parseInt((0, _jquery2.default)(this).css('left'));
+			var $top = parseInt((0, _jquery2.default)(this).css('top'));
+			(0, _jquery2.default)(this).attr('_left', $left);
+			(0, _jquery2.default)(this).attr('_top', $top);
+
+			console.log($width, $height);
+
+			if ($left < 5 && $top > 5) {
+
+				(0, _jquery2.default)(this).animate({
+					left: 5
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($top < 5 && $left > 5) {
+				(0, _jquery2.default)(this).animate({
+					top: 5
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($left > 5 && $top > $height) {
+				(0, _jquery2.default)(this).animate({
+					top: $height
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($left > $width && $top > 5) {
+				(0, _jquery2.default)(this).animate({
+					left: $left
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($top < 5 && $left < 5) {
+				(0, _jquery2.default)(this).animate({
+					top: 5,
+					left: 5
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($top < 5 && $left > $width) {
+				(0, _jquery2.default)(this).animate({
+					top: 5,
+					left: $left
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($left < 5 && $top > $height) {
+				(0, _jquery2.default)(this).animate({
+					top: $height,
+					left: 5
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else if ($left > $width && $top > $height) {
+				(0, _jquery2.default)(this).animate({
+					top: $height,
+					left: $width
+				}).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			} else {
+				(0, _jquery2.default)(this).css({
+					border: '5px solid #fff',
+					transform: 'skew(0deg,0deg)',
+					zIndex: 4
+				});
+			}
+		}).delegate('.article', 'mouseleave', function () {
+			//移出
+			console.log((0, _jquery2.default)(this).attr('_left'));
+			console.log((0, _jquery2.default)(this).attr('_top'));
+
+			var arr = randomNumber(20, 10);
+			(0, _jquery2.default)(this).css({
+				border: 'none',
+				transform: "skew(" + arr[0] + "deg," + arr[1] + "deg)",
+				zIndex: 2
+			});
+		}).delegate('.article', 'click', function () {
+			console.log(3);
+		});
 	};
 
 /***/ },

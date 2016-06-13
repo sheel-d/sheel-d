@@ -6,10 +6,7 @@ import $ from 'jquery';
 
 
 
-export function h1(){
-	//return '初始化';
-	console.log('初始化');
-};
+
 /*
 	初始化需要做的事：
 		1、设置每一屏的快高
@@ -24,7 +21,7 @@ export function init(){
 	navInitAnimate();
 	cUserHeight();
 	//imgInitAnimate();
-}
+};
 
 function Height(){
 	var iHeight = document.documentElement.clientHeight;

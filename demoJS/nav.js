@@ -28,7 +28,7 @@ export function nav(){
 
 		t.to('.item',1,{rotation:$rotate},0);
 
-		var arr = ['contentImg','note','demo','profile','memo'];
+		var arr = ['contentImg','photos','note','profile','memo'];
 		$(this).find('a').attr('href','#'+arr[$(this).index()]);
 
 	}).delegate('li','mouseenter',function(){

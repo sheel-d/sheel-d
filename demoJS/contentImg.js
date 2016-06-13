@@ -33,9 +33,9 @@ export function imgInitAnimate(){
 		left:$height,
 		opacity:1
 	},4);
-}
+};
 
-export function contentImgArr(){ //border没有获取到？
+export function contentImgArr(){
 
 	var arr = [];
 	var $len = $('.c_img ul').find('li').length;
@@ -45,7 +45,7 @@ export function contentImgArr(){ //border没有获取到？
 		var $liTop = $('.c_img ul').find('li').eq(q).css('top');
 		var $liOpacity = $('.c_img ul').find('li').eq(q).css('opacity');
 		var $liZindex = $('.c_img ul').find('li').eq(q).css('zIndex');
-		var $liBorder = $('.c_img ul').find('li').eq(q).css('border');
+		var $liBorder = $('.c_img ul').find('li').eq(q).css('borderWidth');
 		arr.push( [parseInt($liLeft),parseInt($liTop),$liOpacity,parseInt($liZindex),$img.width(),$liBorder] );
 	}
 
@@ -67,7 +67,7 @@ export function prevAnimate(obj){
 	    		left : obj[w][0],
 	            top : obj[w][1],
 	            opacity : obj[w][2],
-	            border : obj[w][5]
+	            "border-width" : obj[w][5]
 	    	});
 	    	$img.animate({
 	    		width : obj[w][4]
@@ -91,7 +91,7 @@ export function nextAnimate(obj){
 	    		left : obj[e][0],
 	            top : obj[e][1],
 	            opacity : obj[e][2],
-	            border : obj[e][5]
+	            "border-width" : obj[e][5]
 	    	});
 	    	$img.animate({
 	    		width : obj[e][4]
@@ -116,7 +116,7 @@ export function imgAnimate(obj){
         		left : obj[e][0],
                 top : obj[e][1],
                 opacity : obj[e][2],
-                border : obj[e][5]
+                "border-width" : obj[e][5]
         	});
         	$img.animate({
         		width : obj[e][4]
@@ -139,7 +139,7 @@ export function imgAnimate(obj){
 	        		left : obj[e][0],
 	                top : obj[e][1],
 	                opacity : obj[e][2],
-	                border : obj[e][5]
+	                "border-width" : obj[e][5]
 	        	});
 	        	$img.animate({
 	        		width : obj[e][4]
@@ -163,7 +163,7 @@ export function imgAnimate(obj){
 	        		left : obj[e][0],
 	                top : obj[e][1],
 	                opacity : obj[e][2],
-	                border : obj[e][5]
+	                "border-width" : obj[e][5]
 	        	});
 	        	$img.animate({
 	        		width : obj[e][4]
@@ -218,4 +218,4 @@ export function hide(){//未完成
 			opacity: 0
 		});
 	});
-}
+};
