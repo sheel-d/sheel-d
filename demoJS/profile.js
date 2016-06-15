@@ -48,6 +48,7 @@ export function profileInit(){
 			width : ($width-80)/4,
 			height : ($height-80)/2,
 			transform : "skew("+ arr[0] +"deg," + arr[1] + "deg)",
+			opacity : 1,
 			top:json[i].top,
 			left: json[i].left
 		});
@@ -94,8 +95,11 @@ function minMaxNum(min,max){
 }
 
 export function profileEvent(){
-	var $width = parseInt($('.profile').width()) - 80 - parseInt($('.article').width());
-	var $height = parseInt($('.profile').height()) - 80 - parseInt($('.article').height());
+	var $width = parseInt($('.articleBox').width()) + 80;
+	var $height = parseInt($('.articleBox').height()) + 80;
+
+	var leftMax = $width - ($width-80)/4 - 10;
+	var topMax = $height - ($height-80)/2 - 10;
 
 	$('.articleBox').delegate('.article','mouseenter',function(){//移入
 		var $left = parseInt($(this).css('left'));
@@ -103,10 +107,10 @@ export function profileEvent(){
 		$(this).attr('_left',$left);
 		$(this).attr('_top',$top);
 
-		if( $left < 5 && $top > 5 ){ //$width,$height找得不对
+		if( $left < 5 && $top > 5 ){
 
 			$(this).animate({
-				left : 5,
+				left : 5
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
@@ -114,23 +118,23 @@ export function profileEvent(){
 			});
 		}else if( $top < 5 && $left > 5 ){
 			$(this).animate({
-				top : 5,
+				top : 5
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
 				zIndex : 4
 			});
-		}else if( $left > 5 && $top > $height ){
+		}else if( $left > 5 && $top > topMax ){
 			$(this).animate({
-				top : $height,
+				top : topMax
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
 				zIndex : 4
 			});
-		}else if( $left > $width && $top > 5){
+		}else if( $left > leftMax && $top > 5){
 			$(this).animate({
-				left : $left,
+				left : leftMax
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
@@ -145,28 +149,28 @@ export function profileEvent(){
 				transform : 'skew(0deg,0deg)',
 				zIndex : 4
 			});
-		}else if( $top < 5 && $left > $width){
+		}else if( $top < 5 && $left > leftMax){
 			$(this).animate({
 				top : 5,
-				left : $left
+				left : leftMax
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
 				zIndex : 4
 			});
-		}else if( $left < 5 && $top > $height){
+		}else if( $left < 5 && $top > topMax){
 			$(this).animate({
-				top : $height,
+				top : topMax,
 				left : 5
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
 				zIndex : 4
 			});
-		}else if( $left > $width && $top > $height ){
+		}else if( $left > leftMax && $top > topMax ){
 			$(this).animate({
-				top : $height,
-				left : $width
+				top : topMax,
+				left : leftMax
 			}).css({
 				border : '5px solid #fff',
 				transform : 'skew(0deg,0deg)',
@@ -180,11 +184,15 @@ export function profileEvent(){
 			});
 		}
 	}).delegate('.article','mouseleave',function(){//移出
-		console.log($(this).attr('_left'));
-		console.log($(this).attr('_top'));
+		var $left = $(this).attr('_left');
+		var $top = $(this).attr('_top');
 
 		var arr = randomNumber(20,10);
-		$(this).css({
+
+		$(this).animate({
+			left : $left,
+			top : $top
+		}).css({
 			border : 'none',
 			transform : "skew("+ arr[0] +"deg," + arr[1] + "deg)",
 			zIndex : 2

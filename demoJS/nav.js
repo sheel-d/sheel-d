@@ -14,6 +14,31 @@ export function navInitAnimate(){
 	t.to('.line',0.5,{left:6},3);
 };
 
+export function createNav(obj){
+	var str ='<div class="wrapper">\
+            <div class="logo">\
+                <a href="#">\
+                    <img src="img/sheel-logo.png" alt="logo">\
+                </a>\
+            </div>\
+            <ul class="nav">\
+                <li class="active"><a href="#">首页</a></li>\
+                <li><a href="#">照片</a></li>\
+                <li><a href="#">学海无涯</a></li>\
+                <li><a href="#">随笔</a></li>\
+                <li><a href="#">留言板</a></li>\
+                <div class="line"></div>\
+            </ul>\
+            <div class="item">\
+                <div class="item1"></div>\
+                <div class="item2"></div>\
+                <div class="item3"></div>\
+                <div class="item4"></div>\
+            </div>\
+        </div>'
+    $(obj).append($(str));
+};
+
 export function nav(){
 	
 	$('.nav').delegate('li','click',function(){

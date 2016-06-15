@@ -1,6 +1,6 @@
 /*初始化*/
-import {navInitAnimate} from './nav.js';
-import {cUserHeight,imgInitAnimate} from './contentImg.js';
+import {navInitAnimate,createNav} from './nav.js';
+import {cUserHeight,imgInitAnimate,createImg,createUser} from './contentImg.js';
 import $ from 'jquery';
 
 
@@ -18,7 +18,10 @@ import $ from 'jquery';
 */
 export function init(){
 	Height();
+	createNav('#menu');
 	navInitAnimate();
+	createImg();
+	createUser();
 	cUserHeight();
 	//imgInitAnimate();
 };

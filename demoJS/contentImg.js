@@ -3,25 +3,7 @@ import $ from 'jquery';
 
 export function userImg(){
 	var $parentHeight = parseInt($('.c_user').height()) - 10;
-	var $parentWidth = parseInt($('.c_user').width()) - 10 - $parentHeight;
-
-	$('.userImg').css({
-		'width' : $parentHeight,
-		'height' : $parentHeight,
-		'background-image' : 'url(./img/user-img.jpg)',
-		'background-size' : 'cover',
-		'background-position' : 'center center',
-		'border-radius' : '50%',
-		'margin':'5px'
-	});
-	$('.userContent').css({
-		'position' : 'absolute',
-		'left' : $parentHeight + 10,
-		'top' : '0',
-		'background-color' : '#FFF',
-		'width' : $parentWidth,
-		'height' : $parentHeight
-	});
+	$('.userContent').css('height',$parentHeight);
 };
 
 export function imgInitAnimate(){
@@ -52,54 +34,6 @@ export function contentImgArr(){
 	return arr;
 };
 
-export function prevAnimate(obj){
-
-	$('.prev').on('click',function(){
-		obj.push(obj[0]);
-	    obj.shift();
-	    var $len = $('.c_img ul').find('li').length;
-
-	    for(let w = 0; w < $len; w++){
-	    	var $img = $('.c_img ul').find('li').eq(w).find('img');
-	    	var $li = $('.c_img ul').find('li').eq(w);
-	    	$('.c_img ul').find('li').eq(w).css('z-index',obj[w][3]);
-	    	$li.animate({
-	    		left : obj[w][0],
-	            top : obj[w][1],
-	            opacity : obj[w][2],
-	            "border-width" : obj[w][5]
-	    	});
-	    	$img.animate({
-	    		width : obj[w][4]
-	    	});
-	    }
-	});
-};
-
-export function nextAnimate(obj){
-
-	$('.next').on('click',function(){
-		obj.unshift(obj[obj.length-1]);
-	    obj.pop();
-	    var $len = $('.c_img ul').find('li').length;
-
-	    for(let e = 0; e < $len; e++){
-	        var $img = $('.c_img ul').find('li').eq(e).find('img');
-	    	var $li = $('.c_img ul').find('li').eq(e);
-	    	$('.c_img ul').find('li').eq(e).css('z-index',obj[e][3]);
-	    	$li.animate({
-	    		left : obj[e][0],
-	            top : obj[e][1],
-	            opacity : obj[e][2],
-	            "border-width" : obj[e][5]
-	    	});
-	    	$img.animate({
-	    		width : obj[e][4]
-	    	});
-	    }
-	});
-};
-
 export function imgAnimate(obj){
 
 	var timer = null;
@@ -123,54 +57,6 @@ export function imgAnimate(obj){
         	});
         }
 	},3000);
-
-	$('.next').on('mouseenter',function(){
-		clearInterval(timer);
-	}).on('mouseleave',function(){
-		timer = setInterval(function(){			
-			obj.unshift(obj[obj.length-1]);
-	        obj.pop();
-
-	        for(let e = 0; e < $len; e++){
-	            var $img = $('.c_img ul').find('li').eq(e).find('img');
-	        	var $li = $('.c_img ul').find('li').eq(e);
-	        	$('.c_img ul').find('li').eq(e).css('z-index',obj[e][3]);
-	        	$li.animate({
-	        		left : obj[e][0],
-	                top : obj[e][1],
-	                opacity : obj[e][2],
-	                "border-width" : obj[e][5]
-	        	});
-	        	$img.animate({
-	        		width : obj[e][4]
-	        	});
-	        }
-		},3000);
-	});
-
-	$('.prev').on('mouseenter',function(){
-		clearInterval(timer);
-	}).on('mouseleave',function(){
-		timer = setInterval(function(){			
-			obj.unshift(obj[obj.length-1]);
-	        obj.pop();
-
-	        for(let e = 0; e < $len; e++){
-	            var $img = $('.c_img ul').find('li').eq(e).find('img');
-	        	var $li = $('.c_img ul').find('li').eq(e);
-	        	$('.c_img ul').find('li').eq(e).css('z-index',obj[e][3]);
-	        	$li.animate({
-	        		left : obj[e][0],
-	                top : obj[e][1],
-	                opacity : obj[e][2],
-	                "border-width" : obj[e][5]
-	        	});
-	        	$img.animate({
-	        		width : obj[e][4]
-	        	});
-	        }
-		},3000);
-	});
 };
 
 export function cUserHeight(){
@@ -182,40 +68,31 @@ export function cUserHeight(){
 	});
 };
 
-export function hide(){//未完成
-	var timer1 = null;
-	$('.ImgContent').off('mouseenter').on('mouseenter',function(){
-		$('.prevHide').animate({
-			left: 20,
-			opacity: 1
-		},1000);
-		$('.nextHide').animate({
-			right: 20,
-			opacity: 1
-		},1000);
-	}).off('mouseleave').on('mouseleave',function(){
-		timer1 = setInterval(function(){
-			$('.prevHide').animate({
-				left: -76,
-				opacity: 0
-			});
-			$('.nextHide').animate({
-				right: -76,
-				opacity: 0
-			});
-		},100);
-	});
-
-	$('.prevHide').off('mouseenter').on('mouseenter',function(){
-		clearInterval(timer1);
-	}).off('mouseleave').on('mouseleave',function(){
-		$('.prevHide').animate({
-			left: -76,
-			opacity: 0
-		});
-		$('.nextHide').animate({
-			right: -76,
-			opacity: 0
-		});
-	});
-};
+export function createImg(){
+	var str = '<div class="c_img">\
+                <ul>\
+                    <li class="img_0"><img src="./img/contentImg1.jpg" style="width:100px"></li>\
+                    <li class="img_1"><img src="./img/contentImg2.jpg" style="width:270px"></li>\
+                    <li class="img_2"><img src="./img/contentImg3.jpg" style="width:510px"></li>\
+                    <li class="img_3"><img src="./img/contentImg4.jpg" style="width:680px"></li>\
+                    <li class="img_4"><img src="./img/contentImg5.jpg" style="width:510px"></li>\
+                    <li class="img_5"><img src="./img/contentImg6.jpg" style="width:270px"></li>\
+                    <li class="img_6"><img src="./img/contentImg7.jpg" style="width:270px"></li>\
+                    <li class="img_6"><img src="./img/contentImg8.jpg" style="width:270px"></li>\
+                </ul>\
+            </div>';
+    $('.contentImg').append($(str));
+}
+export function createUser(){
+	var str = '<div class="c_user">\
+                <div class="userImg"><img src="./img/user-img.jpg" /></div>\
+                <div class="userContent">\
+                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                </div>\
+            </div>'
+    $('.contentImg').append($(str));
+}

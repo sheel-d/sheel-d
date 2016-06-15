@@ -1,63 +1,69 @@
 import {init} from './init.js';
 import {nav} from './nav.js';
-import {note,noteConten,close} from './note.js';
-import {userImg,contentImgArr,prevAnimate,nextAnimate,imgAnimate,hide} from './contentImg.js';
-import {workAnimate} from './work.js';
+import {note,noteConten,close,createContent} from './photo.js';
+import {contentImgArr,imgAnimate} from './contentImg.js';
+import {workAnimate,createWork} from './work.js';
 import {profileInit,profileEvent} from './profile.js';
-import {h7} from './footer.js';
+import {messageInit,memoEvent,createMessage,createFooter} from './footer.js';
 
 import $ from 'jquery';
 import './TweenMax.js';
 
+import '../css/index.css';
 
+window.onload = function(){
+	//Animate:动画
+	var sheel = {};
+	//初始化
+	sheel.init = init;
+	sheel.init();
 
-//Animate:动画
-var sheel = {};
-//初始化
-sheel.init = init;
-sheel.init();
+	//导航条
+	sheel.nav = nav; //导航条事件
+	sheel.nav();
 
-//第二屏
-sheel.note = note;
-sheel.note();
+	//第一屏
+	sheel.contentImgArr = contentImgArr();
 
-//导航条
-sheel.nav = nav; //导航条事件
-sheel.nav();
+	sheel.imgAnimate = imgAnimate;
+	sheel.imgAnimate(sheel.contentImgArr);
 
-//第一屏
-sheel.userImg = userImg;  //
-sheel.userImg();
+	//第二屏
+	sheel.note = note;
+	sheel.note();
+	sheel.createContent = createContent;
+	sheel.createContent();
 
-sheel.contentImgArr = contentImgArr();
+	sheel.noteConten = noteConten;
+	sheel.noteConten();
 
-sheel.prevAnimate = prevAnimate;
-sheel.prevAnimate(sheel.contentImgArr);
+	sheel.close = close;
+	sheel.close();
 
-sheel.nextAnimate = nextAnimate;
-sheel.nextAnimate(sheel.contentImgArr);
+	//第三屏
+	sheel.createWork = createWork;
+	sheel.createWork();
 
-sheel.imgAnimate = imgAnimate;
-sheel.imgAnimate(sheel.contentImgArr);
+	sheel.workAnimate = workAnimate;
+	sheel.workAnimate();
 
-sheel.hide = hide;
-sheel.hide();
+	//第四屏
+	sheel.profileInit = profileInit;
+	sheel.profileInit();
 
-//第二屏
-sheel.noteConten = noteConten;
-sheel.noteConten();
+	sheel.profileEvent = profileEvent;
+	sheel.profileEvent();
 
-sheel.close = close;
-sheel.close();
+	//第五屏
+	sheel.createMessage = createMessage;
+	sheel.createMessage();
 
-//第三屏
-sheel.workAnimate = workAnimate;
-sheel.workAnimate();
+	sheel.createFooter = createFooter;
+	sheel.createFooter();
 
-//第四屏
-sheel.profileInit = profileInit;
-sheel.profileInit();
+	sheel.messageInit = messageInit;
+	sheel.messageInit();
 
-sheel.profileEvent = profileEvent;
-sheel.profileEvent();
-
+	sheel.memoEvent = memoEvent;
+	sheel.memoEvent();
+};

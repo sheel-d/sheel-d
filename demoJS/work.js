@@ -73,6 +73,36 @@ function circleSecond(index,num,time){
 	},time3);
 }
 
+export function createWork(){
+	var str = ' <div class="t-work">\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">html+css</span>\
+                </p>\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">html+css+js</span>\
+                </p>\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">html5+css3</span>\
+                </p>\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">react</span>\
+                </p>\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">ES6</span>\
+                </p>\
+                <p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content">node</span>\
+                </p>\
+            </div>';
+    $('.work').append($(str));
+};
+
 export function workEvent(){//点击事件
 
 };
