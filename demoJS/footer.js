@@ -2,7 +2,7 @@
 import $ from 'jquery';
 
 var obj = {
- 	imgUrl : './img/1.jpg',
+ 	imgUrl : './img/'+minMaxNum(1,10)+'.jpg',
  	author : 'sheel',
  	time : '2016-6-15',
  	content : '我是第一个留言的，嘻嘻'
@@ -12,9 +12,10 @@ export function messageInit(){
 	var $height = $('#memo').height() - ($('.userMemo').height() + $('.more').height() + $('.writeMemo').height() + $('.footer').height() + 47);
 	$('.box').css('height',$height);
 	var num = Math.floor($height/120);
-	for(let i = 0; i < num; i++){
+	/*for(let i = 0; i < num; i++){
 		createMemoBox(obj);
-	}
+	}*/
+	createMemoBox(obj);
 	var $width = parseInt($('.memoBox').width()) - 140;
 	$('.rightContent').css('width',$width);
 };
@@ -91,4 +92,8 @@ export function createFooter(){
                 <span>&hearts;sheel-d 2016-5-24</span>\
             </div>';
     $('#memo').append($(str));
+}
+
+function minMaxNum(min,max){
+	return Math.round(Math.random()*(max-min)+min);
 }

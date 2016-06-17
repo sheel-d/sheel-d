@@ -65,6 +65,7 @@ textarea { resize:none; overflow:auto; }
     padding: 0 6px;
     margin-left: 6px;
     font-family: Chinese;
+    cursor: pointer;
 }
 .nav li a{
     line-height: 60px;
@@ -119,13 +120,11 @@ textarea { resize:none; overflow:auto; }
 /*main*/
 #main{
     width: 100%;
-    /* position: fixed;
+    position: fixed;
     top: 0;
-    left:0; */
+    left:0;
     background: #63892e; 
-    position: relative;
     overflow: hidden;
-
 }
 .start{
     width: 100%;
@@ -142,6 +141,7 @@ textarea { resize:none; overflow:auto; }
     height: 393px;
     position: relative;
     overflow: hidden;
+    opacity: 0;
 }
 .imgPL{
     left: 0;
@@ -240,6 +240,7 @@ textarea { resize:none; overflow:auto; }
     width: 100%;
     position: relative;
     overflow: hidden;
+    opacity: 0;
 }
 .userImg{
     width: 168px;
@@ -258,13 +259,16 @@ textarea { resize:none; overflow:auto; }
 .userContent{
     width: 1000px;
     margin: 0 auto;
+    position: absolute;
+    left: 168px;
+    top: 10px;
 }
 .userContent p{
-    padding: 0 5px;
+    padding: 1px 5px;
     text-align: left;
     height: 20px;
     line-height: 20px;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Chinese;
 }
 .userContent p:nth-child(1){
@@ -282,144 +286,39 @@ textarea { resize:none; overflow:auto; }
 .userContent p:nth-child(5){
     text-indent: 60px;
 }
+.userContent p:nth-child(6){
+    text-indent: 70px;
+}
+.userContent p:nth-child(7){
+    width: 500px;
+    text-align: right;
+}
 /* note */
 .note{
     position: relative;
-}
-.mark{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    opacity: 0.1;
-    z-index: 20;
-    display: none;
-}
-.content{
-    position: absolute;
-    background: red;
-    z-index: 21;
-    display: none;
-    overflow: hidden;
-    opacity: 0;
-}
-.close{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: #000;
-    height: 20px;
-    width: 20px;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid #fff;
-    z-index: 22
-}
-.close i:nth-child(1){
-    display: inline-block;
-    border-top: 1px solid #fff;
-    width: 20px;
-    height: 1px;
-    position: absolute;
-    top: 18px;
-
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-}
-.close i:nth-child(2){
-    display: inline-block;
-    border-top: 1px solid #fff;
-    width: 20px;
-    height: 1px;
-    position: absolute;
-    top: 18px;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-}
-.leftImg,.rightTest{
-    width: 45%;
-    height: 40%;
-    background: #fff;
-    position: absolute;
-    top: 20px;
-}
-.leftImg{
-    left: 3%;
-}
-.leftImg img{
-    width: 100%;
-    height: 100%;
-}
-.rightTest{
-    right: 3%;
-}
-@keyframes animate{
-    0% {background: red;left: 20px;top: 0;}
-    20% {background: yellow;left: 20px;top: 20%;width: 30px;height: 30px;}
-    40% {background: green;left: 20px;top: 40%;width: 40px;height: 40px;}
-    60% {background: blue;left: 20px;top: 60%;width: 30px;height: 30px;}
-    80% {background: #ccc;left: 20px;top: 80%;width: 20px;height: 20px;}
-    100% {background: #000;left: 20px;top: 100%;width: 10px;height: 10px;}
-}
-.bottonLabel p{
-    width: 20px;
-    height: 20px;
-    background: red;
-    position: absolute;
-    border-radius: 50%;
-
-    animation: animate 5s linear 2s infinite alternate; 
-
-    /* animation-name: animate;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-delay: 0.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-play-state: running;
-    
-    -webkit-animation-name: animate;
-    -webkit-animation-duration: 5s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-delay: 2s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-play-state: running;
-    
-    -moz-animation-name: animate;
-    -moz-animation-duration: 5s;
-    -moz-animation-timing-function: linear;
-    -moz-animation-delay: 2s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-direction: alternate;
-    -moz-animation-play-state: running;*/
-} 
-.bottonLabel{
-    width: 94%;
-    height: 50%;
-    position: absolute;
-    bottom: 2%;
-    left: 3%;
-    background: #fff;
 }
 .wrap{
     width: 100%;
     height: 100%;
     overflow: hidden;
 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: stretch;
+
     -webkit-perspective: 800px;
     -moz-perspective: 800px;
 }
 .phWH{
-    width: 20%;
-    height: 40%;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 .photo{
-    position: absolute;
     z-index: 1;
     box-shadow: 0 0 1px rgba(0,0,0,255);
 }
@@ -445,11 +344,18 @@ textarea { resize:none; overflow:auto; }
     font-size: 14px;
     line-height: 1.5em;
     font-family: Chinese;
+    padding: 10px 5px;
+}
+.desc:nth-child(1){
+    transform:rotate(-15deg);
+}
+.desc:nth-child(2){
+    transform:rotate(-15deg);
 }
 .photo-wrap{
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 150px;
 
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
@@ -487,7 +393,7 @@ textarea { resize:none; overflow:auto; }
     margin-top: -1px;
 }
 
-.t-work .circle{
+.circle{
     display: inline-block;   
     opacity: 0;
     background: red;
@@ -787,4 +693,19 @@ textarea { resize:none; overflow:auto; }
     position: relative;
     line-height: 24px;
     font-size: 14px;
+}
+.scrollBar{
+    width: 15px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0;
+}
+.rectangle{
+    width: 100%;
+    height: 50px;
+    background-color: #ccc;
+    position: absolute;
 }

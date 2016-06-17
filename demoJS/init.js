@@ -1,10 +1,13 @@
 /*初始化*/
-import {navInitAnimate,createNav} from './nav.js';
+import {createNav} from './nav.js';
 import {cUserHeight,imgInitAnimate,createImg,createUser} from './contentImg.js';
+import {} from './photo.js';
+import {createWork,createWorkContent} from './work.js';
+import {} from './profile.js';
+import {createMessage,createFooter} from './footer.js';
+import {initScrollBar} from './scrollBar.js';
+
 import $ from 'jquery';
-
-
-
 
 
 /*
@@ -19,26 +22,47 @@ import $ from 'jquery';
 export function init(){
 	Height();
 	createNav('#menu');
-	navInitAnimate();
 	createImg();
 	createUser();
 	cUserHeight();
-	//imgInitAnimate();
+	initAnimate();
+	//滚动条
+	initScrollBar();
+	
+	//第三屏
+	createWork();
+	createWorkContent();
+
+	//第五屏
+	createMessage();
+	createFooter();
 };
 
 function Height(){
 	var iHeight = document.documentElement.clientHeight;
-    var acemn = document.querySelector(".contentImg");
-    acemn.style.height = iHeight + 'px';
-    var cStart = document.querySelectorAll('.start');
-    for(var i=0;i<cStart.length;i++){
-        cStart[i].style.height = parseInt(iHeight) - 85 + 'px';
-        cStart[i].style.marginTop = '85px';
-    }
-
-    var cStart1 = document.querySelectorAll('.start1');
-    for(var i=0;i<cStart1.length;i++){
-        cStart1[i].style.height = (Number(iHeight) - 85) + 'px';
-    }
+	$('#main').css('height',iHeight);
+	var $len = $('.start').length;
+	$('.start').css({
+		height : parseInt(iHeight) - 85,
+		position : 'absolute',
+		left : 0,
+		top : iHeight,
+		right:0,
+		opacity:0
+	});
 }
 
+function initAnimate(){
+	var t = new TimelineMax();
+	t.to('#menu',1,{left:0});
+	t.to('.item',4,{rotation:360},1);
+	t.to('.logo',1,{
+		rotation:360,
+		opacity:1
+	},1);
+	t.to('.nav',1,{top:0},2);
+	t.to('.line',0.5,{left:6},3);
+	t.to('.contentImg',1,{top:85,opacity:1},1.5);
+	t.to('.c_img',1,{opacity:1},1.75);
+	t.to('.c_user',1,{opacity:1},2);
+}

@@ -1,11 +1,6 @@
 /*第一屏*/
 import $ from 'jquery';
 
-export function userImg(){
-	var $parentHeight = parseInt($('.c_user').height()) - 10;
-	$('.userContent').css('height',$parentHeight);
-};
-
 export function imgInitAnimate(){
 	var iHeight = parseInt(document.documentElement.clientWidth);
 	var $height = ( iHeight - parseInt($('.contentImg').width()) )/2;
@@ -62,10 +57,14 @@ export function imgAnimate(obj){
 export function cUserHeight(){
 	var $height = parseInt($('.contentImg').eq(0).css('height'));
 	var $cHeight = $height - parseInt($('.c_img').eq(0).css('height')) - 10;
+	var $parentHeight = $cHeight - 10;
+
 	$('.c_user').css({
 		'height': $cHeight,
 		'margin-top':'8px'
 	});
+
+	$('.userContent').css('height',$parentHeight);
 };
 
 export function createImg(){
@@ -87,11 +86,13 @@ export function createUser(){
 	var str = '<div class="c_user">\
                 <div class="userImg"><img src="./img/user-img.jpg" /></div>\
                 <div class="userContent">\
-                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+                    <p><span>Hi I`m Sheep</span></p>\
+                    <p><span>Sheel的由来是源于，一次和寝室大哥一起做火车回家</span>\
+                    <p><span>火车走了48小时，而我也睡了48小时，然后就没有然后了…………</span></p>\
+                    <p><span>就读于黑龙江大学2013级电子商务专业</span></p>\
+                    <p><span>程序员，Web前端开发，在学校的信管创业教育基地学习</span></p>\
+                    <p><span>爱好：看书、象棋、足球、跑步、游戏、睡觉、动漫</span></p>\
+                    <p><span>——丁泽华</span></p>\
                 </div>\
             </div>'
     $('.contentImg').append($(str));

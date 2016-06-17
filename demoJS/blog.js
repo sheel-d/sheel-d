@@ -1,10 +1,10 @@
 import {init} from './init.js';
-import {nav} from './nav.js';
-import {note,noteConten,close,createContent} from './photo.js';
+import {navEvent} from './nav.js';
+import {note} from './photo.js';
 import {contentImgArr,imgAnimate} from './contentImg.js';
-import {workAnimate,createWork} from './work.js';
+import {workAnimate,workEvent} from './work.js';
 import {profileInit,profileEvent} from './profile.js';
-import {messageInit,memoEvent,createMessage,createFooter} from './footer.js';
+import {messageInit,memoEvent} from './footer.js';
 
 import $ from 'jquery';
 import './TweenMax.js';
@@ -19,8 +19,8 @@ window.onload = function(){
 	sheel.init();
 
 	//导航条
-	sheel.nav = nav; //导航条事件
-	sheel.nav();
+	sheel.navEvent = navEvent; //导航条事件
+	sheel.navEvent();
 
 	//第一屏
 	sheel.contentImgArr = contentImgArr();
@@ -31,21 +31,10 @@ window.onload = function(){
 	//第二屏
 	sheel.note = note;
 	sheel.note();
-	sheel.createContent = createContent;
-	sheel.createContent();
-
-	sheel.noteConten = noteConten;
-	sheel.noteConten();
-
-	sheel.close = close;
-	sheel.close();
 
 	//第三屏
-	sheel.createWork = createWork;
-	sheel.createWork();
-
-	sheel.workAnimate = workAnimate;
-	sheel.workAnimate();
+	sheel.workEvent = workEvent;
+	sheel.workEvent();
 
 	//第四屏
 	sheel.profileInit = profileInit;
@@ -55,12 +44,6 @@ window.onload = function(){
 	sheel.profileEvent();
 
 	//第五屏
-	sheel.createMessage = createMessage;
-	sheel.createMessage();
-
-	sheel.createFooter = createFooter;
-	sheel.createFooter();
-
 	sheel.messageInit = messageInit;
 	sheel.messageInit();
 

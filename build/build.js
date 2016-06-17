@@ -50,23 +50,23 @@
 
 	var _nav = __webpack_require__(2);
 
-	var _photo = __webpack_require__(6);
+	var _photo = __webpack_require__(7);
 
-	var _contentImg = __webpack_require__(5);
+	var _contentImg = __webpack_require__(6);
 
-	var _work = __webpack_require__(7);
+	var _work = __webpack_require__(5);
 
-	var _profile = __webpack_require__(8);
+	var _profile = __webpack_require__(9);
 
-	var _footer = __webpack_require__(9);
+	var _footer = __webpack_require__(10);
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	__webpack_require__(10);
+	__webpack_require__(12);
 
-	__webpack_require__(11);
+	__webpack_require__(13);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78,8 +78,8 @@
 		sheel.init();
 
 		//导航条
-		sheel.nav = _nav.nav; //导航条事件
-		sheel.nav();
+		sheel.navEvent = _nav.navEvent; //导航条事件
+		sheel.navEvent();
 
 		//第一屏
 		sheel.contentImgArr = (0, _contentImg.contentImgArr)();
@@ -90,21 +90,10 @@
 		//第二屏
 		sheel.note = _photo.note;
 		sheel.note();
-		sheel.createContent = _photo.createContent;
-		sheel.createContent();
-
-		sheel.noteConten = _photo.noteConten;
-		sheel.noteConten();
-
-		sheel.close = _photo.close;
-		sheel.close();
 
 		//第三屏
-		sheel.createWork = _work.createWork;
-		sheel.createWork();
-
-		sheel.workAnimate = _work.workAnimate;
-		sheel.workAnimate();
+		sheel.workEvent = _work.workEvent;
+		sheel.workEvent();
 
 		//第四屏
 		sheel.profileInit = _profile.profileInit;
@@ -114,12 +103,6 @@
 		sheel.profileEvent();
 
 		//第五屏
-		sheel.createMessage = _footer.createMessage;
-		sheel.createMessage();
-
-		sheel.createFooter = _footer.createFooter;
-		sheel.createFooter();
-
 		sheel.messageInit = _footer.messageInit;
 		sheel.messageInit();
 
@@ -134,13 +117,23 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-					value: true
+		value: true
 	});
 	exports.init = init;
 
 	var _nav = __webpack_require__(2);
 
-	var _contentImg = __webpack_require__(5);
+	var _contentImg = __webpack_require__(6);
+
+	__webpack_require__(7);
+
+	var _work = __webpack_require__(5);
+
+	__webpack_require__(9);
+
+	var _footer = __webpack_require__(10);
+
+	var _scrollBar = __webpack_require__(11);
 
 	var _jquery = __webpack_require__(3);
 
@@ -157,31 +150,51 @@
 			5、滚动条隐藏，使用自己做的滚动条
 			
 	*/
+	/*初始化*/
 	function init() {
-					Height();
-					(0, _nav.createNav)('#menu');
-					(0, _nav.navInitAnimate)();
-					(0, _contentImg.createImg)();
-					(0, _contentImg.createUser)();
-					(0, _contentImg.cUserHeight)();
-					//imgInitAnimate();
-	} /*初始化*/
-	;
+		Height();
+		(0, _nav.createNav)('#menu');
+		(0, _contentImg.createImg)();
+		(0, _contentImg.createUser)();
+		(0, _contentImg.cUserHeight)();
+		initAnimate();
+		//滚动条
+		(0, _scrollBar.initScrollBar)();
+		//第三屏
+		(0, _work.createWork)();
+
+		//第五屏
+		(0, _footer.createMessage)();
+		(0, _footer.createFooter)();
+	};
 
 	function Height() {
-					var iHeight = document.documentElement.clientHeight;
-					var acemn = document.querySelector(".contentImg");
-					acemn.style.height = iHeight + 'px';
-					var cStart = document.querySelectorAll('.start');
-					for (var i = 0; i < cStart.length; i++) {
-									cStart[i].style.height = parseInt(iHeight) - 85 + 'px';
-									cStart[i].style.marginTop = '85px';
-					}
+		var iHeight = document.documentElement.clientHeight;
+		(0, _jquery2.default)('#main').css('height', iHeight);
+		var $len = (0, _jquery2.default)('.start').length;
+		(0, _jquery2.default)('.start').css({
+			height: parseInt(iHeight) - 85,
+			position: 'absolute',
+			left: 0,
+			top: iHeight,
+			right: 0,
+			opacity: 0
+		});
+	}
 
-					var cStart1 = document.querySelectorAll('.start1');
-					for (var i = 0; i < cStart1.length; i++) {
-									cStart1[i].style.height = Number(iHeight) - 85 + 'px';
-					}
+	function initAnimate() {
+		var t = new TimelineMax();
+		t.to('#menu', 1, { left: 0 });
+		t.to('.item', 4, { rotation: 360 }, 1);
+		t.to('.logo', 1, {
+			rotation: 360,
+			opacity: 1
+		}, 1);
+		t.to('.nav', 1, { top: 0 }, 2);
+		t.to('.line', 0.5, { left: 6 }, 3);
+		t.to('.contentImg', 1, { top: 85, opacity: 1 }, 1.5);
+		t.to('.c_img', 1, { opacity: 1 }, 1.75);
+		t.to('.c_user', 1, { opacity: 1 }, 2);
 	}
 
 /***/ },
@@ -191,44 +204,33 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
-	exports.navInitAnimate = navInitAnimate;
 	exports.createNav = createNav;
-	exports.nav = nav;
+	exports.navEvent = navEvent;
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _work = __webpack_require__(5);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function navInitAnimate() {
-			var t = new TimelineMax();
-			t.to('#menu', 1, { left: 0 });
-			t.to('.item', 4, { rotation: 360 }, 1);
-			t.to('.logo', 1, {
-					rotation: 360,
-					opacity: 1
-			}, 1);
-			t.to('.nav', 1, { top: 0 }, 2);
-			t.to('.line', 0.5, { left: 6 }, 3);
-	} /*导航条*/
-	;
-
+	/*导航条*/
 	function createNav(obj) {
-			var str = '<div class="wrapper">\
+		var str = '<div class="wrapper">\
 	            <div class="logo">\
 	                <a href="#">\
 	                    <img src="img/sheel-logo.png" alt="logo">\
 	                </a>\
 	            </div>\
 	            <ul class="nav">\
-	                <li class="active"><a href="#">首页</a></li>\
-	                <li><a href="#">照片</a></li>\
-	                <li><a href="#">学海无涯</a></li>\
-	                <li><a href="#">随笔</a></li>\
-	                <li><a href="#">留言板</a></li>\
+	                <li _show=reveal class="active"><a href="#">首页</a></li>\
+	                <li><a>照片</a></li>\
+	                <li><a>学海无涯</a></li>\
+	                <li><a>随笔</a></li>\
+	                <li><a>留言板</a></li>\
 	                <div class="line"></div>\
 	            </ul>\
 	            <div class="item">\
@@ -238,43 +240,162 @@
 	                <div class="item4"></div>\
 	            </div>\
 	        </div>';
-			(0, _jquery2.default)(obj).append((0, _jquery2.default)(str));
+		(0, _jquery2.default)(obj).append((0, _jquery2.default)(str));
 	};
 
-	function nav() {
+	function navEvent() {
 
-			(0, _jquery2.default)('.nav').delegate('li', 'click', function () {
-					var t = new TimelineMax();
+		(0, _jquery2.default)('.nav').delegate('li', 'click', function () {
+			var $mainHeight = parseInt((0, _jquery2.default)('#main').height());
 
-					(0, _jquery2.default)('.nav li').removeClass('active');
-					(0, _jquery2.default)(this).addClass('active');
+			var $index = (0, _jquery2.default)('.nav').find('.active').index(); //
 
-					var $num = parseInt((0, _jquery2.default)(this).index()) * 82 + 6;
-					t.to('.line', 0.5, { left: $num }, 0);
-					var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360;
+			var t = new TimelineMax();
 
-					t.to('.item', 1, { rotation: $rotate }, 0);
+			(0, _jquery2.default)('.nav li').removeClass('active');
+			(0, _jquery2.default)(this).addClass('active');
 
-					var arr = ['contentImg', 'photos', 'note', 'profile', 'memo'];
-					(0, _jquery2.default)(this).find('a').attr('href', '#' + arr[(0, _jquery2.default)(this).index()]);
-			}).delegate('li', 'mouseenter', function () {
-					var t = new TimelineMax();
+			var $num = parseInt((0, _jquery2.default)(this).index()) * 82 + 6;
+			t.to('.line', 0.5, { left: $num }, 0);
+			var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360;
 
-					(0, _jquery2.default)(this).css('background', '#4a8e2f');
-					(0, _jquery2.default)(this).find('a').css('color', '#32629b');
+			t.to('.item', 1, { rotation: $rotate }, 0);
 
-					var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360 + 90;
-					t.to('.item', 0.3, { rotation: $rotate }, 0);
-			}).delegate('li', 'mouseleave', function () {
-					var t = new TimelineMax();
+			var $text = (0, _jquery2.default)(this).find('a').text();
+			var $conTop = parseInt((0, _jquery2.default)('.contentImg').css('top'));
+			var $nTop = parseInt((0, _jquery2.default)('.note').css('top'));
+			var $wTop = parseInt((0, _jquery2.default)('.work').css('top'));
+			var $pTop = parseInt((0, _jquery2.default)('.profile').css('top'));
+			var $mTop = parseInt((0, _jquery2.default)('.memo').css('top'));
 
-					(0, _jquery2.default)(this).css('background', '');
-					(0, _jquery2.default)(this).find('a').css('color', '#000');
+			if ($text == '首页') {
 
-					var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360;
-					t.to('.item', 0.3, { rotation: $rotate }, 0);
+				if ($conTop == '85') {
+					t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 2);
+				} else {
+					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.contentImg').css({
+						opacity: 1,
+						top: 85
+					});
+					//首页动画
+				}
+			} else if ($text == '照片') {
+
+					if ($nTop == '85') {
+						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 2);
+					} else {
+						verdict($index, $mainHeight);
+						(0, _jquery2.default)('.note').css({
+							opacity: 1,
+							top: 85
+						});
+					}
+				} else if ($text == '学海无涯') {
+
+					if ($wTop == '85') {
+						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 2);
+					} else {
+						verdict($index, $mainHeight);
+						(0, _jquery2.default)('.work').css({
+							opacity: 1,
+							top: 85
+						});
+						(0, _work.workAnimate)();
+					}
+				} else if ($text == '随笔') {
+
+					if ($pTop == '85') {
+						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 2);
+					} else {
+						verdict($index, $mainHeight);
+						(0, _jquery2.default)('.profile').css({
+							opacity: 1,
+							top: 85
+						});
+					}
+				} else if ($text == '留言板') {
+
+					if ($mTop == '85') {
+						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 2);
+					} else {
+						verdict($index, $mainHeight);
+						(0, _jquery2.default)('.memo').css({
+							opacity: 1,
+							top: 85
+						});
+					}
+				}
+		}).delegate('li', 'mouseenter', function () {
+			var t = new TimelineMax();
+
+			(0, _jquery2.default)(this).css('background', '#4a8e2f');
+			(0, _jquery2.default)(this).find('a').css('color', '#32629b');
+
+			var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360 + 90;
+			t.to('.item', 0.3, { rotation: $rotate }, 0);
+		}).delegate('li', 'mouseleave', function () {
+			var t = new TimelineMax();
+
+			(0, _jquery2.default)(this).css('background', '');
+			(0, _jquery2.default)(this).find('a').css('color', '#000');
+
+			var $rotate = parseInt((0, _jquery2.default)(this).index()) * 90 + 360;
+			t.to('.item', 0.3, { rotation: $rotate }, 0);
+		});
+	};
+
+	function verdict(index, height) {
+		if (index == 0) {
+			(0, _jquery2.default)('.contentImg').css({
+				opacity: 0,
+				top: height
 			});
-	};
+		} else if (index == 1) {
+			(0, _jquery2.default)('.note').css({
+				opacity: 0,
+				top: height
+			});
+		} else if (index == 2) {
+			(0, _jquery2.default)('.work').css({
+				opacity: 0,
+				top: height
+			});
+		} else if (index == 3) {
+			(0, _jquery2.default)('.profile').css({
+				opacity: 0,
+				top: height
+			});
+		} else if (index == 4) {
+			(0, _jquery2.default)('.memo').css({
+				opacity: 0,
+				top: height
+			});
+		}
+		workStyle();
+	}
+	function workStyle() {
+		(0, _jquery2.default)('.t-work').css({
+			width: 0
+		});
+		(0, _jquery2.default)('.circle').css({
+			opacity: 0,
+			width: 0,
+			height: 0
+		});
+		(0, _jquery2.default)('.v-line').css({
+			opacity: 0,
+			height: 0
+		});
+		(0, _jquery2.default)('.v-content').css({
+			opacity: 0
+		});
+	}
 
 /***/ },
 /* 3 */
@@ -1879,9 +2000,137 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.workAnimate = workAnimate;
+	exports.createWork = createWork;
+	exports.workEvent = workEvent;
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function workAnimate() {
+		var t = new TimelineMax();
+		var $width = parseInt((0, _jquery2.default)('.work').width());
+
+		t.to('.t-work', 0.6, { width: $width * 0.05 }, 0);
+		circleFirst(0, $width * 0.05, 600);
+
+		t.to('.t-work', 0.5, { width: $width * 0.15 }, 1.3);
+		circleSecond(1, $width * 0.15, 1800);
+
+		t.to('.t-work', 0.4, { width: $width * 0.3 }, 2.6);
+		circleFirst(2, $width * 0.3, 3000);
+
+		t.to('.t-work', 0.3, { width: $width * 0.5 }, 3.8);
+		circleSecond(3, $width * 0.5, 4100);
+
+		t.to('.t-work', 0.25, { width: $width * 0.75 }, 4.9);
+		circleFirst(4, $width * 0.75, 5150);
+
+		t.to('.t-work', 0.25, { width: $width * 0.95 }, 5.8);
+		circleSecond(5, $width * 0.95, 6050);
+
+		t.to('.t-work', 0.25, { width: $width }, 6.6);
+	} /*第三屏*/
+	;
+
+	function circleFirst(index, num, time) {
+		var time2 = parseInt(time) + 400;
+		var time3 = parseInt(time) + 800;
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
+				opacity: 1,
+				width: 20,
+				height: 20
+			}, 300);
+		}, time);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-line').eq(index).animate({
+				opacity: 1,
+				height: 100
+			}, 400);
+		}, time2);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 400);
+		}, time3);
+	}
+	function circleSecond(index, num, time) {
+		var time2 = parseInt(time) + 400;
+		var time3 = parseInt(time) + 800;
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
+				opacity: 1,
+				width: 20,
+				height: 20
+			}, 300);
+		}, time);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-line').eq(index).animate({
+				opacity: 1,
+				height: 100
+			}, 400);
+		}, time2);
+
+		setTimeout(function () {
+			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 400);
+		}, time3);
+	}
+
+	function createWork() {
+		var str = ' <div class="t-work">\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">html+css</span>\
+	                </p>\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">html+css+js</span>\
+	                </p>\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">html5+css3</span>\
+	                </p>\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">react</span>\
+	                </p>\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">ES6</span>\
+	                </p>\
+	                <p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content">node</span>\
+	                </p>\
+	            </div>';
+		(0, _jquery2.default)('.work').append((0, _jquery2.default)(str));
+	};
+
+	function workEvent() {
+		//点击事件
+		(0, _jquery2.default)('.t-work').delegate('.v-content', 'click', function () {
+			console.log((0, _jquery2.default)(this).text());
+		});
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.userImg = userImg;
 	exports.imgInitAnimate = imgInitAnimate;
 	exports.contentImgArr = contentImgArr;
 	exports.imgAnimate = imgAnimate;
@@ -1895,12 +2144,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function userImg() {
-	  var $parentHeight = parseInt((0, _jquery2.default)('.c_user').height()) - 10;
-	  (0, _jquery2.default)('.userContent').css('height', $parentHeight);
-	} /*第一屏*/
-	;
-
 	function imgInitAnimate() {
 	  var iHeight = parseInt(document.documentElement.clientWidth);
 	  var $height = (iHeight - parseInt((0, _jquery2.default)('.contentImg').width())) / 2;
@@ -1910,7 +2153,8 @@
 	    left: $height,
 	    opacity: 1
 	  }, 4);
-	};
+	} /*第一屏*/
+	;
 
 	function contentImgArr() {
 
@@ -1957,10 +2201,14 @@
 	function cUserHeight() {
 	  var $height = parseInt((0, _jquery2.default)('.contentImg').eq(0).css('height'));
 	  var $cHeight = $height - parseInt((0, _jquery2.default)('.c_img').eq(0).css('height')) - 10;
+	  var $parentHeight = $cHeight - 10;
+
 	  (0, _jquery2.default)('.c_user').css({
 	    'height': $cHeight,
 	    'margin-top': '8px'
 	  });
+
+	  (0, _jquery2.default)('.userContent').css('height', $parentHeight);
 	};
 
 	function createImg() {
@@ -1982,18 +2230,20 @@
 	  var str = '<div class="c_user">\
 	                <div class="userImg"><img src="./img/user-img.jpg" /></div>\
 	                <div class="userContent">\
-	                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-	                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-	                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-	                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
-	                    <p><span>这是谁这是谁这是谁这是谁这是谁这是谁这是。这是谁这是谁这是</span></p>\
+	                    <p><span>Hi I`m Sheep</span></p>\
+	                    <p><span>Sheel的由来是源于，一次和寝室大哥一起做火车回家</span>\
+	                    <p><span>火车走了48小时，而我也睡了48小时，然后就没有然后了…………</span></p>\
+	                    <p><span>就读于黑龙江大学2013级电子商务专业</span></p>\
+	                    <p><span>程序员，Web前端开发，在学校的信管创业教育基地学习</span></p>\
+	                    <p><span>爱好：看书、象棋、足球、跑步、游戏、睡觉、动漫</span></p>\
+	                    <p><span>——丁泽华</span></p>\
 	                </div>\
 	            </div>';
 	  (0, _jquery2.default)('.contentImg').append((0, _jquery2.default)(str));
 	}
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2002,103 +2252,30 @@
 	    value: true
 	});
 	exports.note = note;
-	exports.noteConten = noteConten;
-	exports.close = close;
-	exports.createContent = createContent;
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _photoData = __webpack_require__(8);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/*第二屏 --未完成*/
 	function note() {
 	    var cDivPh = document.getElementsByClassName('photo');
 
-	    var data = [{
-	        left: "4%",
-	        top: "7%",
-	        src: "html",
-	        alt: "html",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "28%",
-	        top: "7%",
-	        src: "css",
-	        alt: "css",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "52%",
-	        top: "7%",
-	        src: "javascript",
-	        alt: "javascript",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "76%",
-	        top: "7%",
-	        src: "html5",
-	        alt: "html5",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "4%",
-	        top: "52%",
-	        src: "css3",
-	        alt: "css3",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "28%",
-	        top: "52%",
-	        src: "react",
-	        alt: "react",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "52%",
-	        top: "52%",
-	        src: "ES6",
-	        alt: "ES6",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }, {
-	        left: "76%",
-	        top: "52%",
-	        src: "node",
-	        alt: "node",
-	        test: {
-	            testLeft: 'xhtml和html有什么区别?',
-	            testRight: '对WEB标准以及W3C的理解与认识.'
-	        }
-	    }];
+	    var data = _photoData.photoData;
 
-	    for (var i = 0; i < data.length; i++) {
+	    var $heightNum = parseInt((0, _jquery2.default)('.wrap').height()) / 160;
+	    var $widthNum = parseInt((0, _jquery2.default)('.wrap').width()) / 210;
+	    var length = parseInt($heightNum * $widthNum);
+
+	    for (var i = 0; i < length; i++) {
 	        CreatePhoto(data[i]);
-	        cDivPh[i].style.left = data[i].left;
-	        cDivPh[i].style.top = data[i].top;
-	    }
-	    for (var j = 0; j < data[0].test.length; j++) {
-	        desc(data[0].test[j]);
 	    }
 
-	    for (var i = 0; i < data.length; i++) {
+	    for (var i = 0; i < length; i++) {
 	        (function (i) {
 	            cDivPh[i].onmouseover = function () {
 	                var cls = this.className;
@@ -2120,15 +2297,14 @@
 	            };
 	        })(i);
 	    }
-	} /*第二屏 --未完成*/
-	;
+	};
 
 	function CreatePhoto(obj) {
 	    var str = '<div class="photo photo_front phWH">\
 	                    <div class="photo-wrap">\
 	                        <div class="side side-front">\
 	                            <p class="image">\
-	                                <img src="#" alt=' + obj.alt + ' />\
+	                                <img src=' + obj.src + ' alt=' + obj.alt + ' />\
 	                            </p>\
 	                        </div>\
 	                        <div class="side side-back">\
@@ -2141,183 +2317,317 @@
 	    (0, _jquery2.default)('.wrap').eq(0).append($str);
 	}
 
-	function noteConten() {
-	    var $leng = (0, _jquery2.default)('.photo').length - 1;
-
-	    var $height = parseInt((0, _jquery2.default)('.note').height()) + 85;
-	    var $width = parseInt((0, _jquery2.default)('.note').width());
-	    for (var i = 0; i < $leng; i++) {
-	        (0, _jquery2.default)('.photo').eq(i).on('click', function () {
-	            var t = new TimelineMax();
-	            (0, _jquery2.default)('.mark').css('display', 'block');
-	            t.to('.content', 1, {
-	                width: $width * 0.6,
-	                height: $height * 0.7,
-	                left: $width * 0.2,
-	                top: $height * 0.15,
-	                opacity: 1,
-	                background: '#000',
-	                display: 'block'
-	            });
-	        });
-	    }
-	};
-	function close() {
-
-	    (0, _jquery2.default)('.close').on('click', function () {
-	        var t = new TimelineMax();
-	        t.to('.content', 1, {
-	            width: 0,
-	            height: 0,
-	            left: 0,
-	            top: 0,
-	            opacity: 0,
-	            background: '#000',
-	            display: 'none'
-	        });
-	        (0, _jquery2.default)('.mark').css('display', 'none');
-	    });
-	};
-	function createContent() {
-	    var str = '<div class="content">\
-	                <a class=" close "><i></i><i></i></a>\
-	                <div class="leftImg"><img src="#"/></div>\
-	                <div class="rightTest"></div>\
-	                <div class="bottonLabel">\
-	                    <p></p>\
-	                </div>\
-	            </div>';
-	    (0, _jquery2.default)('.note').append((0, _jquery2.default)(str));
-	}
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.workAnimate = workAnimate;
-	exports.createWork = createWork;
-	exports.workEvent = workEvent;
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function workAnimate() {
-		var t = new TimelineMax();
-		var $width = parseInt((0, _jquery2.default)('.work').width());
-
-		t.to('.t-work', 1, { width: $width * 0.05 }, 0);
-		circleFirst(0, $width * 0.05, 1000);
-
-		t.to('.t-work', 1, { width: $width * 0.15 }, 2.5);
-		circleSecond(1, $width * 0.15, 3500);
-
-		t.to('.t-work', 1, { width: $width * 0.3 }, 4.5);
-		circleFirst(2, $width * 0.3, 5500);
-
-		t.to('.t-work', 1, { width: $width * 0.5 }, 6.5);
-		circleSecond(3, $width * 0.5, 7500);
-
-		t.to('.t-work', 1, { width: $width * 0.75 }, 8.5);
-		circleFirst(4, $width * 0.75, 9500);
-
-		t.to('.t-work', 1, { width: $width * 0.95 }, 10.5);
-		circleSecond(5, $width * 0.95, 11500);
-
-		t.to('.t-work', 1, { width: $width }, 12.5);
-	} /*第三屏*/
-	;
-
-	function circleFirst(index, num, time) {
-		var time2 = parseInt(time) + 500;
-		var time3 = parseInt(time) + 1000;
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
-				opacity: 1,
-				width: 20,
-				height: 20
-			}, 500);
-		}, time);
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.v-line').eq(index).animate({
-				opacity: 1,
-				height: 100
-			}, 500);
-		}, time2);
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 500);
-		}, time3);
-	}
-	function circleSecond(index, num, time) {
-		var time2 = parseInt(time) + 500;
-		var time3 = parseInt(time) + 1000;
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.circle').eq(index).css('left', num).animate({
-				opacity: 1,
-				width: 20,
-				height: 20
-			}, 500);
-		}, time);
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.v-line').eq(index).animate({
-				opacity: 1,
-				height: 100
-			}, 500);
-		}, time2);
-
-		setTimeout(function () {
-			(0, _jquery2.default)('.v-content').eq(index).animate({ opacity: 1 }, 500);
-		}, time3);
-	}
-
-	function createWork() {
-		var str = ' <div class="t-work">\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html+css</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html+css+js</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html5+css3</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">react</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">ES6</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">node</span>\
-	                </p>\
-	            </div>';
-		(0, _jquery2.default)('.work').append((0, _jquery2.default)(str));
-	};
-
-	function workEvent() {//点击事件
-
-	};
-
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+
+	var photoData = [{
+	    src: "./img/photo-1.jpg",
+	    alt: "动漫",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-2.jpg",
+	    alt: "足球",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-3.jpg",
+	    alt: "足球",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-4.jpg",
+	    alt: "奔跑",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-5.jpg",
+	    alt: "萌宠",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-6.jpg",
+	    alt: "动漫",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-7.jpg",
+	    alt: "动漫",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-8.jpg",
+	    alt: "萌宠",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-9.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-10.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-11.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-12.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-13.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-14.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-15.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-16.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-17.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-18.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-19.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-20.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-21.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-22.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-23.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-24.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-25.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-26.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-27.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-28.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-29.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-30.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-31.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-32.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-33.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-34.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-35.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-36.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-37.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-38.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-39.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-40.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-41.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}, {
+	    src: "./img/photo-42.jpg",
+	    alt: "其它",
+	    test: {
+	        testLeft: '这是图片第一条介绍',
+	        testRight: '这是图片第二条介绍'
+	    }
+	}];
+
+	exports.photoData = photoData;
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2533,7 +2843,7 @@
 	};
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2553,7 +2863,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var obj = {
-		imgUrl: './img/1.jpg',
+		imgUrl: './img/' + minMaxNum(1, 10) + '.jpg',
 		author: 'sheel',
 		time: '2016-6-15',
 		content: '我是第一个留言的，嘻嘻'
@@ -2564,9 +2874,10 @@
 		var $height = (0, _jquery2.default)('#memo').height() - ((0, _jquery2.default)('.userMemo').height() + (0, _jquery2.default)('.more').height() + (0, _jquery2.default)('.writeMemo').height() + (0, _jquery2.default)('.footer').height() + 47);
 		(0, _jquery2.default)('.box').css('height', $height);
 		var num = Math.floor($height / 120);
-		for (var i = 0; i < num; i++) {
-			createMemoBox(obj);
-		}
+		/*for(let i = 0; i < num; i++){
+	 	createMemoBox(obj);
+	 }*/
+		createMemoBox(obj);
 		var $width = parseInt((0, _jquery2.default)('.memoBox').width()) - 140;
 		(0, _jquery2.default)('.rightContent').css('width', $width);
 	};
@@ -2645,8 +2956,37 @@
 		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
 	}
 
+	function minMaxNum(min, max) {
+		return Math.round(Math.random() * (max - min) + min);
+	}
+
 /***/ },
-/* 10 */
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.initScrollBar = initScrollBar;
+	exports.scrollBarEvent = scrollBarEvent;
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function initScrollBar() {
+		var $height = parseInt((0, _jquery2.default)('#main').height());
+		(0, _jquery2.default)('.rectangle').css('height', $height / 5);
+	};
+
+	function scrollBarEvent() {};
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;}; /*!
@@ -3517,16 +3857,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(12);
+	var content = __webpack_require__(14);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(17)(content, {});
+	var update = __webpack_require__(19)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3543,21 +3883,21 @@
 	}
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(13)();
+	exports = module.exports = __webpack_require__(15)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(14) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(15) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    /* position: fixed;\r\n    top: 0;\r\n    left:0; */\r\n    background: #63892e; \r\n    position: relative;\r\n    overflow: hidden;\r\n\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n}\r\n.userContent p{\r\n    padding: 0 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.mark{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: #fff;\r\n    opacity: 0.1;\r\n    z-index: 20;\r\n    display: none;\r\n}\r\n.content{\r\n    position: absolute;\r\n    background: red;\r\n    z-index: 21;\r\n    display: none;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.close{\r\n    position: absolute;\r\n    top: 5px;\r\n    right: 5px;\r\n    background: #000;\r\n    height: 20px;\r\n    width: 20px;\r\n    padding: 10px;\r\n    border-radius: 50%;\r\n    cursor: pointer;\r\n    border: 1px solid #fff;\r\n    z-index: 22\r\n}\r\n.close i:nth-child(1){\r\n    display: inline-block;\r\n    border-top: 1px solid #fff;\r\n    width: 20px;\r\n    height: 1px;\r\n    position: absolute;\r\n    top: 18px;\r\n\r\n    -webkit-transform: rotate(45deg);\r\n    -moz-transform: rotate(45deg);\r\n}\r\n.close i:nth-child(2){\r\n    display: inline-block;\r\n    border-top: 1px solid #fff;\r\n    width: 20px;\r\n    height: 1px;\r\n    position: absolute;\r\n    top: 18px;\r\n\r\n    -webkit-transform: rotate(-45deg);\r\n    -moz-transform: rotate(-45deg);\r\n}\r\n.leftImg,.rightTest{\r\n    width: 45%;\r\n    height: 40%;\r\n    background: #fff;\r\n    position: absolute;\r\n    top: 20px;\r\n}\r\n.leftImg{\r\n    left: 3%;\r\n}\r\n.leftImg img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.rightTest{\r\n    right: 3%;\r\n}\r\n@keyframes animate{\r\n    0% {background: red;left: 20px;top: 0;}\r\n    20% {background: yellow;left: 20px;top: 20%;width: 30px;height: 30px;}\r\n    40% {background: green;left: 20px;top: 40%;width: 40px;height: 40px;}\r\n    60% {background: blue;left: 20px;top: 60%;width: 30px;height: 30px;}\r\n    80% {background: #ccc;left: 20px;top: 80%;width: 20px;height: 20px;}\r\n    100% {background: #000;left: 20px;top: 100%;width: 10px;height: 10px;}\r\n}\r\n.bottonLabel p{\r\n    width: 20px;\r\n    height: 20px;\r\n    background: red;\r\n    position: absolute;\r\n    border-radius: 50%;\r\n\r\n    animation: animate 5s linear 2s infinite alternate; \r\n\r\n    /* animation-name: animate;\r\n    animation-duration: 3s;\r\n    animation-timing-function: linear;\r\n    animation-delay: 0.5s;\r\n    animation-iteration-count: infinite;\r\n    animation-direction: alternate;\r\n    animation-play-state: running;\r\n    \r\n    -webkit-animation-name: animate;\r\n    -webkit-animation-duration: 5s;\r\n    -webkit-animation-timing-function: linear;\r\n    -webkit-animation-delay: 2s;\r\n    -webkit-animation-iteration-count: infinite;\r\n    -webkit-animation-direction: alternate;\r\n    -webkit-animation-play-state: running;\r\n    \r\n    -moz-animation-name: animate;\r\n    -moz-animation-duration: 5s;\r\n    -moz-animation-timing-function: linear;\r\n    -moz-animation-delay: 2s;\r\n    -moz-animation-iteration-count: infinite;\r\n    -moz-animation-direction: alternate;\r\n    -moz-animation-play-state: running;*/\r\n} \r\n.bottonLabel{\r\n    width: 94%;\r\n    height: 50%;\r\n    position: absolute;\r\n    bottom: 2%;\r\n    left: 3%;\r\n    background: #fff;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 20%;\r\n    height: 40%;\r\n}\r\n.photo{\r\n    position: absolute;\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 100%;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n}\r\n\r\n.t-work .circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 105px;\r\n    left: -8px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(16) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}", ""]);
+	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(16) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 105px;\r\n    left: -8px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(18) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3612,25 +3952,25 @@
 	};
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d4fa09b8e3dc2b1b2d8b0458d10a776b.ttf";
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d7c0892ee16814a194c6c074f7db9bb3.ttf";
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAQ4CAMAAAD7BJbwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MERCRDE4NUEzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MERCRDE4NUIzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowREJEMTg1ODMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowREJEMTg1OTMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgMXfpQAAAGAUExURZJcJqBkJY1S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"
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
