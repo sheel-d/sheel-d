@@ -50,23 +50,25 @@
 
 	var _nav = __webpack_require__(2);
 
-	var _photo = __webpack_require__(7);
+	var _photo = __webpack_require__(8);
 
-	var _contentImg = __webpack_require__(6);
+	var _contentImg = __webpack_require__(7);
 
 	var _work = __webpack_require__(5);
 
-	var _profile = __webpack_require__(9);
+	var _profile = __webpack_require__(10);
 
-	var _footer = __webpack_require__(10);
+	var _footer = __webpack_require__(11);
+
+	var _scrollBar = __webpack_require__(12);
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	__webpack_require__(12);
-
 	__webpack_require__(13);
+
+	__webpack_require__(14);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -108,6 +110,10 @@
 
 		sheel.memoEvent = _footer.memoEvent;
 		sheel.memoEvent();
+
+		//滚动条
+		sheel.scrollBarEvent = _scrollBar.scrollBarEvent;
+		sheel.scrollBarEvent();
 	};
 
 /***/ },
@@ -123,17 +129,17 @@
 
 	var _nav = __webpack_require__(2);
 
-	var _contentImg = __webpack_require__(6);
+	var _contentImg = __webpack_require__(7);
 
-	__webpack_require__(7);
+	__webpack_require__(8);
 
 	var _work = __webpack_require__(5);
 
-	__webpack_require__(9);
+	__webpack_require__(10);
 
-	var _footer = __webpack_require__(10);
+	var _footer = __webpack_require__(11);
 
-	var _scrollBar = __webpack_require__(11);
+	var _scrollBar = __webpack_require__(12);
 
 	var _jquery = __webpack_require__(3);
 
@@ -160,8 +166,11 @@
 		initAnimate();
 		//滚动条
 		(0, _scrollBar.initScrollBar)();
+
 		//第三屏
 		(0, _work.createWork)();
+		//createWorkContent();
+		//styleWorkContent();
 
 		//第五屏
 		(0, _footer.createMessage)();
@@ -271,8 +280,11 @@
 			if ($text == '首页') {
 
 				if ($conTop == '85') {
-					t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
-					t.to('.scrollBar', 1, { opacity: 0 }, 2);
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: 0
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				} else {
 					verdict($index, $mainHeight);
 					(0, _jquery2.default)('.contentImg').css({
@@ -280,57 +292,94 @@
 						top: 85
 					});
 					//首页动画
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: 0
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				}
 			} else if ($text == '照片') {
 
-					if ($nTop == '85') {
-						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
-						t.to('.scrollBar', 1, { opacity: 0 }, 2);
-					} else {
-						verdict($index, $mainHeight);
-						(0, _jquery2.default)('.note').css({
-							opacity: 1,
-							top: 85
-						});
-					}
-				} else if ($text == '学海无涯') {
-
-					if ($wTop == '85') {
-						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
-						t.to('.scrollBar', 1, { opacity: 0 }, 2);
-					} else {
-						verdict($index, $mainHeight);
-						(0, _jquery2.default)('.work').css({
-							opacity: 1,
-							top: 85
-						});
-						(0, _work.workAnimate)();
-					}
-				} else if ($text == '随笔') {
-
-					if ($pTop == '85') {
-						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
-						t.to('.scrollBar', 1, { opacity: 0 }, 2);
-					} else {
-						verdict($index, $mainHeight);
-						(0, _jquery2.default)('.profile').css({
-							opacity: 1,
-							top: 85
-						});
-					}
-				} else if ($text == '留言板') {
-
-					if ($mTop == '85') {
-						t.to('.scrollBar', 1, { opacity: 0.2 }, 0);
-						t.to('.scrollBar', 1, { opacity: 0 }, 2);
-					} else {
-						verdict($index, $mainHeight);
-						(0, _jquery2.default)('.memo').css({
-							opacity: 1,
-							top: 85
-						});
-					}
+				if ($nTop == '85') {
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				} else {
+					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.note').css({
+						opacity: 1,
+						top: 85
+					});
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				}
+			} else if ($text == '学海无涯') {
+
+				if ($wTop == '85') {
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 2
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				} else {
+					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.work').css({
+						opacity: 1,
+						top: 85
+					});
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 2
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+					(0, _work.workAnimate)();
+				}
+			} else if ($text == '随笔') {
+
+				if ($pTop == '85') {
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 3
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				} else {
+					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.profile').css({
+						opacity: 1,
+						top: 85
+					});
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 3
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				}
+			} else if ($text == '留言板') {
+
+				if ($mTop == '85') {
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 4
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				} else {
+					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.memo').css({
+						opacity: 1,
+						top: 85
+					});
+					t.to('.scrollBar', 1, {
+						opacity: 0.5,
+						top: $mainHeight / 5 * 4
+					}, 0);
+					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				}
+			}
 		}).delegate('li', 'mouseenter', function () {
 			var t = new TimelineMax();
 
@@ -2004,14 +2053,19 @@
 	});
 	exports.workAnimate = workAnimate;
 	exports.createWork = createWork;
+	exports.createWorkContent = createWorkContent;
+	exports.styleWorkContent = styleWorkContent;
 	exports.workEvent = workEvent;
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _workData = __webpack_require__(6);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/*第三屏*/
 	function workAnimate() {
 		var t = new TimelineMax();
 		var $width = parseInt((0, _jquery2.default)('.work').width());
@@ -2035,8 +2089,7 @@
 		circleSecond(5, $width * 0.95, 6050);
 
 		t.to('.t-work', 0.25, { width: $width }, 6.6);
-	} /*第三屏*/
-	;
+	};
 
 	function circleFirst(index, num, time) {
 		var time2 = parseInt(time) + 400;
@@ -2086,33 +2139,74 @@
 	}
 
 	function createWork() {
-		var str = ' <div class="t-work">\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html+css</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html+css+js</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">html5+css3</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">react</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">ES6</span>\
-	                </p>\
-	                <p class="circle">\
-	                    <i class="v-line"></i>\
-	                    <span class="v-content">node</span>\
-	                </p>\
-	            </div>';
+		var str = ' <div class="t-work"></div>';
 		(0, _jquery2.default)('.work').append((0, _jquery2.default)(str));
+		for (var i = 0; i < _workData.workData.length; i++) {
+			createCircle(_workData.workData[i]);
+		}
+	};
+	function createCircle(obj) {
+		var str = '<p class="circle">\
+	                    <i class="v-line"></i>\
+	                    <span class="v-content" _title=' + obj.content + '>' + obj.title + '</span>\
+	                </p>';
+		(0, _jquery2.default)('.t-work').append((0, _jquery2.default)(str));
+	}
+	function createWorkContent() {
+		var str = '<div class="workContent">\
+	               <div class="workLeft">\
+	                   <ul class="list">\
+	                       <li>\
+	                       		<a>html & css</a>\
+	                       		<a>html & css</a>\
+	                       </li>\
+	                       <li>\
+	                       		<a>javascript</a>\
+	                       		<a>javascript</a>\
+	                       	</li>\
+	                       <li>\
+	                       		<a>html5 & css3</a>\
+	                       		<a>html5 & css3</a>\
+	                       	</li>\
+	                       <li>\
+	                       		<a>react</a>\
+	                       		<a>react</a>\
+	                       	</li>\
+	                       <li>\
+	                       		<a>ES2015</a>\
+	                       		<a>ES2015</a>\
+	                       	</li>\
+	                       <li>\
+	                       		<a>node</a>\
+	                       		<a>node</a>\
+	                       	</li>\
+	                   </ul>\
+	               </div>\
+	               <div class="workRight">\
+			            <div class="title">\
+			                <p>标题1</p>\
+			                <p>标题2</p>\
+			            </div>\
+			            <div class="content">\
+			                <h3>标题</h3>\
+			                <div class="content-box">\
+			                	<p>1345647893112456</p>\
+			                </div>\
+			            </div>\
+	               </div>\
+	           </div>';
+		(0, _jquery2.default)('.work').append((0, _jquery2.default)(str));
+	};
+
+	function styleWorkContent() {
+		var $width = parseInt((0, _jquery2.default)('.work').width()) - 200;
+		(0, _jquery2.default)('.workRight').css({
+			width: $width
+		});
+		var $heightT = parseInt((0, _jquery2.default)('.workLeft').height()) / 2 - parseInt((0, _jquery2.default)('.list').height()) / 2;
+		(0, _jquery2.default)('.list').css({
+			top: $heightT
+		});
 	};
 
 	function workEvent() {
@@ -2124,6 +2218,66 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var workData = [{
+		title: 'html&css',
+		content: 'htmlCss'
+	}, {
+		title: 'javascript',
+		content: 'js'
+	}, {
+		title: 'html5&css3',
+		content: 'H5C3'
+	}, {
+		title: 'React',
+		content: 'react'
+	}, {
+		title: 'ES2015',
+		content: 'es6'
+	}, {
+		title: 'NodeJS',
+		content: 'node'
+	}];
+
+	var workContentData = {
+		htmlCss: [{
+			title: '标题htmlCss',
+			_title: 'num'
+		}],
+		js: [{
+			title: '标题js',
+			_title: 'num'
+		}],
+		H5C3: [{
+			title: '标题H5C3',
+			_title: 'num'
+		}],
+		react: [{
+			title: '标题react',
+			_title: 'num'
+		}],
+		es6: [{
+			title: '标题es6',
+			_title: 'num'
+		}],
+		node: [{
+			title: '标题node',
+			_title: 'num'
+		}]
+	};
+
+	exports.workData = workData;
+	exports.workContentData = workContentData;
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2243,7 +2397,7 @@
 	}
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2257,7 +2411,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _photoData = __webpack_require__(8);
+	var _photoData = __webpack_require__(9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2318,7 +2472,7 @@
 	}
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2627,7 +2781,7 @@
 	exports.photoData = photoData;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2843,7 +2997,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2961,13 +3115,13 @@
 	}
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.initScrollBar = initScrollBar;
 	exports.scrollBarEvent = scrollBarEvent;
@@ -2979,14 +3133,37 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function initScrollBar() {
-		var $height = parseInt((0, _jquery2.default)('#main').height());
-		(0, _jquery2.default)('.rectangle').css('height', $height / 5);
+	  var $height = parseInt((0, _jquery2.default)('#main').height());
+	  (0, _jquery2.default)('.rectangle').css('height', $height / 5);
 	};
 
-	function scrollBarEvent() {};
+	function scrollBarEvent() {
+	  console.log(2);
+	  (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	};
+
+	function mousewheelfn(ev) {
+
+	  var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
+
+	  var $index = (0, _jquery2.default)('.nav').find('.active').index();
+
+	  if (delta > 0) {
+	    // 向上滚
+	    console.log("wheelup");
+	    console.log($index);
+	  } else if (delta < 0) {
+	    // 向下滚   
+	    console.log("wheeldown");
+	  }
+
+	  setTimeout(function () {
+	    (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	  }, 1200);
+	}
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;}; /*!
@@ -3857,16 +4034,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(14);
+	var content = __webpack_require__(15);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
+	var update = __webpack_require__(20)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3883,21 +4060,21 @@
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(15)();
+	exports = module.exports = __webpack_require__(16)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(16) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 105px;\r\n    left: -8px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -136px;\r\n    left: -12px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(18) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
+	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(18) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n    z-index: 0;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -138px;\r\n    left: -14px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 113px;\r\n    left: -17px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -141px;\r\n    left: -18px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n\r\n.workContent{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n    margin: 0 auto;\r\n    display: none;\r\n    z-index: 1;\r\n}\r\n.workLeft{\r\n    position: absolute;\r\n    left:0;\r\n    top: 0;\r\n    width: 200px;\r\n    height:100%;\r\n    background: #ccc;\r\n}\r\n.list{\r\n    width: 100%;\r\n    position: absolute;\r\n}\r\n.list li{\r\n    width: auto;\r\n    padding: 2px 0 2px 5px;\r\n    height:20px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    text-align: left;\r\n    position: relative;\r\n}\r\n.list li a:nth-child(1){\r\n    width: 100%;\r\n    height: 100%;\r\n    text-align: left;\r\n    color: #000;\r\n    display: inline-block;\r\n }\r\n.list li a:nth-child(2){\r\n    width: 0;\r\n    height: 100%;\r\n    text-align: right;\r\n    background: #000;\r\n    color: #fff;\r\n    display: inline-block;\r\n    opacity: 0;\r\n    transition: width 0.5s,opacity 0.5s;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.list li:hover a:nth-child(2){\r\n    opacity: 1;\r\n    width: 100%;\r\n}\r\n.workRight{\r\n    position: absolute;\r\n    top:0;\r\n    left:200px;\r\n    background: #caa672;\r\n    height: 100%;\r\n}\r\n.title{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 20px;\r\n    display: none;\r\n}\r\n.title p{\r\n    height: 20px;\r\n    width: auto;\r\n    padding: 3px 10px;\r\n    margin: 5px;\r\n    font-size: 18px;\r\n    text-align: left;\r\n    line-height: 20px;\r\n}\r\n.content{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 10px;\r\n    display: none;\r\n}\r\n.content h3{\r\n    margin-bottom: 10px;\r\n    text-align: center;\r\n}\r\n.content-box{\r\n    width: auto;\r\n    text-align: left;\r\n    padding: 10px;\r\n}\r\n.content-box p{\r\n    width: auto;\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    text-indent: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(19) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3952,25 +4129,25 @@
 	};
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d4fa09b8e3dc2b1b2d8b0458d10a776b.ttf";
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d7c0892ee16814a194c6c074f7db9bb3.ttf";
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAQ4CAMAAAD7BJbwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MERCRDE4NUEzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MERCRDE4NUIzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowREJEMTg1ODMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowREJEMTg1OTMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgMXfpQAAAGAUExURZJcJqBkJY1S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"
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

@@ -5,6 +5,7 @@ import {contentImgArr,imgAnimate} from './contentImg.js';
 import {workAnimate,workEvent} from './work.js';
 import {profileInit,profileEvent} from './profile.js';
 import {messageInit,memoEvent} from './footer.js';
+import {scrollBarEvent} from './scrollBar.js';
 
 import $ from 'jquery';
 import './TweenMax.js';
@@ -49,4 +50,8 @@ window.onload = function(){
 
 	sheel.memoEvent = memoEvent;
 	sheel.memoEvent();
+
+	//滚动条
+	sheel.scrollBarEvent = scrollBarEvent;
+	sheel.scrollBarEvent();
 };

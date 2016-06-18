@@ -2,7 +2,7 @@
 import {createNav} from './nav.js';
 import {cUserHeight,imgInitAnimate,createImg,createUser} from './contentImg.js';
 import {} from './photo.js';
-import {createWork,createWorkContent} from './work.js';
+import {createWork,createWorkContent,styleWorkContent} from './work.js';
 import {} from './profile.js';
 import {createMessage,createFooter} from './footer.js';
 import {initScrollBar} from './scrollBar.js';
@@ -31,7 +31,8 @@ export function init(){
 	
 	//第三屏
 	createWork();
-	createWorkContent();
+	//createWorkContent();
+	//styleWorkContent();
 
 	//第五屏
 	createMessage();

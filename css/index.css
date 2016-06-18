@@ -391,6 +391,7 @@ textarea { resize:none; overflow:auto; }
     position: relative;
     top: 50%;
     margin-top: -1px;
+    z-index: 0;
 }
 
 .circle{
@@ -475,23 +476,124 @@ textarea { resize:none; overflow:auto; }
     -webkit-transform: rotate(90deg);
 }
 .t-work p:nth-child(4) span{
-    top: -136px;
-    left: -12px;
+    top: -138px;
+    left: -14px;
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
 .t-work p:nth-child(5) span{
-    top: 105px;
-    left: -8px;
+    top: 113px;
+    left: -17px;
     -moz-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
 }
 .t-work p:nth-child(6) span{
-    top: -136px;
-    left: -12px;
+    top: -141px;
+    left: -18px;
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
+
+.workContent{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    display: none;
+    z-index: 1;
+}
+.workLeft{
+    position: absolute;
+    left:0;
+    top: 0;
+    width: 200px;
+    height:100%;
+    background: #ccc;
+}
+.list{
+    width: 100%;
+    position: absolute;
+}
+.list li{
+    width: auto;
+    padding: 2px 0 2px 5px;
+    height:20px;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: left;
+    position: relative;
+}
+.list li a:nth-child(1){
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    color: #000;
+    display: inline-block;
+ }
+.list li a:nth-child(2){
+    width: 0;
+    height: 100%;
+    text-align: right;
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    opacity: 0;
+    transition: width 0.5s,opacity 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.list li:hover a:nth-child(2){
+    opacity: 1;
+    width: 100%;
+}
+.workRight{
+    position: absolute;
+    top:0;
+    left:200px;
+    background: #caa672;
+    height: 100%;
+}
+.title{
+    width: auto;
+    height: auto;
+    padding: 20px;
+    display: none;
+}
+.title p{
+    height: 20px;
+    width: auto;
+    padding: 3px 10px;
+    margin: 5px;
+    font-size: 18px;
+    text-align: left;
+    line-height: 20px;
+}
+.content{
+    width: auto;
+    height: auto;
+    padding: 10px;
+    display: none;
+}
+.content h3{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.content-box{
+    width: auto;
+    text-align: left;
+    padding: 10px;
+}
+.content-box p{
+    width: auto;
+    font-size: 16px;
+    line-height: 20px;
+    text-indent: 10px;
+}
+
+
+
+
 /* profile */
 .myWH{
     width: 100%;

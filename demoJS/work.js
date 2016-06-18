@@ -1,5 +1,6 @@
 /*第三屏*/
 import $ from 'jquery';
+import {workData} from './workData.js';
 
 export function workAnimate(){
 	var t = new TimelineMax();
@@ -74,49 +75,76 @@ function circleSecond(index,num,time){
 }
 
 export function createWork(){
-	var str = ' <div class="t-work">\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">html+css</span>\
-                </p>\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">javascript</span>\
-                </p>\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">html5+css3</span>\
-                </p>\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">react</span>\
-                </p>\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">ES2015</span>\
-                </p>\
-                <p class="circle">\
-                    <i class="v-line"></i>\
-                    <span class="v-content">node</span>\
-                </p>\
-            </div>';
+	var str = ' <div class="t-work"></div>';
     $('.work').append($(str));
+    for(let i=0;i<workData.length;i++){
+    	createCircle(workData[i]);
+    }
 };
+
+function createCircle(obj){
+	var str = '<p class="circle">\
+                    <i class="v-line"></i>\
+                    <span class="v-content" _title='+ obj.content +'>'+ obj.title + '</span>\
+                </p>';
+    $('.t-work').append($(str));
+}
+
 export function createWorkContent(){
 	var str = '<div class="workContent">\
                <div class="workLeft">\
                    <ul class="list">\
-                       <li>html & css</li>\
-                       <li>javascript</li>\
-                       <li>html5 & css3</li>\
-                       <li>react</li>\
-                       <li>ES2015</li>\
-                       <li>node</li>\
+                       <li>\
+                       		<a>html & css</a>\
+                       		<a>html & css</a>\
+                       </li>\
+                       <li>\
+                       		<a>javascript</a>\
+                       		<a>javascript</a>\
+                       	</li>\
+                       <li>\
+                       		<a>html5 & css3</a>\
+                       		<a>html5 & css3</a>\
+                       	</li>\
+                       <li>\
+                       		<a>react</a>\
+                       		<a>react</a>\
+                       	</li>\
+                       <li>\
+                       		<a>ES2015</a>\
+                       		<a>ES2015</a>\
+                       	</li>\
+                       <li>\
+                       		<a>node</a>\
+                       		<a>node</a>\
+                       	</li>\
                    </ul>\
                </div>\
-               <div class="workRight"></div>\
+               <div class="workRight">\
+		            <div class="title">\
+		                <p>标题1</p>\
+		                <p>标题2</p>\
+		            </div>\
+		            <div class="content">\
+		                <h3>标题</h3>\
+		                <div class="content-box">\
+		                	<p>1345647893112456</p>\
+		                </div>\
+		            </div>\
+               </div>\
            </div>';
     $('.work').append($(str));
+};
+
+export function styleWorkContent(){
+	var $width = parseInt($('.work').width())-200;
+	$('.workRight').css({
+		width : $width
+	});
+	var $heightT = parseInt($('.workLeft').height())/2 - parseInt($('.list').height())/2;
+	$('.list').css({
+		top : $heightT
+	});
 };
 
 export function workEvent(){//点击事件

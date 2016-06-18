@@ -55,8 +55,11 @@ export function navEvent(){
 		if($text == '首页'){
 
 			if( $conTop == '85'){
-				t.to('.scrollBar',1,{opacity:0.2},0);
-				t.to('.scrollBar',1,{opacity:0},2);
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:0
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}else{
 				verdict($index,$mainHeight);
 				$('.contentImg').css({
@@ -64,59 +67,96 @@ export function navEvent(){
 					top:85
 				});
 				//首页动画
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:0
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
 		} else if($text == '照片'){
 
 			if( $nTop == '85'){
-				t.to('.scrollBar',1,{opacity:0.2},0);
-				t.to('.scrollBar',1,{opacity:0},2);
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}else{
 				verdict($index,$mainHeight);
 				$('.note').css({
 					opacity:1,
 					top:85
 				});
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
 		} else if($text == '学海无涯'){
 
 			if( $wTop == '85'){
-				t.to('.scrollBar',1,{opacity:0.2},0);
-				t.to('.scrollBar',1,{opacity:0},2);
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 2
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}else{
 				verdict($index,$mainHeight);
 				$('.work').css({
 					opacity:1,
 					top:85
 				});
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 2
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 				workAnimate();
 			}
 
 		}else if($text == '随笔'){
 
 			if( $pTop == '85'){
-				t.to('.scrollBar',1,{opacity:0.2},0);
-				t.to('.scrollBar',1,{opacity:0},2);
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 3
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}else{
 				verdict($index,$mainHeight);
 				$('.profile').css({
 					opacity:1,
 					top:85
 				});
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 3
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
 		}else if($text == '留言板'){
 
 			if( $mTop == '85'){
-				t.to('.scrollBar',1,{opacity:0.2},0);
-				t.to('.scrollBar',1,{opacity:0},2);
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 4
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}else{
 				verdict($index,$mainHeight);
 				$('.memo').css({
 					opacity:1,
 					top:85
 				});
+				t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 4
+				},0);
+				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
 		}
