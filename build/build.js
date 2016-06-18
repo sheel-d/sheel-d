@@ -169,8 +169,8 @@
 
 		//第三屏
 		(0, _work.createWork)();
-		//createWorkContent();
-		//styleWorkContent();
+		(0, _work.createWorkContent)();
+		(0, _work.styleWorkContent)();
 
 		//第五屏
 		(0, _footer.createMessage)();
@@ -217,6 +217,8 @@
 	});
 	exports.createNav = createNav;
 	exports.navEvent = navEvent;
+	exports.verdict = verdict;
+	exports.workStyle = workStyle;
 
 	var _jquery = __webpack_require__(3);
 
@@ -320,14 +322,33 @@
 				}
 			} else if ($text == '学海无涯') {
 
-				if ($wTop == '85') {
-					t.to('.scrollBar', 1, {
-						opacity: 0.5,
-						top: $mainHeight / 5 * 2
-					}, 0);
-					t.to('.scrollBar', 1, { opacity: 0 }, 4);
+				if ((0, _jquery2.default)('.t-work').css('display') == 'block') {
+					if ($wTop == '85') {
+						t.to('.scrollBar', 1, {
+							opacity: 0.5,
+							top: $mainHeight / 5 * 2
+						}, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 4);
+					} else {
+						verdict($index, $mainHeight);
+						(0, _jquery2.default)('.work').css({
+							opacity: 1,
+							top: 85
+						});
+						t.to('.scrollBar', 1, {
+							opacity: 0.5,
+							top: $mainHeight / 5 * 2
+						}, 0);
+						t.to('.scrollBar', 1, { opacity: 0 }, 4);
+						(0, _work.workAnimate)();
+					}
 				} else {
 					verdict($index, $mainHeight);
+					(0, _jquery2.default)('.t-work').css('display', 'block');
+					(0, _jquery2.default)('.workContent').css('display', 'none');
+					(0, _jquery2.default)('.title').css('display', 'none');
+					(0, _jquery2.default)('.content').css('display', 'none');
+
 					(0, _jquery2.default)('.work').css({
 						opacity: 1,
 						top: 85
@@ -444,7 +465,7 @@
 		(0, _jquery2.default)('.v-content').css({
 			opacity: 0
 		});
-	}
+	};
 
 /***/ },
 /* 3 */
@@ -2145,6 +2166,7 @@
 			createCircle(_workData.workData[i]);
 		}
 	};
+
 	function createCircle(obj) {
 		var str = '<p class="circle">\
 	                    <i class="v-line"></i>\
@@ -2152,6 +2174,7 @@
 	                </p>';
 		(0, _jquery2.default)('.t-work').append((0, _jquery2.default)(str));
 	}
+
 	function createWorkContent() {
 		var str = '<div class="workContent">\
 	               <div class="workLeft">\
@@ -2213,6 +2236,9 @@
 		//点击事件
 		(0, _jquery2.default)('.t-work').delegate('.v-content', 'click', function () {
 			console.log((0, _jquery2.default)(this).text());
+			(0, _jquery2.default)('.t-work').css('display', 'none');
+			(0, _jquery2.default)('.workContent').css('display', 'block');
+			(0, _jquery2.default)('.title').css('display', 'block');
 		});
 	};
 
@@ -2246,34 +2272,44 @@
 		content: 'node'
 	}];
 
-	var workContentData = {
+	var workTitleData = { //每一类别有几个标题的数据
 		htmlCss: [{
 			title: '标题htmlCss',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}],
 		js: [{
 			title: '标题js',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}],
 		H5C3: [{
 			title: '标题H5C3',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}],
 		react: [{
 			title: '标题react',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}],
 		es6: [{
 			title: '标题es6',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}],
 		node: [{
 			title: '标题node',
-			_title: 'num'
+			_title: 'ID',
+			num: 'num'
 		}]
+	};
+	var workContentData = {
+		ID: 'content'
 	};
 
 	exports.workData = workData;
+	exports.workTitleData = workTitleData;
 	exports.workContentData = workContentData;
 
 /***/ },
@@ -3121,7 +3157,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	        value: true
 	});
 	exports.initScrollBar = initScrollBar;
 	exports.scrollBarEvent = scrollBarEvent;
@@ -3130,36 +3166,223 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _nav = __webpack_require__(2);
+
+	var _work = __webpack_require__(5);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function initScrollBar() {
-	  var $height = parseInt((0, _jquery2.default)('#main').height());
-	  (0, _jquery2.default)('.rectangle').css('height', $height / 5);
+	        var $height = parseInt((0, _jquery2.default)('#main').height());
+	        (0, _jquery2.default)('.rectangle').css('height', $height / 5);
 	};
 
 	function scrollBarEvent() {
-	  console.log(2);
-	  (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+
+	        (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
 	};
 
 	function mousewheelfn(ev) {
+	        //verdict($index,$mainHeight)
+	        var $mainHeight = parseInt((0, _jquery2.default)('#main').height());
+	        var $index = (0, _jquery2.default)('.nav').find('.active').index();
 
-	  var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
+	        var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
 
-	  var $index = (0, _jquery2.default)('.nav').find('.active').index();
+	        var t = new TimelineMax();
 
-	  if (delta > 0) {
-	    // 向上滚
-	    console.log("wheelup");
-	    console.log($index);
-	  } else if (delta < 0) {
-	    // 向下滚   
-	    console.log("wheeldown");
-	  }
+	        (0, _jquery2.default)('.nav li').removeClass('active');
 
-	  setTimeout(function () {
-	    (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
-	  }, 1200);
+	        if (delta > 0) {
+	                // 向上滚
+
+	                if ($index > 0) {
+	                        (0, _jquery2.default)('.line').animate({
+	                                left: ($index - 1) * 82 + 6
+	                        }, 700, function () {
+	                                (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
+	                        });
+	                }
+
+	                if ($index == 0) {
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: 0
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                } else if ($index == 1) {
+
+	                        (0, _jquery2.default)('.note').animate({
+	                                top: $mainHeight,
+	                                opacity: 0
+	                        }, 800);
+
+	                        (0, _jquery2.default)('.contentImg').css('top', -$mainHeight).animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: 0
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                } else if ($index == 2) {
+
+	                        (0, _jquery2.default)('.work').animate({
+	                                top: $mainHeight,
+	                                opacity: 0
+	                        }, 800);
+
+	                        (0, _jquery2.default)('.note').css('top', -$mainHeight).animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                } else if ($index == 3) {
+
+	                        (0, _jquery2.default)('.profile').animate({
+	                                top: $mainHeight,
+	                                opacity: 0
+	                        }, 800);
+
+	                        (0, _jquery2.default)('.work').css('top', -$mainHeight).animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 2
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                        (0, _work.workAnimate)();
+	                } else if ($index == 4) {
+
+	                        (0, _jquery2.default)('.memo').animate({
+	                                top: $mainHeight,
+	                                opacity: 0
+	                        }, 800);
+
+	                        (0, _jquery2.default)('.profile').css('top', -$mainHeight).animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 3
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                }
+	        } else if (delta < 0) {
+	                // 向下滚
+	                /*$('.nav li').removeClass('active');*/
+	                if ($index < 4) {
+	                        (0, _jquery2.default)('.line').animate({
+	                                left: ($index + 1) * 82 + 6
+	                        }, 700, function () {
+	                                (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
+	                        });
+	                }
+
+	                if ($index == 0) {
+
+	                        (0, _jquery2.default)('.contentImg').animate({
+	                                top: -$mainHeight,
+	                                opacity: 0
+	                        }, 800, function () {
+	                                (0, _jquery2.default)(this).css('top', $mainHeight);
+	                        });
+
+	                        (0, _jquery2.default)('.note').animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 3);
+	                } else if ($index == 1) {
+
+	                        (0, _jquery2.default)('.note').animate({
+	                                top: -$mainHeight,
+	                                opacity: 0
+	                        }, 800, function () {
+	                                (0, _jquery2.default)(this).css('top', $mainHeight);
+	                        });
+
+	                        (0, _jquery2.default)('.work').animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 2
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+
+	                        (0, _work.workAnimate)();
+	                } else if ($index == 2) {
+
+	                        (0, _jquery2.default)('.work').animate({
+	                                top: -$mainHeight,
+	                                opacity: 0
+	                        }, 800, function () {
+	                                (0, _jquery2.default)(this).css('top', $mainHeight);
+	                        });
+
+	                        (0, _jquery2.default)('.profile').animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 3
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                } else if ($index == 3) {
+
+	                        (0, _jquery2.default)('.profile').animate({
+	                                top: -$mainHeight,
+	                                opacity: 0
+	                        }, 800, function () {
+	                                (0, _jquery2.default)(this).css('top', $mainHeight);
+	                        });
+
+	                        (0, _jquery2.default)('.memo').animate({
+	                                top: 85,
+	                                opacity: 1
+	                        }, 800);
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 4
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                } else if ($index == 4) {
+
+	                        t.to('.scrollBar', 1, {
+	                                opacity: 0.5,
+	                                top: $mainHeight / 5 * 4
+	                        }, 0);
+	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                }
+	        }
+
+	        setTimeout(function () {
+	                (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	        }, 800);
 	}
 
 /***/ },
@@ -4068,7 +4291,7 @@
 
 
 	// module
-	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(18) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n    z-index: 0;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -138px;\r\n    left: -14px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 113px;\r\n    left: -17px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -141px;\r\n    left: -18px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n\r\n.workContent{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n    margin: 0 auto;\r\n    display: none;\r\n    z-index: 1;\r\n}\r\n.workLeft{\r\n    position: absolute;\r\n    left:0;\r\n    top: 0;\r\n    width: 200px;\r\n    height:100%;\r\n    background: #ccc;\r\n}\r\n.list{\r\n    width: 100%;\r\n    position: absolute;\r\n}\r\n.list li{\r\n    width: auto;\r\n    padding: 2px 0 2px 5px;\r\n    height:20px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    text-align: left;\r\n    position: relative;\r\n}\r\n.list li a:nth-child(1){\r\n    width: 100%;\r\n    height: 100%;\r\n    text-align: left;\r\n    color: #000;\r\n    display: inline-block;\r\n }\r\n.list li a:nth-child(2){\r\n    width: 0;\r\n    height: 100%;\r\n    text-align: right;\r\n    background: #000;\r\n    color: #fff;\r\n    display: inline-block;\r\n    opacity: 0;\r\n    transition: width 0.5s,opacity 0.5s;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.list li:hover a:nth-child(2){\r\n    opacity: 1;\r\n    width: 100%;\r\n}\r\n.workRight{\r\n    position: absolute;\r\n    top:0;\r\n    left:200px;\r\n    background: #caa672;\r\n    height: 100%;\r\n}\r\n.title{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 20px;\r\n    display: none;\r\n}\r\n.title p{\r\n    height: 20px;\r\n    width: auto;\r\n    padding: 3px 10px;\r\n    margin: 5px;\r\n    font-size: 18px;\r\n    text-align: left;\r\n    line-height: 20px;\r\n}\r\n.content{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 10px;\r\n    display: none;\r\n}\r\n.content h3{\r\n    margin-bottom: 10px;\r\n    text-align: center;\r\n}\r\n.content-box{\r\n    width: auto;\r\n    text-align: left;\r\n    padding: 10px;\r\n}\r\n.content-box p{\r\n    width: auto;\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    text-indent: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(19) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
+	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(18) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n    z-index: 0;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -138px;\r\n    left: -14px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 113px;\r\n    left: -17px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -141px;\r\n    left: -18px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n\r\n.workContent{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n    margin: 0 auto;\r\n    display: none;\r\n    z-index: 1;\r\n}\r\n.workLeft{\r\n    position: absolute;\r\n    left:0;\r\n    top: 0;\r\n    width: 200px;\r\n    height:100%;\r\n    background: #ccc;\r\n}\r\n.list{\r\n    width: 100%;\r\n    position: absolute;\r\n}\r\n.list li{\r\n    width: auto;\r\n    padding: 2px 0 2px 5px;\r\n    height:20px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    text-align: left;\r\n    position: relative;\r\n    cursor: pointer;\r\n}\r\n.list li a:nth-child(1){\r\n    width: 100%;\r\n    height: 100%;\r\n    text-align: left;\r\n    color: #000;\r\n    display: inline-block;\r\n }\r\n.list li a:nth-child(2){\r\n    width: 0;\r\n    height: 100%;\r\n    text-align: right;\r\n    background: #000;\r\n    color: #fff;\r\n    display: inline-block;\r\n    opacity: 0;\r\n    transition: width 0.5s,opacity 0.5s;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.list li:hover a:nth-child(2){\r\n    opacity: 1;\r\n    width: 100%;\r\n}\r\n.workRight{\r\n    position: absolute;\r\n    top:0;\r\n    left:200px;\r\n    background: #caa672;\r\n    height: 100%;\r\n}\r\n.title{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 20px;\r\n    display: none;\r\n}\r\n.title p{\r\n    height: 20px;\r\n    width: auto;\r\n    padding: 3px 10px;\r\n    margin: 5px;\r\n    font-size: 18px;\r\n    text-align: left;\r\n    line-height: 20px;\r\n    cursor: pointer;\r\n}\r\n.content{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 10px;\r\n    display: none;\r\n}\r\n.content h3{\r\n    margin-bottom: 10px;\r\n    text-align: center;\r\n}\r\n.content-box{\r\n    width: auto;\r\n    text-align: left;\r\n    padding: 10px;\r\n}\r\n.content-box p{\r\n    width: auto;\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    text-indent: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(19) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
 
 	// exports
 

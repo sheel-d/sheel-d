@@ -31,8 +31,8 @@ export function init(){
 	
 	//第三屏
 	createWork();
-	//createWorkContent();
-	//styleWorkContent();
+	createWorkContent();
+	styleWorkContent();
 
 	//第五屏
 	createMessage();

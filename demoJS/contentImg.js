@@ -86,7 +86,7 @@ export function createUser(){
 	var str = '<div class="c_user">\
                 <div class="userImg"><img src="./img/user-img.jpg" /></div>\
                 <div class="userContent">\
-                    <p><span>Hi I`m Sheep</span></p>\
+                    <p><span>Hi I`m Sheel</span></p>\
                     <p><span>Sheel的由来是源于，一次和寝室大哥一起做火车回家</span>\
                     <p><span>火车走了48小时，而我也睡了48小时，然后就没有然后了…………</span></p>\
                     <p><span>就读于黑龙江大学2013级电子商务专业</span></p>\

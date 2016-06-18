@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import {verdict,workStyle} from './nav.js';
+import {workAnimate} from './work.js';
 
 export function initScrollBar(){
 	var $height = parseInt($('#main').height());
@@ -6,25 +8,221 @@ export function initScrollBar(){
 };
 
 export function scrollBarEvent(){
-	console.log(2);
+
 	$('#main').one('mousewheel',mousewheelfn);
 };
 
 function mousewheelfn(ev){
+	//verdict($index,$mainHeight)
+	var $mainHeight = parseInt($('#main').height());
+	var $index = $('.nav').find('.active').index();
 
 	var delta = (ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1)) ||
                 (ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1));
 
-    var $index = $('.nav').find('.active').index();
+    var t = new TimelineMax();
+
+    $('.nav li').removeClass('active');
 
     if (delta > 0){ // 向上滚
-        console.log("wheelup");
-    } else if (delta < 0) { // 向下滚    
-        console.log("wheeldown");
+        
+        if($index > 0){
+        	$('.line').animate({
+	    		left : ($index-1) * 82 + 6
+	    	},700,function(){
+	        	$('.nav li').eq($index-1).addClass('active');
+	    	});
+        }
+		
+        if( $index == 0){
+
+        	t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:0
+				},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+        }else if( $index == 1 ){
+
+        	$('.note').animate({
+        		top : $mainHeight,
+        		opacity : 0
+        	},800);
+
+        	$('.contentImg').css('top',-$mainHeight).animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:0
+			},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+        }else if( $index == 2 ){
+
+        	$('.work').animate({
+        		top : $mainHeight,
+        		opacity : 0
+        	},800);
+
+        	$('.note').css('top',-$mainHeight).animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5
+			},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+        }else if( $index == 3 ){
+
+        	$('.profile').animate({
+        		top : $mainHeight,
+        		opacity : 0
+        	},800);
+
+        	$('.work').css('top',-$mainHeight).animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5 * 2
+			},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+			workAnimate();
+
+        }else if( $index == 4 ){
+
+        	$('.memo').animate({
+        		top : $mainHeight,
+        		opacity : 0
+        	},800);
+
+        	$('.profile').css('top',-$mainHeight).animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5 * 3
+			},0);
+        	t.to('.scrollBar',1,{opacity:0},4);
+
+        }
+
+    } else if (delta < 0) { // 向下滚 
+    	/*$('.nav li').removeClass('active');*/   
+    	if($index < 4){
+    		$('.line').animate({
+	    		left : ($index+1) * 82 + 6
+	    	},700,function(){
+        		$('.nav li').eq($index+1).addClass('active');
+	    	});
+    	}
+    	
+        if( $index == 0){
+
+        	$('.contentImg').animate({
+        		top : -$mainHeight,
+        		opacity : 0
+        	},800,function(){
+        		$(this).css('top',$mainHeight);
+        	});
+
+        	$('.note').animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5
+			},0);
+			t.to('.scrollBar',1,{opacity:0},3);
+
+        }else if( $index == 1 ){
+
+        	$('.note').animate({
+        		top : -$mainHeight,
+        		opacity : 0
+        	},800,function(){
+        		$(this).css('top',$mainHeight);
+        	});
+
+        	$('.work').animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5 * 2
+			},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+			workAnimate();
+
+        }else if( $index == 2 ){
+
+        	$('.work').animate({
+        		top : -$mainHeight,
+        		opacity : 0
+        	},800,function(){
+        		$(this).css('top',$mainHeight);
+        	});
+
+        	$('.profile').animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5 * 3
+			},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+        }else if( $index == 3 ){
+
+        	$('.profile').animate({
+        		top : -$mainHeight,
+        		opacity : 0
+        	},800,function(){
+        		$(this).css('top',$mainHeight);
+        	});
+
+        	$('.memo').animate({
+        		top : 85,
+        		opacity : 1
+        	},800);
+
+        	t.to('.scrollBar',1,{
+				opacity:0.5,
+				top:$mainHeight/5 * 4
+			},0);
+        	t.to('.scrollBar',1,{opacity:0},4);
+
+        }else if( $index == 4 ){
+        	
+        	t.to('.scrollBar',1,{
+					opacity:0.5,
+					top:$mainHeight/5 * 4 
+				},0);
+			t.to('.scrollBar',1,{opacity:0},4);
+
+        }
+
     }
 
 	setTimeout(function(){
 		$('#main').one('mousewheel',mousewheelfn);
-	},1200);
+	},800);
 }
 

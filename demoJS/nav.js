@@ -97,14 +97,33 @@ export function navEvent(){
 
 		} else if($text == '学海无涯'){
 
-			if( $wTop == '85'){
-				t.to('.scrollBar',1,{
-					opacity:0.5,
-					top:$mainHeight/5 * 2
-				},0);
-				t.to('.scrollBar',1,{opacity:0},4);
+			if( $('.t-work').css('display') == 'block' ){
+				if( $wTop == '85'){
+					t.to('.scrollBar',1,{
+						opacity:0.5,
+						top:$mainHeight/5 * 2
+					},0);
+					t.to('.scrollBar',1,{opacity:0},4);
+				}else{
+					verdict($index,$mainHeight);
+					$('.work').css({
+						opacity:1,
+						top:85
+					});
+					t.to('.scrollBar',1,{
+						opacity:0.5,
+						top:$mainHeight/5 * 2
+					},0);
+					t.to('.scrollBar',1,{opacity:0},4);
+					workAnimate();
+				}
 			}else{
 				verdict($index,$mainHeight);
+				$('.t-work').css('display','block');
+				$('.workContent').css('display','none');
+				$('.title').css('display','none');
+				$('.content').css('display','none');
+
 				$('.work').css({
 					opacity:1,
 					top:85
@@ -116,7 +135,7 @@ export function navEvent(){
 				t.to('.scrollBar',1,{opacity:0},4);
 				workAnimate();
 			}
-
+			
 		}else if($text == '随笔'){
 
 			if( $pTop == '85'){
@@ -181,7 +200,7 @@ export function navEvent(){
 	});
 };
 
-function verdict(index,height){
+export function verdict(index,height){
 	if( index == 0){
 		$('.contentImg').css({
 			opacity:0,
@@ -210,7 +229,7 @@ function verdict(index,height){
 	}
 	workStyle();
 }
-function workStyle(){
+export function workStyle(){
 	$('.t-work').css({
 		width:0
 	});
@@ -226,4 +245,4 @@ function workStyle(){
 	$('.v-content').css({
 		opacity:0
 	});
-}
+};

@@ -1,6 +1,6 @@
 /*第三屏*/
 import $ from 'jquery';
-import {workData} from './workData.js';
+import {workData,workTitleData,workContentData} from './workData.js';
 
 export function workAnimate(){
 	var t = new TimelineMax();
@@ -150,5 +150,8 @@ export function styleWorkContent(){
 export function workEvent(){//点击事件
 	$('.t-work').delegate('.v-content','click',function(){
 		console.log($(this).text());
+		$('.t-work').css('display','none');
+		$('.workContent').css('display','block');
+		$('.title').css('display','block');
 	});
 };
