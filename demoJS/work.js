@@ -1,4 +1,4 @@
-/*第三屏*/
+
 import $ from 'jquery';
 import {workData,workTitleData,workContentData} from './workData.js';
 
@@ -85,7 +85,7 @@ export function createWork(){
 function createCircle(obj){
 	var str = '<p class="circle">\
                     <i class="v-line"></i>\
-                    <span class="v-content" _title='+ obj.content +'>'+ obj.title + '</span>\
+                    <span class="v-content" _title='+ obj.title +'>'+ obj.content + '</span>\
                 </p>';
     $('.t-work').append($(str));
 }
@@ -93,48 +93,33 @@ function createCircle(obj){
 export function createWorkContent(){
 	var str = '<div class="workContent">\
                <div class="workLeft">\
-                   <ul class="list">\
-                       <li>\
-                       		<a>html & css</a>\
-                       		<a>html & css</a>\
-                       </li>\
-                       <li>\
-                       		<a>javascript</a>\
-                       		<a>javascript</a>\
-                       	</li>\
-                       <li>\
-                       		<a>html5 & css3</a>\
-                       		<a>html5 & css3</a>\
-                       	</li>\
-                       <li>\
-                       		<a>react</a>\
-                       		<a>react</a>\
-                       	</li>\
-                       <li>\
-                       		<a>ES2015</a>\
-                       		<a>ES2015</a>\
-                       	</li>\
-                       <li>\
-                       		<a>node</a>\
-                       		<a>node</a>\
-                       	</li>\
-                   </ul>\
+                   <ul class="list"></ul>\
                </div>\
                <div class="workRight">\
-		            <div class="title">\
-		                <p>标题1</p>\
-		                <p>标题2</p>\
-		            </div>\
-		            <div class="content">\
-		                <h3>标题</h3>\
-		                <div class="content-box">\
-		                	<p>1345647893112456</p>\
-		                </div>\
-		            </div>\
+		            <div class="title"></div>\
+		            <div class="content"></div>\
                </div>\
            </div>';
     $('.work').append($(str));
 };
+
+function createLi(obj){
+	var str = '<li _title=' + obj.title + '>\
+                <a>' + obj.content + '</a>\
+                <a>' + obj.content + '</a>\
+               </li>';
+    $('.list').append($(str));
+}
+
+function createTitle(obj){
+	var str = '<p _id='+ obj.id +'>'+ obj.num +'、' + obj.title +'</p>';
+	$('.title').append($(str));
+}
+
+function createContentBox(test){
+	var str = '<div class="content-box">'+ test +'</div>';
+	$('.content').append($(str));
+}
 
 export function styleWorkContent(){
 	var $width = parseInt($('.work').width())-200;
@@ -148,10 +133,36 @@ export function styleWorkContent(){
 };
 
 export function workEvent(){//点击事件
+	var num = 0;
 	$('.t-work').delegate('.v-content','click',function(){
-		console.log($(this).text());
+		$('.list').html('');
+		$('.title').html('');
+		var $_title = $(this).attr('_title');
+		for(let i=0;i<workData.length;i++){
+			createLi(workData[i]);
+		}
+		for(let i=0;i<workTitleData[$_title].length;i++){
+			createTitle(workTitleData[$_title][i]);
+		}
 		$('.t-work').css('display','none');
 		$('.workContent').css('display','block');
 		$('.title').css('display','block');
+		num++;
+	});
+	$('.list').delegate('li','click',function(){
+		$('.title').html('');
+		$('.title').css('display','block');
+		$('.content').css('display','none');
+		var $_title = $(this).attr('_title');
+		for(let i=0;i<workTitleData[$_title].length;i++){
+			createTitle(workTitleData[$_title][i]);
+		}
+	});
+	$('.title').delegate('p','click',function(){
+		var $_id = $(this).attr('_id');
+		$('.content').html('');
+		createContentBox(workContentData[$_id]);
+		$('.title').css('display','none');
+		$('.content').css('display','block');
 	});
 };
