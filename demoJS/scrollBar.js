@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {verdict,workStyle} from './nav.js';
 import {workAnimate} from './work.js';
 
 export function initScrollBar(){
@@ -9,20 +8,18 @@ export function initScrollBar(){
 
 export function scrollBarEvent(){
 
-	$('#main').one('mousewheel',mousewheelfn);
+	$('#main').one('DOMMouseScroll',mousewheelfn);
+    $('#main').one('mousewheel',mousewheelfn);
 };
 
 function mousewheelfn(ev){
-	//verdict($index,$mainHeight)
+
 	var $mainHeight = parseInt($('#main').height());
 	var $index = $('.nav').find('.active').index();
 
-	var delta = (ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1)) ||
-                (ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1));
+	var delta = (ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1)) || (ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1));
 
     var t = new TimelineMax();
-
-    $('.nav li').removeClass('active');
 
     if (delta > 0){ // 向上滚
         
@@ -30,6 +27,7 @@ function mousewheelfn(ev){
         	$('.line').animate({
 	    		left : ($index-1) * 82 + 6
 	    	},700,function(){
+	    		$('.nav li').removeClass('active');
 	        	$('.nav li').eq($index-1).addClass('active');
 	    	});
         }
@@ -117,12 +115,13 @@ function mousewheelfn(ev){
 
         }
 
-    } else if (delta < 0) { // 向下滚 
-    	/*$('.nav li').removeClass('active');*/   
+    } else if (delta < 0) { // 向下滚  
+     	
     	if($index < 4){
     		$('.line').animate({
 	    		left : ($index+1) * 82 + 6
 	    	},700,function(){
+	    		$('.nav li').removeClass('active');
         		$('.nav li').eq($index+1).addClass('active');
 	    	});
     	}
@@ -221,8 +220,14 @@ function mousewheelfn(ev){
 
     }
 
-	setTimeout(function(){
-		$('#main').one('mousewheel',mousewheelfn);
-	},800);
+    if( ev.originalEvent.detail ){
+        setTimeout(function(){
+            $('#main').one('DOMMouseScroll',mousewheelfn);
+        },800);
+    }else{
+        setTimeout(function(){
+            $('#main').one('mousewheel',mousewheelfn);
+        },800);
+    }	
 }
 

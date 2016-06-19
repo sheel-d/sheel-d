@@ -1,4 +1,4 @@
-/*初始化*/
+
 import {createNav} from './nav.js';
 import {cUserHeight,imgInitAnimate,createImg,createUser} from './contentImg.js';
 import {} from './photo.js';

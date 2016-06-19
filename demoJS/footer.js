@@ -1,40 +1,18 @@
 /*第五屏*/
 import $ from 'jquery';
-
-var obj = {
- 	imgUrl : './img/'+minMaxNum(1,10)+'.jpg',
- 	author : 'sheel',
- 	time : '2016-6-15',
- 	content : '我是第一个留言的，嘻嘻'
-}
+import {footerData} from './footerData.js';
 
 export function messageInit(){
-	var $height = $('#memo').height() - ($('.userMemo').height() + $('.more').height() + $('.writeMemo').height() + $('.footer').height() + 47);
+	var $height = $('.memo').height() - ($('.userMemo').height() + $('.footer').height() + 25 );
 	$('.box').css('height',$height);
-	var num = Math.floor($height/120);
-	/*for(let i = 0; i < num; i++){
-		createMemoBox(obj);
-	}*/
-	createMemoBox(obj);
-	var $width = parseInt($('.memoBox').width()) - 140;
-	$('.rightContent').css('width',$width);
+
+	for(let i=0;i<footerData.length;i++){
+		createMemoBox(footerData[0]);
+	}
+	
 };
 
 export function memoEvent(){
-	$('.release').on('click',function(){
-		var $nameValue = $('.name').val();
-		var $textValue = $('.textarea').val();
-
-		if($nameValue == '' && $textValue == ''){
-			alert('Defeat!');
-		}else if($nameValue == '' && $textValue != ''){
-			alert('Defeat!');
-		}else if($nameValue != '' && $textValue == ''){
-			alert('Defeat!');
-		}else{
-			alert('success!');
-		}
-	});
 
 	$('.box').delegate('.memoBox','mouseenter',function(){
 		$(this).find('img').css({
@@ -61,21 +39,9 @@ export function createMessage(){
                     </div>\
                     <div class="box"></div>\
                 </div>\
-                <p class="more"><span>更多留言--></span></p>\
-                <div class="writeMemo">\
-                    <p>\
-                        <span>name:</span>\
-                        <input type="text" class="name">\
-                    </p>\
-                    <p>\
-                        <span>content:</span>\
-                        <textarea class="textarea"></textarea>\
-                        <span class="release">发布</span>\
-                    </p>\
-                </div>\
             </div>';
     $('#memo').append($(str));
-}
+};
 
 function createMemoBox(obj){
 	var str = '<div class="memoBox">\
@@ -92,8 +58,4 @@ export function createFooter(){
                 <span>&hearts;sheel-d 2016-5-24</span>\
             </div>';
     $('#memo').append($(str));
-}
-
-function minMaxNum(min,max){
-	return Math.round(Math.random()*(max-min)+min);
-}
+};

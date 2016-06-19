@@ -10,7 +10,7 @@ import {scrollBarEvent} from './scrollBar.js';
 import $ from 'jquery';
 import './TweenMax.js';
 
-import '../css/index.css';
+/*import '../css/index.css';*/
 
 window.onload = function(){
 	//Animate:动画

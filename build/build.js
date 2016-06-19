@@ -58,19 +58,19 @@
 
 	var _profile = __webpack_require__(10);
 
-	var _footer = __webpack_require__(11);
+	var _footer = __webpack_require__(12);
 
-	var _scrollBar = __webpack_require__(12);
+	var _scrollBar = __webpack_require__(14);
 
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	__webpack_require__(13);
-
-	__webpack_require__(14);
+	__webpack_require__(15);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/*import '../css/index.css';*/
 
 	window.onload = function () {
 		//Animate:动画
@@ -137,9 +137,9 @@
 
 	__webpack_require__(10);
 
-	var _footer = __webpack_require__(11);
+	var _footer = __webpack_require__(12);
 
-	var _scrollBar = __webpack_require__(12);
+	var _scrollBar = __webpack_require__(14);
 
 	var _jquery = __webpack_require__(3);
 
@@ -156,7 +156,6 @@
 			5、滚动条隐藏，使用自己做的滚动条
 			
 	*/
-	/*初始化*/
 	function init() {
 		Height();
 		(0, _nav.createNav)('#menu');
@@ -2420,7 +2419,7 @@
 	  var str = '<div class="c_user">\
 	                <div class="userImg"><img src="./img/user-img.jpg" /></div>\
 	                <div class="userContent">\
-	                    <p><span>Hi I`m Sheep</span></p>\
+	                    <p><span>Hi I`m Sheel</span></p>\
 	                    <p><span>Sheel的由来是源于，一次和寝室大哥一起做火车回家</span>\
 	                    <p><span>火车走了48小时，而我也睡了48小时，然后就没有然后了…………</span></p>\
 	                    <p><span>就读于黑龙江大学2013级电子商务专业</span></p>\
@@ -2832,38 +2831,19 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _profileData = __webpack_require__(11);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/*第四屏*/
 	function profileInit() {
 		var arr = null;
 		var json = [];
 		var $width = parseInt((0, _jquery2.default)('.profile').width());
 		var $height = parseInt((0, _jquery2.default)('.profile').height());
 
-		var data = [{
-			item: '标题1',
-			content: 'hello',
-			time: '2016-6-12'
-		}, {
-			item: '标题2',
-			content: 'hello2',
-			time: '2016-6-13'
-		}, {
-			item: '标题3',
-			content: 'hello3',
-			time: '2016-6-14'
-		}, {
-			item: '标题4',
-			content: 'hello4',
-			time: '2016-6-15'
-		}, {
-			item: '标题5',
-			content: 'hello4',
-			time: '2016-6-16'
-		}];
-
-		for (var i = 0; i < data.length; i++) {
-			createArticle(data[i].item, data[i].content, data[i].time);
+		for (var i = 0; i < _profileData.data.length; i++) {
+			createArticle(_profileData.data[i].item, _profileData.data[i].content, _profileData.data[i].time);
 			arr = randomNumber(40, 20);
 			json.push(positionNum($width, $height));
 
@@ -2884,8 +2864,7 @@
 				padding: 3
 			});
 		}
-	} /*第四屏*/
-	;
+	};
 
 	function createArticle(item, content, time) {
 		var str = '<div class="article">\
@@ -3034,6 +3013,40 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var data = [{
+		item: '标题1',
+		content: 'hello',
+		time: '2016-6-12'
+	}, {
+		item: '标题2',
+		content: 'hello2',
+		time: '2016-6-13'
+	}, {
+		item: '标题3',
+		content: 'hello3',
+		time: '2016-6-14'
+	}, {
+		item: '标题4',
+		content: 'hello4',
+		time: '2016-6-15'
+	}, {
+		item: '标题5',
+		content: 'hello4',
+		time: '2016-6-16'
+	}];
+
+	exports.data = data;
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3050,43 +3063,21 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _footerData = __webpack_require__(13);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var obj = {
-		imgUrl: './img/' + minMaxNum(1, 10) + '.jpg',
-		author: 'sheel',
-		time: '2016-6-15',
-		content: '我是第一个留言的，嘻嘻'
-	}; /*第五屏*/
-
-
+	/*第五屏*/
 	function messageInit() {
-		var $height = (0, _jquery2.default)('#memo').height() - ((0, _jquery2.default)('.userMemo').height() + (0, _jquery2.default)('.more').height() + (0, _jquery2.default)('.writeMemo').height() + (0, _jquery2.default)('.footer').height() + 47);
+		var $height = (0, _jquery2.default)('.memo').height() - ((0, _jquery2.default)('.userMemo').height() + (0, _jquery2.default)('.footer').height() + 25);
 		(0, _jquery2.default)('.box').css('height', $height);
-		var num = Math.floor($height / 120);
-		/*for(let i = 0; i < num; i++){
-	 	createMemoBox(obj);
-	 }*/
-		createMemoBox(obj);
-		var $width = parseInt((0, _jquery2.default)('.memoBox').width()) - 140;
-		(0, _jquery2.default)('.rightContent').css('width', $width);
+
+		for (var i = 0; i < _footerData.footerData.length; i++) {
+			createMemoBox(_footerData.footerData[0]);
+		}
 	};
 
 	function memoEvent() {
-		(0, _jquery2.default)('.release').on('click', function () {
-			var $nameValue = (0, _jquery2.default)('.name').val();
-			var $textValue = (0, _jquery2.default)('.textarea').val();
-
-			if ($nameValue == '' && $textValue == '') {
-				alert('Defeat!');
-			} else if ($nameValue == '' && $textValue != '') {
-				alert('Defeat!');
-			} else if ($nameValue != '' && $textValue == '') {
-				alert('Defeat!');
-			} else {
-				alert('success!');
-			}
-		});
 
 		(0, _jquery2.default)('.box').delegate('.memoBox', 'mouseenter', function () {
 			(0, _jquery2.default)(this).find('img').css({
@@ -3113,21 +3104,9 @@
 	                    </div>\
 	                    <div class="box"></div>\
 	                </div>\
-	                <p class="more"><span>更多留言--></span></p>\
-	                <div class="writeMemo">\
-	                    <p>\
-	                        <span>name:</span>\
-	                        <input type="text" class="name">\
-	                    </p>\
-	                    <p>\
-	                        <span>content:</span>\
-	                        <textarea class="textarea"></textarea>\
-	                        <span class="release">发布</span>\
-	                    </p>\
-	                </div>\
 	            </div>';
 		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
-	}
+	};
 
 	function createMemoBox(obj) {
 		var str = '<div class="memoBox">\
@@ -3144,14 +3123,34 @@
 	                <span>&hearts;sheel-d 2016-5-24</span>\
 	            </div>';
 		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
-	}
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+
+	var footerData = [{
+		imgUrl: './img/' + minMaxNum(1, 10) + '.jpg',
+		author: 'sheel',
+		time: '2016-6-15',
+		content: '我是第一个留言的，嘻嘻'
+	}];
 
 	function minMaxNum(min, max) {
 		return Math.round(Math.random() * (max - min) + min);
 	}
 
+	exports.footerData = footerData;
+
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3166,8 +3165,6 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _nav = __webpack_require__(2);
-
 	var _work = __webpack_require__(5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -3179,19 +3176,18 @@
 
 	function scrollBarEvent() {
 
+	        (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
 	        (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
 	};
 
 	function mousewheelfn(ev) {
-	        //verdict($index,$mainHeight)
+
 	        var $mainHeight = parseInt((0, _jquery2.default)('#main').height());
 	        var $index = (0, _jquery2.default)('.nav').find('.active').index();
 
 	        var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
 
 	        var t = new TimelineMax();
-
-	        (0, _jquery2.default)('.nav li').removeClass('active');
 
 	        if (delta > 0) {
 	                // 向上滚
@@ -3200,6 +3196,7 @@
 	                        (0, _jquery2.default)('.line').animate({
 	                                left: ($index - 1) * 82 + 6
 	                        }, 700, function () {
+	                                (0, _jquery2.default)('.nav li').removeClass('active');
 	                                (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
 	                        });
 	                }
@@ -3282,12 +3279,13 @@
 	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
 	                }
 	        } else if (delta < 0) {
-	                // 向下滚
-	                /*$('.nav li').removeClass('active');*/
+	                // 向下滚 
+
 	                if ($index < 4) {
 	                        (0, _jquery2.default)('.line').animate({
 	                                left: ($index + 1) * 82 + 6
 	                        }, 700, function () {
+	                                (0, _jquery2.default)('.nav li').removeClass('active');
 	                                (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
 	                        });
 	                }
@@ -3380,13 +3378,19 @@
 	                }
 	        }
 
-	        setTimeout(function () {
-	                (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
-	        }, 800);
+	        if (ev.originalEvent.detail) {
+	                setTimeout(function () {
+	                        (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
+	                }, 800);
+	        } else {
+	                setTimeout(function () {
+	                        (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	                }, 800);
+	        }
 	}
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;}; /*!
@@ -4255,371 +4259,6 @@
 	a=window._gsQueue;if(a){for(i=0;i<a.length;i++){a[i]();}for(p in _defLookup){if(!_defLookup[p].func){window.console.log("GSAP encountered missing dependency: com.greensock."+p);}}}_tickerActive=false; //ensures that the first official animation forces a ticker.tick() to update the time when it is instantiated
 	})(typeof module!=="undefined"&&module.exports&&typeof global!=="undefined"?global:undefined||window,"TweenMax");
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(15);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(20)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(16)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body,p,dl,h1,h2,h3,dd,ul,ol,form,input,textarea,th,td,select { margin:0; padding:0; }\r\nem { font-style:normal; }\r\nli { list-style:none; }\r\na { text-decoration:none; color: #000000}\r\nimg { border:none; vertical-align:top; }\r\ntable { border-collapse:collapse; }\r\ninput,textarea { outline:none; }\r\ntextarea { resize:none; overflow:auto; }\r\n\r\n\r\n@font-face{\r\n    font-family: English;\r\n    src: url(" + __webpack_require__(17) + ");\r\n}\r\n@font-face{\r\n    font-family: Chinese;\r\n    src: url(" + __webpack_require__(18) + ");\r\n}\r\n/*nav*/\r\n\r\n#menu{\r\n    width: 100%;\r\n    height: 60px;\r\n    position: fixed;\r\n    top: 20px;\r\n    left:100%;\r\n    z-index: 100;\r\n    background: #2f9331;\r\n    overflow: hidden;\r\n}\r\n.wrapper{\r\n    height: 60px;\r\n    width: 90%;\r\n    padding: 0 5%;\r\n    position: absolute;\r\n}\r\n.logo{\r\n    height: 60px;\r\n    width: 182px;\r\n    opacity: 0;\r\n}\r\n.logo a{\r\n    width: 100%;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n.logo a img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.nav{\r\n    width: 410px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: -60px;\r\n    right: 130px;\r\n    overflow: hidden; \r\n}\r\n.nav li{\r\n    height: 60px;\r\n    width: 64px;\r\n    float: left;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    padding: 0 6px;\r\n    margin-left: 6px;\r\n    font-family: Chinese;\r\n    cursor: pointer;\r\n}\r\n.nav li a{\r\n    line-height: 60px;\r\n    font-size: 16px;\r\n    text-align: center;\r\n    font-weight: 500;\r\n    color: #000;\r\n}\r\n.active {\r\n    background: #4a8e2f;\r\n}\r\n.active a{\r\n    color: #32629b !important;\r\n}\r\n.line{\r\n    position: absolute;\r\n    bottom: 12px;\r\n    left: -76px;\r\n    width: 76px;\r\n    height: 1px;\r\n    background: #000;\r\n}\r\n.item{\r\n    width: 60px;\r\n    height: 60px;\r\n    position: absolute;\r\n    top: 0;\r\n    right:60px;\r\n    z-index: 2;\r\n}\r\n.item div{\r\n    width: 30px;\r\n    height: 30px;\r\n    float: left;\r\n}\r\n.item1{\r\n    border-radius: 0 100%;\r\n    background: #5cb85c;\r\n}\r\n.item2{\r\n    border-radius: 100% 0;\r\n    background: #000;\r\n}\r\n.item3{\r\n    border-radius: 100% 0;\r\n    background: #00ff00;\r\n}\r\n.item4{\r\n    border-radius: 0 100%;\r\n    background: #2e6da4;\r\n}\r\n/*main*/\r\n#main{\r\n    width: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    left:0;\r\n    background: #63892e; \r\n    overflow: hidden;\r\n}\r\n.start{\r\n    width: 100%;\r\n}\r\n/* contentImg */\r\n\r\n.contentImg{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.c_img{\r\n    width: 100%;\r\n    height: 393px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.imgPL{\r\n    left: 0;\r\n    top: 100px;\r\n}\r\n.imgPR{\r\n    right: 0;\r\n    top: 122px;\r\n}\r\n.c_img ul{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1;\r\n\r\n}\r\n.c_img li{\r\n    position: absolute;\r\n    box-sizing: border-box;\r\n}\r\n.img_0{;\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_1{;\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 115px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_2{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 165px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.img_3{\r\n    z-index: 5;\r\n    top: 0;\r\n    left: 260px;\r\n    filter: alpha(opacity=100);\r\n    opacity: 1;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 5px;\r\n}\r\n.img_4{\r\n    z-index: 4;\r\n    top: 43px;\r\n    left: 525px;\r\n    filter: alpha(opacity=80);\r\n    opacity: 0.8;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_5{\r\n    z-index: 3;\r\n    top: 104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=60);\r\n    opacity: 0.6;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n\r\n}\r\n.img_6{\r\n    z-index: 2;\r\n    top: -104px;\r\n    left: 815px;\r\n    filter: alpha(opacity=0);\r\n    opacity: 0;\r\n    border-style: solid;\r\n    border-color: #fff;\r\n    border-width: 0;\r\n}\r\n.c_user{\r\n    width: 100%;\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0;\r\n}\r\n.userImg{\r\n    width: 168px;\r\n    height: 168px;\r\n    border-radius: 50%;\r\n    margin: 5px;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n}\r\n.userImg img{\r\n    width : 100%;\r\n    height : 100%;\r\n    border-radius : 50%;\r\n}\r\n.userContent{\r\n    width: 1000px;\r\n    margin: 0 auto;\r\n    position: absolute;\r\n    left: 168px;\r\n    top: 10px;\r\n}\r\n.userContent p{\r\n    padding: 1px 5px;\r\n    text-align: left;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    font-family: Chinese;\r\n}\r\n.userContent p:nth-child(1){\r\n    text-indent: 20px;\r\n}\r\n.userContent p:nth-child(2){\r\n    text-indent: 30px;\r\n}\r\n.userContent p:nth-child(3){\r\n    text-indent: 40px;\r\n}\r\n.userContent p:nth-child(4){\r\n    text-indent: 50px;\r\n}\r\n.userContent p:nth-child(5){\r\n    text-indent: 60px;\r\n}\r\n.userContent p:nth-child(6){\r\n    text-indent: 70px;\r\n}\r\n.userContent p:nth-child(7){\r\n    width: 500px;\r\n    text-align: right;\r\n}\r\n/* note */\r\n.note{\r\n    position: relative;\r\n}\r\n.wrap{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: space-around;\r\n    align-content: center;\r\n    align-items: stretch;\r\n\r\n    -webkit-perspective: 800px;\r\n    -moz-perspective: 800px;\r\n}\r\n.phWH{\r\n    width: 200px;\r\n    height: 150px;\r\n    margin-top: 10px;\r\n    margin-left: 10px;\r\n}\r\n.photo{\r\n    z-index: 1;\r\n    box-shadow: 0 0 1px rgba(0,0,0,255);\r\n}\r\n.photo .side{\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: #eee;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.photo .side-front .image{\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n.photo .side-front .image img{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.photo .side-back .desc{\r\n    color: #666;\r\n    font-size: 14px;\r\n    line-height: 1.5em;\r\n    font-family: Chinese;\r\n    padding: 10px 5px;\r\n}\r\n.desc:nth-child(1){\r\n    transform:rotate(-15deg);\r\n}\r\n.desc:nth-child(2){\r\n    transform:rotate(-15deg);\r\n}\r\n.photo-wrap{\r\n    position: absolute;\r\n    width: 200px;\r\n    height: 150px;\r\n\r\n    -webkit-transform-style: preserve-3d;\r\n    -moz-transform-style: preserve-3d;\r\n    -webkit-transition: all 0.5s ease-in-out;\r\n    -moz-transition: all 0.5s ease-in-out;\r\n}\r\n.photo-wrap .side-front{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo-wrap .side-back{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n.photo-wrap .side{\r\n    -webkit-backface-visibility: hidden;\r\n    -moz-backface-visibility: hidden;\r\n}\r\n.photo_front .photo-wrap{\r\n    -webkit-transform: rotateY(0deg);\r\n    -moz-transform: rotateY(0deg);\r\n}\r\n.photo_back .photo-wrap{\r\n    -webkit-transform: rotateY(180deg);\r\n    -moz-transform: rotateY(180deg);\r\n}\r\n\r\n/* work */\r\n.t-work{\r\n    width: 0;\r\n    height: 0;\r\n    border: 2px solid #000;\r\n    position: relative;\r\n    top: 50%;\r\n    margin-top: -1px;\r\n    z-index: 0;\r\n}\r\n\r\n.circle{\r\n    display: inline-block;   \r\n    opacity: 0;\r\n    background: red;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    top: -9px;\r\n}\r\n.t-work p:nth-child(1){\r\n    left: 5%;\r\n}\r\n.t-work p:nth-child(2){\r\n    left: 15%;\r\n}\r\n.t-work p:nth-child(3){\r\n    left: 30%;\r\n}\r\n.t-work p:nth-child(4){\r\n    left: 50%;\r\n}\r\n.t-work p:nth-child(5){\r\n    left: 75%;\r\n}\r\n.t-work p:nth-child(6){\r\n    left: 95%;\r\n}\r\n.v-line{\r\n    width: 1px;\r\n    opacity: 0;\r\n    background: red;\r\n    display: inline-block;\r\n    position: absolute;\r\n    left: 10px;\r\n}\r\n.t-work p:nth-child(1) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(2) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(3) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(4) i{\r\n    top: -100px;\r\n}\r\n.t-work p:nth-child(5) i{\r\n    top: 0px;\r\n}\r\n.t-work p:nth-child(6) i{\r\n    top: -100px;\r\n}\r\n.v-content{\r\n    display: inline-block;\r\n    padding: 4px 6px;\r\n    height: 18px;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n    border: 1px solid red;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    opacity: 0;\r\n}\r\n.t-work p:nth-child(1) span{\r\n    top: 120px;\r\n    left: -24px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(2) span{\r\n    top: -157px;\r\n    left: -32px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(3) span{\r\n    top: 127px;\r\n    left: -30px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(4) span{\r\n    top: -138px;\r\n    left: -14px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n.t-work p:nth-child(5) span{\r\n    top: 113px;\r\n    left: -17px;\r\n    -moz-transform: rotate(90deg);\r\n    -webkit-transform: rotate(90deg);\r\n}\r\n.t-work p:nth-child(6) span{\r\n    top: -141px;\r\n    left: -18px;\r\n    -moz-transform: rotate(-90deg);\r\n    -webkit-transform: rotate(-90deg);\r\n}\r\n\r\n.workContent{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n    margin: 0 auto;\r\n    display: none;\r\n    z-index: 1;\r\n}\r\n.workLeft{\r\n    position: absolute;\r\n    left:0;\r\n    top: 0;\r\n    width: 200px;\r\n    height:100%;\r\n    background: #ccc;\r\n}\r\n.list{\r\n    width: 100%;\r\n    position: absolute;\r\n}\r\n.list li{\r\n    width: auto;\r\n    padding: 2px 0 2px 5px;\r\n    height:20px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    text-align: left;\r\n    position: relative;\r\n    cursor: pointer;\r\n}\r\n.list li a:nth-child(1){\r\n    width: 100%;\r\n    height: 100%;\r\n    text-align: left;\r\n    color: #000;\r\n    display: inline-block;\r\n }\r\n.list li a:nth-child(2){\r\n    width: 0;\r\n    height: 100%;\r\n    text-align: right;\r\n    background: #000;\r\n    color: #fff;\r\n    display: inline-block;\r\n    opacity: 0;\r\n    transition: width 0.5s,opacity 0.5s;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n.list li:hover a:nth-child(2){\r\n    opacity: 1;\r\n    width: 100%;\r\n}\r\n.workRight{\r\n    position: absolute;\r\n    top:0;\r\n    left:200px;\r\n    background: #caa672;\r\n    height: 100%;\r\n}\r\n.title{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 20px;\r\n    display: none;\r\n}\r\n.title p{\r\n    height: 20px;\r\n    width: auto;\r\n    padding: 3px 10px;\r\n    margin: 5px;\r\n    font-size: 18px;\r\n    text-align: left;\r\n    line-height: 20px;\r\n    cursor: pointer;\r\n}\r\n.content{\r\n    width: auto;\r\n    height: auto;\r\n    padding: 10px;\r\n    display: none;\r\n}\r\n.content h3{\r\n    margin-bottom: 10px;\r\n    text-align: center;\r\n}\r\n.content-box{\r\n    width: auto;\r\n    text-align: left;\r\n    padding: 10px;\r\n}\r\n.content-box p{\r\n    width: auto;\r\n    font-size: 16px;\r\n    line-height: 20px;\r\n    text-indent: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* profile */\r\n.myWH{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n.profile{\r\n    position: relative;\r\n    background: #fff;\r\n}\r\n.articleBox{\r\n    padding: 40px;\r\n    background: url(" + __webpack_require__(19) + ") repeat-x;\r\n    overflow: hidden;\r\n    position: relative;\r\n}\r\n.article{\r\n    background: #e6cca9;\r\n    box-shadow: 10px 10px 5px #000;\r\n    font-family: Chinese;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: 1;\r\n    opacity: 0;\r\n    cursor: pointer;\r\n}\r\n.article h3{\r\n    padding: 2px;\r\n    text-align: center;\r\n    font-size: 18px;\r\n    height: 36px;\r\n    line-height: 36px;\r\n    text-indent: -20px;\r\n    overflow: hidden;\r\n}\r\n.articleContent p{\r\n    text-overflow: ellipsis;\r\n}\r\n.articleTime{\r\n    height: 18px;\r\n    text-align: right;\r\n    font-size: 16px;\r\n    line-height: 18px;\r\n    padding: 1px 20px 15px 1px;\r\n}\r\n/* message */\r\n.message{\r\n    min-width: 1000px;\r\n    max-width: 1200px;\r\n    margin: 0 auto;\r\n}\r\n.messageMemo{\r\n    width: 100%;\r\n    padding: 5px 0;\r\n}\r\n.userMemo{\r\n    width: 100%;\r\n    margin-bottom: 15px;\r\n}\r\n.userMemo p{\r\n    width: 100%;\r\n    height: 20px;\r\n    line-height: 20px;\r\n    padding: 2px 5px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.userMemo p:nth-child(2){\r\n    text-indent: 10px;\r\n}\r\n.userMemo p:nth-child(3){\r\n    text-indent: 20px;\r\n}\r\n.box{\r\n    width: 100%;\r\n}\r\n.memoBox{\r\n    width: 100%;\r\n    height: 120px;\r\n    border: 1px solid #ccc;\r\n    border-bottom: none;\r\n    border-top: none;\r\n}\r\n.box .memoBox:first-of-type{\r\n    border-top: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type{\r\n    border-bottom: 1px solid #ccc;\r\n}\r\n.box .memoBox:last-of-type .leftUser{\r\n    border-bottom: none;\r\n}\r\n.box .memoBox:last-of-type .rightContent{\r\n    border-bottom: none;\r\n}\r\n\r\n.leftUser{\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 10px;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.leftUser img{\r\n    width: 100%;\r\n    height: 100%;\r\n    transition: 0.5s;\r\n}\r\n.rightContent{\r\n    height: 100px;\r\n    padding: 10px 20px 10px 0;\r\n    float: left;\r\n    border-bottom: 1px #ccc dashed;\r\n}\r\n.rightContent p{\r\n    height: 20px;\r\n    width: 100%;\r\n    padding: 2px 5px;\r\n    line-height: 20px;\r\n    font-size: 16px;\r\n    font-family: Chinese;\r\n    text-align: left;\r\n}\r\n.rightContent p:nth-child(1){\r\n    text-indent: 10px;\r\n}\r\n.rightContent p:nth-child(2){\r\n    text-indent: 20px;\r\n}\r\n.more{\r\n    width: 100%;\r\n    height: 20px;\r\n    padding: 1px 2px;\r\n    text-align: right;\r\n    text-indent: 10px;\r\n    font-family: Chinese;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    cursor: pointer;\r\n}\r\n.more{\r\n    cursor: pointer;\r\n}\r\n.writeMemo{\r\n    width: 100%;\r\n    height: 176px;\r\n    margin: 10px 0;\r\n}\r\n.writeMemo span{\r\n    display: block;\r\n    height: 22px;\r\n    line-height: 22px;\r\n    font-size: 18px;\r\n    font-family: English;\r\n    text-align: left;\r\n    text-indent: 20px;\r\n}\r\n.writeMemo input{\r\n    height: 26px;\r\n    width: 140px;\r\n    border: 1px solid #32629b;\r\n    padding: 1px 8px;\r\n    line-height: 20px;\r\n    font-size: 14px;\r\n    text-align: left;\r\n    position: relative;\r\n    border-radius: 6px;\r\n    left: 50px;\r\n    background-color: transparent; \r\n}\r\n.writeMemo textarea{\r\n    width: 270px;\r\n    height: 60px;\r\n    border: 1px solid #32629b;\r\n    background-color: transparent;\r\n    position: relative;\r\n    left: 50px;\r\n    text-align: left;\r\n    font-family: Chinese;\r\n    font-size: 14px;\r\n    padding: 5px;\r\n}\r\n.release{\r\n    border: 1px solid #ccc;\r\n    width: 94px;\r\n    height: 20px;\r\n    display: inline-block;\r\n    line-height: 20px;\r\n    padding: 1px 3px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n    background-color: #32629b;\r\n    margin-left: 20px;\r\n}\r\n.footer{\r\n    width: 100%;\r\n    height: 24px;\r\n    text-align: center;\r\n    position: relative;\r\n    line-height: 24px;\r\n    font-size: 14px;\r\n}\r\n.scrollBar{\r\n    width: 15px;\r\n    height: 100%;\r\n    position: fixed;\r\n    top: 0;\r\n    right: 0;\r\n    background-color: #000;\r\n    opacity: 0;\r\n}\r\n.rectangle{\r\n    width: 100%;\r\n    height: 50px;\r\n    background-color: #ccc;\r\n    position: absolute;\r\n}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function () {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for (var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if (item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function (modules, mediaQuery) {
-			if (typeof modules === "string") modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for (var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if (typeof id === "number") alreadyImportedModules[id] = true;
-			}
-			for (i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if (mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if (mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "d4fa09b8e3dc2b1b2d8b0458d10a776b.ttf";
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "d7c0892ee16814a194c6c074f7db9bb3.ttf";
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAQ4CAMAAAD7BJbwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MERCRDE4NUEzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MERCRDE4NUIzMDc0MTFFNjg2RUNEQTM4NDgzNzJDMkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowREJEMTg1ODMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowREJEMTg1OTMwNzQxMUU2ODZFQ0RBMzg0ODM3MkMyQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgMXfpQAAAGAUExURZJcJqBkJY1S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"
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-
-		update(obj);
-
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-
-	var replaceText = (function () {
-		var textStore = [];
-
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-
-		var blob = new Blob([css], { type: "text/css" });
-
-		var oldSrc = linkElement.href;
-
-		linkElement.href = URL.createObjectURL(blob);
-
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
 
 /***/ }
 /******/ ]);

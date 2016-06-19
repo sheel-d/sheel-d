@@ -1,39 +1,12 @@
 /*第四屏*/
 import $ from 'jquery';
+import {data} from './profileData.js';
 
 export function profileInit(){
 	var arr = null;
 	var json = [];
 	var $width = parseInt($('.profile').width());
 	var $height = parseInt($('.profile').height());
-
-	var data = [
-		{
-			item : '标题1',
-			content : 'hello',
-			time : '2016-6-12'
-		},
-		{
-			item : '标题2',
-			content : 'hello2',
-			time : '2016-6-13'
-		},
-		{
-			item : '标题3',
-			content : 'hello3',
-			time : '2016-6-14'
-		},
-		{
-			item : '标题4',
-			content : 'hello4',
-			time : '2016-6-15'
-		},
-		{
-			item : '标题5',
-			content : 'hello4',
-			time : '2016-6-16'
-		}
-	]; 
 
 	for(let i=0;i<data.length;i++){
 		createArticle(data[i].item,data[i].content,data[i].time);
