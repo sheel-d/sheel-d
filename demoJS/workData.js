@@ -12,6 +12,13 @@ marked.setOptions({
 	smartypants: false
 });
 
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
+
+
 var workData = [
 	{
 		content : 'html&css',
@@ -165,7 +172,7 @@ var workTitleData = {//每一类别有几个标题的数据
 };
 var workContentData = {
 	htmlCss1 : marked([ 
-				'### CSS引入的方式有哪些? link和@import的区别.\n\n',
+				'### CSS引入的方式有哪些--link和@import的区别\n\n',
 				'将css引入到页面的方式主要有4种：\n\n',
 				'#### 第一、将css样式写在`style`标签里面\n\n',
 				'`style`标签可以位于页面`html`标签中的任何位置，也可以多次出现。\
@@ -187,20 +194,32 @@ var workContentData = {
 				'4：link支持使用Javascript控制DOM去改变样式；而@import不支持。'
 			].join('')),
 	htmlCss2 : marked([
-			'### 清除浮动的几种方式，各自的优缺点.\n\n',
-			'```js\nvar React = require(\'react\');\nvar Markdown = require(\'react-markdown\');',
-				'\n\nReact.render(\n    <Markdown source="# Your markdown here" />,\n    document.',
-				'getElementById(\'content\')\n);\n```'
-		].join(''))
-	/*htmlCss3 : marked([
-			'### css图标与图片图标的区别.\n\n'
-		]).join(''),
+			'### 清除浮动的几种方式，各自的优缺点\n\n',
+			'1．父级div定义 height。\n\n',
+			'原理：父级div手动定义height，就解决了父级div无法自动获取到高度的问题。\n\n',
+			'优点：简单，代码少，容易掌握。\n\n',
+			'缺点：只适合高度固定的布局，要给出精确的高度，如果高度和父级div不一样时，会产生问题。\n\n',
+			'2．使用空标签清除浮动。\n\n',
+			'这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。\n\n',
+			'3．使用overflow。\n\n' ,
+			'给包含浮动元素的父标签添加css属性overflow:auto; zoom:1; zoom:1用于兼容IE6。\n\n',
+			'4．父级div定义 overflow:hidden。\n\n',
+			'原理：必须定义width或zoom:1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度。\n\n',
+			'优点：简单，代码少，浏览器支持好。\n\n',
+			'缺点：不能和position配合使用，因为超出的尺寸的会被隐藏。\n\n',
+			'5．使用after伪对象清除浮动。\n\n' ,
+			'```\n	.wrapfix:after {\n		content: "";\n		display: block;\n		height: 0;\n		clear: both;\n		visibility: hidden;\n	}```\n\n',
+			'6．父级div 也一起浮动。'
+		].join('')),
+	htmlCss3 : marked([
+			'### css图标与图片图标的区别\n\n'
+		].join('')),
 	htmlCss4 : marked([
 			'### display:none;与overflow:hidden的区别.\n\n'
 		].join('')),
 	htmlCss5 : marked([
 			'### Css盒模型.\n\n'
-		]),
+		].join('')),
 	js1 : marked([
 			'### 闭包.\n\n'
 		].join('')),
@@ -254,7 +273,7 @@ var workContentData = {
 		].join('')),
 	node1 : marked([
 			'### 标题1.\n\n'
-		].join(''))*/
+		].join(''))
 };
 
 export {workData,workTitleData,workContentData};
