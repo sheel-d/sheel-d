@@ -1,4 +1,17 @@
 
+import marked from 'marked';
+
+marked.setOptions({
+	renderer: new marked.Renderer(),
+	gfm: true,
+	tables: true,
+	breaks: false,
+	pedantic: false,
+	sanitize: true,
+	smartLists: true,
+	smartypants: false
+});
+
 var workData = [
 	{
 		content : 'html&css',
@@ -24,106 +37,106 @@ var workData = [
 var workTitleData = {//每一类别有几个标题的数据
 	htmlCss : [
 		{
-			title : '这是第一条htmlCss数据',
+			title : 'CSS引入的方式有哪些? link和@import的区别是?',
 			id : 'htmlCss1',
 			num : '1'
 		},
 		{
-			title : '这是第二条htmlCss数据',
+			title : '清除浮动的几种方式，各自的优缺点',
 			id : 'htmlCss2', 
 			num : '2'
 		},
 		{
-			title : '这是第三条htmlCss数据',
+			title : 'css图标与图片图标的区别',
 			id : 'htmlCss3', 
 			num : '3'
 		},
 		{
-			title : '这是第四条htmlCss数据',
+			title : 'display:none;与overflow:hidden的区别',
 			id : 'htmlCss4', 
 			num : '4'
 		},
 		{
-			title : '这是第五条htmlCss数据',
+			title : 'Css盒模型',
 			id: 'htmlCss5', 
 			num : '5'
 		}
 	],
 	js : [
 		{
-			title : '这是第一条js数据',
+			title : '闭包',
 			id : 'js1',
 			num : '1'
 		},
 		{
-			title : '这是第二条js数据',
+			title : 'oop编程',
 			id : 'js2', 
 			num : '2'
 		},
 		{
-			title : '这是第三条js数据',
+			title : 'ajax',
 			id : 'js3', 
 			num : '3'
 		},
 		{
-			title : '这是第四条js数据',
+			title : 'jsonp',
 			id : 'js4', 
 			num : '4'
 		},
 		{
-			title : '这是第五条js数据',
+			title : 'js事件流',
 			id: 'js5', 
 			num : '5'
 		},
 		{
-			title : '这是第一条js数据',
+			title : 'BFC',
 			id : 'js6',
 			num : '6'
 		},
 		{
-			title : '这是第二条js数据',
+			title : '函数柯里化',
 			id : 'js7', 
 			num : '7'
 		},
 		{
-			title : '这是第三条js数据',
+			title : '函数节流',
 			id : 'js8', 
 			num : '8'
 		},
 		{
-			title : '这是第四条js数据',
+			title : 'js动画',
 			id : 'js9', 
 			num : '9'
 		},
 		{
-			title : '这是第shi条js数据',
+			title : '跨域',
 			id: 'js10', 
 			num : '10'
 		}
 	],
 	H5C3 : [
 		{
-			title : '这是第一条H5C3_数据',
+			title : 'localStorage和sessionStorage的区别和联系',
 			id : 'H5C3_1',
 			num : '1'
 		},
 		{
-			title : '这是第二条H5C3_数据',
+			title : 'web storage和cookie的区别',
 			id : 'H5C3_2', 
 			num : '2'
 		},
 		{
-			title : '这是第三条H5C3_数据',
+			title : 'css3 animation',
 			id : 'H5C3_3', 
 			num : '3'
 		},
 		{
-			title : '这是第四条H5C3_数据',
+			title : 'Css3实现动画的方式有哪些',
 			id : 'H5C3_4', 
 			num : '4'
 		},
 		{
-			title : '这是第五条H5C3_数据',
+			title : '弹性盒模型',
 			id: 'H5C3_5', 
 			num : '5'
 		}
@@ -133,26 +146,6 @@ var workTitleData = {//每一类别有几个标题的数据
 			title : '这是第一条react数据',
 			id : 'react1',
 			num : '1'
-		},
-		{
-			title : '这是第二条react数据',
-			id : 'react2', 
-			num : '2'
-		},
-		{
-			title : '这是第三条react数据',
-			id : 'react3', 
-			num : '3'
-		},
-		{
-			title : '这是第四条react数据',
-			id : 'react4', 
-			num : '4'
-		},
-		{
-			title : '这是第五条react数据',
-			id: 'react5', 
-			num : '5'
 		}
 	],
 	es6 : [
@@ -160,26 +153,6 @@ var workTitleData = {//每一类别有几个标题的数据
 			title : '这是第一条ES2015_数据',
 			id : 'ES2015_1',
 			num : '1'
-		},
-		{
-			title : '这是第二条ES2015_数据',
-			id : 'ES2015_2', 
-			num : '2'
-		},
-		{
-			title : '这是第三条ES2015_数据',
-			id : 'ES2015_3', 
-			num : '3'
-		},
-		{
-			title : '这是第四条ES2015_数据',
-			id : 'ES2015_4', 
-			num : '4'
-		},
-		{
-			title : '这是第五条ES2015_数据',
-			id: 'ES2015_5', 
-			num : '5'
 		}
 	],
 	node : [
@@ -187,65 +160,114 @@ var workTitleData = {//每一类别有几个标题的数据
 			title : '这是第一条node数据',
 			id : 'node1',
 			num : '1'
-		},
-		{
-			title : '这是第二条node数据',
-			id : 'node2', 
-			num : '2'
-		},
-		{
-			title : '这是第三条node数据',
-			id : 'node3', 
-			num : '3'
-		},
-		{
-			title : '这是第四条node数据',
-			id : 'node4', 
-			num : '4'
-		},
-		{
-			title : '这是第五条node数据',
-			id: 'node5', 
-			num : '5'
 		}
 	]
 };
 var workContentData = {
-	htmlCss1 : 'content',
-	htmlCss2 : 'content',
-	htmlCss3 : 'content',
-	htmlCss4 : 'content',
-	htmlCss5 : 'content',
-	js1 : 'content',
-	js2 : 'content',
-	js3 : 'content',
-	js4 : 'content',
-	js5 : 'content',
-	js6 : 'content',
-	js7 : 'content',
-	js8 : 'content',
-	js9 : 'content',
-	js10 : 'content',
-	H5C3_1 : 'content',
-	H5C3_2 : 'content',
-	H5C3_3 : 'content',
-	H5C3_4 : 'content',
-	H5C3_5 : 'content',
-	react1 : 'content',
-	react2 : 'content',
-	react3 : 'content',
-	react4 : 'content',
-	react5 : 'content',
-	ES2015_1 : 'content',
-	ES2015_2 : 'content',
-	ES2015_3 : 'content',
-	ES2015_4 : 'content',
-	ES2015_5 : 'content',
-	node1 : 'content',
-	node2 : 'content',
-	node3 : 'content',
-	node4 : 'content',
-	node5 : 'content'
+	htmlCss1 : marked([ 
+				'### CSS引入的方式有哪些? link和@import的区别.\n\n',
+				'将css引入到页面的方式主要有4种：\n\n',
+				'#### 第一、将css样式写在`style`标签里面\n\n',
+				'`style`标签可以位于页面`html`标签中的任何位置，也可以多次出现。\
+				通常是将整个`<style></style>`结构写在页面的`<head></head>`部分中。\n\n',
+				'#### 第二种、将css样式写在标签的style属性里面\n\n',
+				'将style属性直接加在单个的html元素标签上，控制HTML标签的表现样式。\
+				使用STYLE属性的样式效果最强，会覆盖掉其它几种引入方式的相同样式效果。\n\n',
+				'#### 第三种、使用`<link>`标签引入外部的css文件\n\n',
+				'将css代码写在一个单独的文件中，用`<link>`标签直接引入该文件到页面中。\
+				一个页面可以多次使用`<link>`标签引入多个外部css文件，这些CSS代码的相互影响，\
+				通常是后引入的CSS文件会覆盖前面引入的CSS文件的相同效果。\n\n',
+				'#### 第四种、使用@import引入css文件\n\n',
+				'使用@import引入CSS文件有两种方式:一种可以放在页面中的`<style></style>` 中,用法如下：\
+				@import url(index.css);另一种是放在CSS文件中使用，用法：@import "index.css";\n\n',
+				'link和@import的区别主要有以下几点：\n\n',
+				'1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。\n\n',
+				'2：link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。\n\n',
+				'3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。\n\n',
+				'4：link支持使用Javascript控制DOM去改变样式；而@import不支持。'
+			].join('')),
+	htmlCss2 : marked([
+			'### 清除浮动的几种方式，各自的优缺点.\n\n',
+			'```js\nvar React = require(\'react\');\nvar Markdown = require(\'react-markdown\');',
+				'\n\nReact.render(\n    <Markdown source="# Your markdown here" />,\n    document.',
+				'getElementById(\'content\')\n);\n```'
+		].join(''))
+	/*htmlCss3 : marked([
+			'### css图标与图片图标的区别.\n\n'
+		]).join(''),
+	htmlCss4 : marked([
+			'### display:none;与overflow:hidden的区别.\n\n'
+		].join('')),
+	htmlCss5 : marked([
+			'### Css盒模型.\n\n'
+		]),
+	js1 : marked([
+			'### 闭包.\n\n'
+		].join('')),
+	js2 : marked([
+			'### oop编程.\n\n'
+		].join('')),
+	js3 : marked([
+			'### ajax.\n\n'
+		].join('')),
+	js4 : marked([
+			'### jsonp.\n\n'
+		].join('')),
+	js5 : marked([
+			'### js事件流.\n\n'
+		].join('')),
+	js6 : marked([
+			'### BFC.\n\n'
+		].join('')),
+	js7 : marked([
+			'### 函数柯里化.\n\n'
+		].join('')),
+	js8 : marked([
+			'### 函数节流.\n\n'
+		].join('')),
+	js9 : marked([
+			'### js动画.\n\n'
+		].join('')),
+	js10 : marked([
+			'### 跨域.\n\n'
+		].join('')),
+	H5C3_1 : marked([
+			'### localStorage和sessionStorage的区别和联系.\n\n'
+		].join('')),
+	H5C3_2 : marked([
+			'### web storage和cookie的区别.\n\n'
+		].join('')),
+	H5C3_3 : marked([
+			'### css3 animation.\n\n'
+		].join('')),
+	H5C3_4 : marked([
+			'### Css3实现动画的方式有哪些.\n\n'
+		].join('')),
+	H5C3_5 : marked([
+			'### 弹性盒模型.\n\n'
+		].join('')),
+	react1 : marked([
+			'### 标题1.\n\n'
+		].join('')),
+	ES2015_1 : marked([
+			'### 标题1.\n\n'
+		].join('')),
+	node1 : marked([
+			'### 标题1.\n\n'
+		].join(''))*/
 };
 
 export {workData,workTitleData,workContentData};
+
+/*'# Markdown demo\n\nChanges are automatically rendered as you type.\n\n* Follows the ',
+'[CommonMark](http://commonmark.org/) spec\n* Renders actual, "native" React DOM ',
+'elements\n* Allows you to escape or skip HTML (try toggling the checkboxes above)',
+'\n* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!\n',
+'\n## HTML block below\n\n<blockquote>\n    This blockquote will change based ',
+'on the HTML settings above.\n</blockquote>\n\n## How about some code?\n',
+'```js\nvar React = require(\'react\');\nvar Markdown = require(\'react-markdown\');',
+'\n\nReact.render(\n    <Markdown source="# Your markdown here" />,\n    document.',
+'getElementById(\'content\')\n);\n```\n\nPretty neat, eh?\n\n', '## More info?\n\n',
+'Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)\n\n',
+'---------------\n\n',
+'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal'*/

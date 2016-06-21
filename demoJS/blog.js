@@ -9,10 +9,14 @@ import {scrollBarEvent} from './scrollBar.js';
 
 import $ from 'jquery';
 import './TweenMax.js';
-
+import high from 'highlight.js';
 /*import '../css/index.css';*/
+require ('highlight.js/styles/solarized-light.css');
 
 window.onload = function(){
+	$('pre code').each(function(i,block){
+		high.highlightBlock(block);
+	});
 	//Animate:动画
 	var sheel = {};
 	//初始化
