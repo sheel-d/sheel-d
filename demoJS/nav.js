@@ -1,4 +1,4 @@
-/*导航条*/
+
 import $ from 'jquery';
 import {workAnimate} from './work.js';
 

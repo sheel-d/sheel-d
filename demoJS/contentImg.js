@@ -1,4 +1,4 @@
-/*第一屏*/
+
 import $ from 'jquery';
 
 export function imgInitAnimate(){

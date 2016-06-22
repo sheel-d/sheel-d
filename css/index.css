@@ -387,7 +387,7 @@ textarea { resize:none; overflow:auto; }
 .t-work{
     width: 0;
     height: 0;
-    border: 2px solid #000;
+    border: 2px solid #444041;
     position: relative;
     top: 50%;
     margin-top: -1px;
@@ -398,7 +398,7 @@ textarea { resize:none; overflow:auto; }
 .circle{
     display: inline-block;   
     opacity: 0;
-    background: red;
+    background: #24300c;
     border-radius: 50%;
     position: absolute;
     top: -9px;
@@ -424,7 +424,7 @@ textarea { resize:none; overflow:auto; }
 .v-line{
     width: 1px;
     opacity: 0;
-    background: red;
+    background: #24300c;
     display: inline-block;
     position: absolute;
     left: 10px;
@@ -453,7 +453,8 @@ textarea { resize:none; overflow:auto; }
     height: 18px;
     font-size: 14px;
     line-height: 18px;
-    border: 1px solid red;
+    border: 1px solid #337803;
+    color: #eee;
     position: absolute;
     cursor: pointer;
     opacity: 0;
@@ -463,34 +464,40 @@ textarea { resize:none; overflow:auto; }
     left: -24px;
     -moz-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
+    width: 56px;
 }
 .t-work p:nth-child(2) span{
     top: -157px;
     left: -32px;
+    width: 70px;
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
 .t-work p:nth-child(3) span{
     top: 127px;
     left: -30px;
+    width: 70px;
     -moz-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
 }
 .t-work p:nth-child(4) span{
     top: -138px;
     left: -14px;
+    width: 35px;
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
 .t-work p:nth-child(5) span{
     top: 113px;
     left: -17px;
+    width: 42px;
     -moz-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
 }
 .t-work p:nth-child(6) span{
     top: -141px;
     left: -18px;
+    width: 42px;
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
@@ -577,7 +584,7 @@ textarea { resize:none; overflow:auto; }
 .content{
     width: auto;
     height: auto;
-    padding: 30px;
+    padding:10px 30px;
     display: none;
 }
 .content-box{

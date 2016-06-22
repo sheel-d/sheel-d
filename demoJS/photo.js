@@ -1,4 +1,4 @@
-/*第二屏 --未完成*/
+
 import $ from 'jquery';
 
 import {photoData} from './photoData.js';

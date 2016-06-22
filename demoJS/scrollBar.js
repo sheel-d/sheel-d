@@ -83,7 +83,9 @@ function mousewheelfn(ev){
         		opacity : 0
         	},800);
 
-        	$('.work').css('top',-$mainHeight).animate({
+        	$('.work').css({
+                top : -$mainHeight
+            }).animate({
         		top : 85,
         		opacity : 1
         	},800);
@@ -157,7 +159,7 @@ function mousewheelfn(ev){
 
         	$('.work').animate({
         		top : 85,
-        		opacity : 1
+        		opacity : 1,
         	},800);
 
         	t.to('.scrollBar',1,{
