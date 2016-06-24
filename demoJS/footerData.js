@@ -2,15 +2,21 @@
 
 var footerData = [
 	{
-	 	imgUrl : './img/'+minMaxNum(1,10)+'.jpg',
-	 	author : 'sheel',
-	 	time : '2016-6-15',
-	 	content : '我是第一个留言的，嘻嘻'
+	 	url : './img/object-1.jpg',
+	 	title : '静谧网',
+	 	content : '2016-6-15',
+	},
+	{
+	 	url : './img/object-4.jpg',
+	 	title : '静谧网',
+	 	content : '2016-6-15',
 	}
 ];
-
+var textData = {
+	text : 'hello'
+}
 function minMaxNum(min,max){
 	return Math.round(Math.random()*(max-min)+min);
 }
 
-export {footerData};
+export {footerData,textData};

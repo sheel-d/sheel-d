@@ -52,6 +52,9 @@ export function navEvent(){
 		var $pTop = parseInt($('.profile').css('top'));
 		var $mTop = parseInt($('.memo').css('top'));
 
+		$('.workContent').css('display','none');
+		$('.t-work').css('display','block');
+
 		if($text == '首页'){
 
 			if( $conTop == '85'){

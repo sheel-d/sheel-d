@@ -116,7 +116,7 @@ var workTitleData = {//每一类别有几个标题的数据
 			num : '9'
 		},
 		{
-			title : '跨域',
+			title : '跨域及跨域问题解决',
 			id: 'js10', 
 			num : '10'
 		},
@@ -140,7 +140,6 @@ var workTitleData = {//每一类别有几个标题的数据
 			id: 'js14', 
 			num : '14'
 		}
-
 	],
 	H5C3 : [
 		{
@@ -154,7 +153,7 @@ var workTitleData = {//每一类别有几个标题的数据
 			num : '2'
 		},
 		{
-			title : 'css3 animation',
+			title : 'css3新增的属性',
 			id : 'H5C3_3', 
 			num : '3'
 		},
@@ -348,19 +347,44 @@ var workContentData = {
 		].join('')),
 	js7 : marked([
 			'### 函数柯里化.\n\n',
-			''
+			'函数柯里化是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，\
+			并且返回接受余下的参数而且返回结果的新函数的技术。\n\n',
+			'柯里化函数通常有以下不走动态创建：调用另一个函数并为它传入要柯里化的函数和必要参数。\n\n',
+			'创建柯里化函数的通用方式：\n\n',
+			'```	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n',
+			'		return function(){\n			var innerArgs = Array.prptotype.slice.call(arguments);\n',
+			'			var finalArgs = args.concat(innerArgs);\n		};\n	}```'
 		].join('')),
 	js8 : marked([
 			'### 函数节流.\n\n',
-			''
+			'函数节流的基本思想是指：某些代码不可在没有间断的情况连续重复执行。可以用setTimeout来完成，第一次调用函数，创建一个\
+			定时器，在指定的时间间隔之后运行代码。当第二次调用该函数时，它会清除前一次的定时器并设置另一个。\n\n',
+			'在jq中可以用setTimeout+one()来完成：\n\n',
+			'```	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n',
+            '			$("#id").one("mousewheel",mousewheelfn);\n		},800);\n	}```\n\n',
+            '不过在使用mousewheel事件时，要注意做兼容，Opera、Chrome、Safari支持该事件，Firefox不支持；\
+            Firefox浏览器支持的是DOMMouseScroll的类似事件，在鼠标滚轮滚动的时候触发。'
 		].join('')),
 	js9 : marked([
 			'### js动画.\n\n',
 			''
 		].join('')),
 	js10 : marked([
-			'### 跨域.\n\n',
-			''
+			'### 跨域及跨域问题解决.\n\n',
+			'跨域问题是由于javascript语言安全限制中的同源策略造成的.\n\n',
+			'同源策略是指一段脚本只能读取来自同一来源的窗口和文档的属性,这里的同一来源指的是主机名、协议和端口号的组合.\n\n',
+			'### 解决跨域的方案\n\n',
+			'#### 图像Ping\n\n',
+			'使用动态创建图像，使用onload和onerror事件处理程序来确定是否接收到响应，添加src属性值是是一个URL；例：\n\n',
+			'```\nvar img = new Image();\nimg.onload = img.onerror = function(){\n	alert("done");\n};\n',
+			'img.src = "http://www.example.com/test?name=Nice";```\n\n',
+			'图像Ping这种方式的优点很明显：兼容性非常好。\n\n',
+			'不过图像Ping有两个主要的缺点，一是只能发送GET请求的时候才能用，二是无法访问服务器的响应文本。因此，图像Ping\
+			只能用于浏览器与服务器间的单向通信。\n\n',
+			'#### JSONP\n\n',
+			'#### Comet\n\n',
+			'#### 服务器发送事件（SSE）\n\n',
+			'#### Web Sockets\n\n'
 		].join('')),
 	js11 : marked([
 			'### 设计模式-工厂模式.\n\n',
@@ -422,7 +446,7 @@ var workContentData = {
 			'Cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在，而Web Storage仅仅是为了在本地“存储”数据而生。'
 		].join('')),
 	H5C3_3 : marked([
-			'### css3 animation.\n\n'
+			'### css3新增的属性.\n\n'
 		].join('')),
 	H5C3_4 : marked([
 			'### Css3实现动画的方式.\n\n'
@@ -443,15 +467,3 @@ var workContentData = {
 
 export {workData,workTitleData,workContentData};
 
-/*'# Markdown demo\n\nChanges are automatically rendered as you type.\n\n* Follows the ',
-'[CommonMark](http://commonmark.org/) spec\n* Renders actual, "native" React DOM ',
-'elements\n* Allows you to escape or skip HTML (try toggling the checkboxes above)',
-'\n* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!\n',
-'\n## HTML block below\n\n<blockquote>\n    This blockquote will change based ',
-'on the HTML settings above.\n</blockquote>\n\n## How about some code?\n',
-'```js\nvar React = require(\'react\');\nvar Markdown = require(\'react-markdown\');',
-'\n\nReact.render(\n    <Markdown source="# Your markdown here" />,\n    document.',
-'getElementById(\'content\')\n);\n```\n\nPretty neat, eh?\n\n', '## More info?\n\n',
-'Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)\n\n',
-'---------------\n\n',
-'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal'*/

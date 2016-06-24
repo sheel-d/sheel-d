@@ -564,6 +564,24 @@ textarea { resize:none; overflow:auto; }
     left:200px;
     height: 100%;
 }
+.return{
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+.return span{
+    line-height: 20px;
+    font-size: 16px;
+    color: #000;
+    font-family: Chinese;
+}
+.return span:hover{
+    color: #CCC;
+}
 .title{
     width: auto;
     height: auto;
@@ -580,6 +598,9 @@ textarea { resize:none; overflow:auto; }
     line-height: 20px;
     cursor: pointer;
     font-family: Chinese;
+}
+.title p:hover{
+    color: #32629b;
 }
 .content{
     width: auto;
@@ -641,6 +662,9 @@ textarea { resize:none; overflow:auto; }
 .articleContent{
     text-overflow: ellipsis;
 }
+.articleContent p{
+    word-break: break-all;
+}
 .articleTime{
     height: 18px;
     text-align: right;
@@ -659,90 +683,93 @@ textarea { resize:none; overflow:auto; }
     display: none;
 }
 /* message */
-.message{
-    min-width: 1000px;
-    max-width: 1200px;
+
+.text{
+    width: 100%;
+    height: 80px;
+}
+.text p{
     margin: 0 auto;
-}
-.messageMemo{
-    width: 100%;
-    padding: 5px 0;
-}
-.userMemo{
-    width: 100%;
-    margin-bottom: 15px;
-}
-.userMemo p{
-    width: 100%;
-    height: 20px;
+    width: 600px;
     line-height: 20px;
-    padding: 2px 5px;
     font-size: 16px;
-    font-family: Chinese;
     text-align: left;
-}
-.userMemo p:nth-child(2){
-    text-indent: 10px;
-}
-.userMemo p:nth-child(3){
     text-indent: 20px;
+    word-break: break-all;
 }
-.box{
+.object{
     width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: stretch;
 }
-.memoBox{
-    width: 100%;
-    height: 120px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    border-top: none;
+.grid{
+    width: 216px;
+    height:384px;
+    position: relative;
 }
-.memoBox:first-of-type{
-    border-top: 1px solid #ccc;
-}
-.memoBox:last-of-type{
-    border-bottom: 1px solid #ccc;
-}
-.box .memoBox:last-of-type .leftUser{
-    border-bottom: none;
-}
-.box .memoBox:last-of-type .rightContent{
-    border-bottom: none;
-}
-.leftUser{
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    float: left;
-    border-bottom: 1px #ccc dashed;
-}
-.leftUser img{
+.grid figure{
     width: 100%;
     height: 100%;
+    margin: 0;
+}
+.grid img{
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.grid svg{
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;}
+.grid figcaption{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+.grid figcaption h2{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    font-family: Chinese;
     transition: 0.5s;
 }
-.rightContent{
-    height: 100px;
-    padding: 10px 20px 10px 0;
-    float: left;
-    border-bottom: 1px #ccc dashed;
-}
-.rightContent p{
-    height: 20px;
-    width: 100%;
-    padding: 2px 5px;
+.grid figcaption p{
+    position: absolute;
+    padding: 2px 10px;
     line-height: 20px;
     font-size: 16px;
-    font-family: Chinese;
     text-align: left;
+    font-family: Chinese;
+    cursor: pointer;
+    word-break: break-all;
+    width: auto;
+    height: auto;
+    transition: 0.5s;
 }
-.rightContent p:nth-child(1){
-    text-indent: 10px;
+.grid figcaption span{
+    position: absolute;
+    text-align: center;
+    font-family: English;
+    line-height: 20px;
+    font-size: 16px;
+    padding: 3px 10px;
+    border: 1px solid #ccc;
+    opacity: 0;
+    cursor: pointer;
+    transition: 0.5s;
+    color: #fff;
 }
-.rightContent p:nth-child(2){
-    text-indent: 20px;
-}
-
 .footer{
     width: 100%;
     height: 24px;

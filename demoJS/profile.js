@@ -8,6 +8,8 @@ export function profileInit(){
 	var $width = parseInt($('.profile').width());
 	var $height = parseInt($('.profile').height());
 
+	$('.articleBox').attr('_begin','F');
+
 	for(let i=0;i<data.length;i++){
 		createArticle(data[i].content,data[i].time);
 		arr = randomNumber(40,20);
@@ -164,6 +166,7 @@ export function profileEvent(){
 			});
 		}
 	}).delegate('.article','mouseleave',function(){//移出
+		$('.articleBox').attr('_begin','F');
 		var $left = $(this).attr('_left');
 		var $top = $(this).attr('_top');
 		var $width = $(this).attr('_width');
@@ -185,6 +188,7 @@ export function profileEvent(){
 		});
 
 	}).delegate('.article','click',function(){
+		$('.articleBox').attr('_begin','T');
 		$('.mark').css({
 			display : 'block'
 		});

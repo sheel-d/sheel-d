@@ -106,18 +106,12 @@
 		sheel.workEvent();
 
 		//第四屏
-		sheel.profileInit = _profile.profileInit;
-		sheel.profileInit();
-
 		sheel.profileEvent = _profile.profileEvent;
 		sheel.profileEvent();
 
 		//第五屏
-		sheel.messageInit = _footer.messageInit;
-		sheel.messageInit();
-
-		sheel.memoEvent = _footer.memoEvent;
-		sheel.memoEvent();
+		sheel.objectEvent = _footer.objectEvent;
+		sheel.objectEvent();
 
 		//滚动条
 		sheel.scrollBarEvent = _scrollBar.scrollBarEvent;
@@ -143,7 +137,7 @@
 
 	var _work = __webpack_require__(5);
 
-	__webpack_require__(168);
+	var _profile = __webpack_require__(168);
 
 	var _footer = __webpack_require__(170);
 
@@ -155,15 +149,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/*
-		初始化需要做的事：
-			1、设置每一屏的快高
-			2、导航条的动画
-			3、第一屏的动画
-			4、第一屏需要做的事
-			5、滚动条隐藏，使用自己做的滚动条
-			
-	*/
 	function init() {
 		Height();
 		(0, _nav.createNav)('#menu');
@@ -171,17 +156,16 @@
 		(0, _contentImg.createUser)();
 		(0, _contentImg.cUserHeight)();
 		initAnimate();
-		//滚动条
+
 		(0, _scrollBar.initScrollBar)();
 
-		//第三屏
 		(0, _work.createWork)();
 		(0, _work.createWorkContent)();
 		(0, _work.styleWorkContent)();
 
-		//第五屏
-		(0, _footer.createMessage)();
-		(0, _footer.createFooter)();
+		(0, _profile.profileInit)();
+
+		(0, _footer.objectInit)();
 	};
 
 	function Height() {
@@ -284,6 +268,9 @@
 			var $wTop = parseInt((0, _jquery2.default)('.work').css('top'));
 			var $pTop = parseInt((0, _jquery2.default)('.profile').css('top'));
 			var $mTop = parseInt((0, _jquery2.default)('.memo').css('top'));
+
+			(0, _jquery2.default)('.workContent').css('display', 'none');
+			(0, _jquery2.default)('.t-work').css('display', 'block');
 
 			if ($text == '首页') {
 
@@ -2165,7 +2152,7 @@
 	}
 
 	function createWork() {
-		var str = ' <div class="t-work"></div>';
+		var str = ' <div class="t-work" _begin="F"></div>';
 		(0, _jquery2.default)('.work').append((0, _jquery2.default)(str));
 		for (var i = 0; i < _workData.workData.length; i++) {
 			createCircle(_workData.workData[i]);
@@ -2186,6 +2173,7 @@
 	                   <ul class="list"></ul>\
 	               </div>\
 	               <div class="workRight">\
+	               		<div class="return"><span>返回</span></div>\
 			            <div class="title"></div>\
 			            <div class="content"></div>\
 	               </div>\
@@ -2226,6 +2214,7 @@
 		//点击事件
 		var num = 0;
 		(0, _jquery2.default)('.t-work').delegate('.v-content', 'click', function () {
+			(0, _jquery2.default)('.t-work').attr('_begin', 'T');
 			(0, _jquery2.default)('.list').html('');
 			(0, _jquery2.default)('.title').html('');
 			var $_title = (0, _jquery2.default)(this).attr('_title');
@@ -2256,6 +2245,18 @@
 			(0, _jquery2.default)('.title').css('display', 'none');
 			(0, _jquery2.default)('.content').css('display', 'block');
 		});
+		(0, _jquery2.default)('.return').on('click', function () {
+			var $conDisplay = (0, _jquery2.default)('.content').css('display');
+			var $titDisplay = (0, _jquery2.default)('.title').css('display');
+			if ($conDisplay == 'block') {
+				(0, _jquery2.default)('.content').css('display', 'none');
+				(0, _jquery2.default)('.title').css('display', 'block');
+			} else if ($titDisplay == 'block') {
+				(0, _jquery2.default)('.t-work').attr('_begin', 'F');
+				(0, _jquery2.default)('.workContent').css('display', 'none');
+				(0, _jquery2.default)('.t-work').css('display', 'block');
+			}
+		});
 	};
 
 /***/ },
@@ -2269,15 +2270,11 @@
 	});
 	exports.workContentData = exports.workTitleData = exports.workData = undefined;
 
-	var _workContentData;
-
 	var _marked = __webpack_require__(7);
 
 	var _marked2 = _interopRequireDefault(_marked);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	_marked2.default.setOptions({
 		renderer: new _marked2.default.Renderer(),
@@ -2375,7 +2372,7 @@
 			id: 'js9',
 			num: '9'
 		}, {
-			title: '跨域',
+			title: '跨域及跨域问题解决',
 			id: 'js10',
 			num: '10'
 		}, {
@@ -2404,7 +2401,7 @@
 			id: 'H5C3_2',
 			num: '2'
 		}, {
-			title: 'css3 animation',
+			title: 'css3新增的属性',
 			id: 'H5C3_3',
 			num: '3'
 		}, {
@@ -2432,7 +2429,7 @@
 			num: '1'
 		}]
 	};
-	var workContentData = (_workContentData = {
+	var workContentData = {
 		htmlCss1: (0, _marked2.default)(['### CSS引入的方式有哪些--link和@import的区别\n\n', '将css引入到页面的方式主要有4种：\n\n', '#### 第一、将css样式写在`style`标签里面\n\n', '`style`标签可以位于页面`html`标签中的任何位置，也可以多次出现。\
 					通常是将整个`<style></style>`结构写在页面的`<head></head>`部分中。\n\n', '#### 第二种、将css样式写在标签的style属性里面\n\n', '将style属性直接加在单个的html元素标签上，控制HTML标签的表现样式。\
 					使用STYLE属性的样式效果最强，会覆盖掉其它几种引入方式的相同样式效果。\n\n', '#### 第三种、使用`<link>`标签引入外部的css文件\n\n', '将css代码写在一个单独的文件中，用`<link>`标签直接引入该文件到页面中。\
@@ -2447,43 +2444,7 @@
 				这样不使用闭包也能得到相应的结果，也避免了闭包带来的内存泄漏问题。\
 				\
 				'].join('')),
-		js2: (0, _marked2.default)(['### oop编程.\n\n', '面向对象是指用对象的思想去写代码，就是面向对象编程。\n\n', '#### 面向对象编程（OOP）的特点：\n\n', '1、抽象：抓住核心问题；\n\n', '2、封装：只能通过对象来访问方法；\n\n', '3、继承：从已有对象上继承出新的对象；\n\n', '4、多态：多对象的不同形态。\n\n', '#### 对象的组成：\n\n', ' 1、方法（行为、操作）-- 函数： 过程是动态的；\n\n', ' 2、属性 -- 变量：状态是静态的。\n\n'].
-		/*'#### 设计模式：\n\n',
-	 '1、工厂模式.\n\n',
-	 '工厂模式是一种实现“工厂”概念的面上对象设计模式。实质是定义一个创建对象的接口，\
-	 但是让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行\n\n',
-	 '```\n	function createPerson(name,age,job){\n		var o = new Object();\n		o.name = name;\n',
-	 '		o.age = age;\n		o.job = job;\n		o.sayName = function(){\n			alert(this.name);\n',
-	 '		};\n		return o;	}\n	var per1 = createPerson("Sheel",22,"Student");\n',
-	 '	var per2 = createPerson("Sheel-d",22,"student");```\n\n',*/
-		/*'2、构造函数模式.\n\n',
-	 'ECMAScript中的构造函数的可用来创建特定的类型的对象，\
-	 也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。\n\n',
-	 '```\n	function Person(name,age,job){\n		this.name = name;\n		this.age = age;\n',
-	 '		this.job = job;\n		this.sayName = function(){\n			alert(this.name);\n',
-	 '		};\n	}\n	var per1 = new Person("sheel",22,"student");\n',
-	 '	var per2 = new Person("sheel-d",22,"student");```\n\n',
-	 '与工厂模式的区别：没有显示的创建对象；直接将属性和方法赋给了this对象；没有return语句。',
-	 '使用构造函数时需要注意：按照惯例，函数名的首字母；使用new创建对象；能够识别对象；',
-	 '优点缺点：缺点->使用构造函数的最大的问题在于每次创建实例的时候都要重新创建一次方法\n\n',*/
-		/*'3、原型模式.\n\n',
-	 '我们创建的每个函数都有prototype（原型）属性，这个属性是一个指针，指向一个对象，\
-	 而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。\
-	 使用原型对象的好处就是可以让所有对象实例共享它所包含的属性及方法。\n\n',
-	 '```\n	function Per(){}\n	Per.prptotype.name = "sheel";\n',
-	 '	Per.prptotype.age = 22;\n	Per.prptotype.job = "student";\n',
-	 '	Per.prptotype.sayName = function(){\n		alert(this.name);\n	};\n',
-	 '	var per1 = new Per();\n	per1.sayName();```\n\n',
-	 '原型模式也不是没有缺点，首先，它省略了构造函数传递初始化参数这一环节，\
-	 结果所有实例在默认情况下都取得了相同的属性值，这样非常不方便，但这还是不是原型的最大问题，\
-	 原型模式的最大问题在于共享的本性所导致的，由于共享，因此因此一个实例修改了引用，\
-	 另一个也随之更改了引用。因此我们通常不单独使用原型，而是结合原型模式与构造函数模式。\n\n',
-	 '4、混合模式(原型模式 + 构造函数模式)\n\n',
-	 '混合模式中构造函数模式用于定义实例属性，而原型模式用于定义方法和共享属性。\
-	 每个实例都会有自己的一份实例属性，但同时又共享着方法，最大限度的节省了内存。\
-	 另外这种模式还支持传递初始参数。优点甚多。这种模式在ECMAScript中是使用最广泛、\
-	 认同度最高的一种创建自定义对象的方法。'*/
-		join('')),
+		js2: (0, _marked2.default)(['### oop编程.\n\n', '面向对象是指用对象的思想去写代码，就是面向对象编程。\n\n', '#### 面向对象编程（OOP）的特点：\n\n', '1、抽象：抓住核心问题；\n\n', '2、封装：只能通过对象来访问方法；\n\n', '3、继承：从已有对象上继承出新的对象；\n\n', '4、多态：多对象的不同形态。\n\n', '#### 对象的组成：\n\n', ' 1、方法（行为、操作）-- 函数： 过程是动态的；\n\n', ' 2、属性 -- 变量：状态是静态的。\n\n'].join('')),
 		js3: (0, _marked2.default)(['### ajax.\n\n', 'AJAX是指异步JavaScript和XML；用JavaScript异步形式去操作xml。AJAX的作用是数据交互，是一个数据交互的过程。', 'AJAX的步骤：创建XMLHttpRequest对象 -> 使用XMLHttpRequest对象打开一个连接 -> \
 				设置请求的头部 -> 发送请求 -> 设置回调函数接收服务器返回的内容\n\n', '```\n	function ajax(method, url, data, callback){\n		var xhr = null;\n		try {', 'xhr = new XMLHttpRequest();} catch (e) {xhr = new ActiveXObject("Microsoft.XMLHTTP");', '}\n		if (method == "get" && data) {url += "?" + data;}\n', '		xhr.open(method,url,true);\n		if (method == "get") {xhr.send();', '} else {xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");', 'xhr.send(data);}\n		xhr.onreadystatechange = function() {\n', '			if ( xhr.readyState == 4 ) {\n				if ( xhr.status == 200 ) {', 'callback && callback(xhr.responseText);} else {', 'alert("出错了,Err：" + xhr.status);}\n			}\n		}\n	}```\n\n', 'responseText : ajax请求返回的内容就被存放到这个属性下面.\n\n', 'nreadystatechange：当readyState改变的时候触发.\n\n', 'readyState : ajax的工作状态（0（初始化）,1（载入）,2（载入完成）,3（解析）,4（完成））.'].join('')),
 		js4: (0, _marked2.default)(['### jsonp.\n\n', 'JSONP是JSON的一种使用模式，可以让网页从别的域名(网站)获取资料，即跨域读取数据。\
@@ -2506,32 +2467,45 @@
 				的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。BFC的区域不会与float box叠加。\
 				BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。计算BFC的高度时，\
 				浮动元素也参与计算。'].join('')),
-		js7: (0, _marked2.default)(['### 函数柯里化.\n\n'].join('')),
-		js8: (0, _marked2.default)(['### 函数节流.\n\n'].join('')),
-		js9: (0, _marked2.default)(['### js动画.\n\n'].join('')),
-		js10: (0, _marked2.default)(['### 跨域.\n\n'].join(''))
-	}, _defineProperty(_workContentData, 'js10', (0, _marked2.default)(['### 跨域.\n\n'].join(''))), _defineProperty(_workContentData, 'js11', (0, _marked2.default)(['### 设计模式-工厂模式.\n\n'].join(''))), _defineProperty(_workContentData, 'js12', (0, _marked2.default)(['### 设计模式-构造函数模式.\n\n'].join(''))), _defineProperty(_workContentData, 'js13', (0, _marked2.default)(['### 设计模式-原型模式.\n\n'].join(''))), _defineProperty(_workContentData, 'js14', (0, _marked2.default)(['### 设计模式-混合模式.\n\n'].join(''))), _defineProperty(_workContentData, 'H5C3_1', (0, _marked2.default)(['### localStorage和sessionStorage的区别和联系.\n\n', 'localStorage和sessionStorage一样都是用来存储客户端临时信息的对象。\n\n', 'localStorage生命周期是永久，除非用户显示在浏览器提供的UI上清除localStorage信息，否则使用localStorage保存的信息将永远存在。\n\n', 'sessionStorage生命周期为当前窗口或标签页，一旦窗口或标签页被永久关闭了，那么所有通过sessionStorage存储的数据也就被清空。\
-				第二次在打开窗口时，就不会有上一次打开窗口所保存的信息。\n\n'].join(''))), _defineProperty(_workContentData, 'H5C3_2', (0, _marked2.default)(['### web storage和cookie的区别.\n\n', 'Web Storage的概念和cookie相似，区别是它是为了更大容量存储设计的。\
+		js7: (0, _marked2.default)(['### 函数柯里化.\n\n', '函数柯里化是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，\
+				并且返回接受余下的参数而且返回结果的新函数的技术。\n\n', '柯里化函数通常有以下不走动态创建：调用另一个函数并为它传入要柯里化的函数和必要参数。\n\n', '创建柯里化函数的通用方式：\n\n', '```	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n', '		return function(){\n			var innerArgs = Array.prptotype.slice.call(arguments);\n', '			var finalArgs = args.concat(innerArgs);\n		};\n	}```'].join('')),
+		js8: (0, _marked2.default)(['### 函数节流.\n\n', '函数节流的基本思想是指：某些代码不可在没有间断的情况连续重复执行。可以用setTimeout来完成，第一次调用函数，创建一个\
+				定时器，在指定的时间间隔之后运行代码。当第二次调用该函数时，它会清除前一次的定时器并设置另一个。\n\n', '在jq中可以用setTimeout+one()来完成：\n\n', '```	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n', '			$("#id").one("mousewheel",mousewheelfn);\n		},800);\n	}```\n\n', '不过在使用mousewheel事件时，要注意做兼容，Opera、Chrome、Safari支持该事件，Firefox不支持；\
+	            Firefox浏览器支持的是DOMMouseScroll的类似事件，在鼠标滚轮滚动的时候触发。'].join('')),
+		js9: (0, _marked2.default)(['### js动画.\n\n', ''].join('')),
+		js10: (0, _marked2.default)(['### 跨域及跨域问题解决.\n\n', '跨域问题是由于javascript语言安全限制中的同源策略造成的.\n\n', '同源策略是指一段脚本只能读取来自同一来源的窗口和文档的属性,这里的同一来源指的是主机名、协议和端口号的组合.\n\n', '### 解决跨域的方案\n\n', '#### 图像Ping\n\n', '使用动态创建图像，使用onload和onerror事件处理程序来确定是否接收到响应，添加src属性值是是一个URL；例：\n\n', '```\nvar img = new Image();\nimg.onload = img.onerror = function(){\n	alert("done");\n};\n', 'img.src = "http://www.example.com/test?name=Nice";```\n\n', '图像Ping这种方式的优点很明显：兼容性非常好。\n\n', '不过图像Ping有两个主要的缺点，一是只能发送GET请求的时候才能用，二是无法访问服务器的响应文本。因此，图像Ping\
+				只能用于浏览器与服务器间的单向通信。\n\n', '#### JSONP\n\n', '#### Comet\n\n', '#### 服务器发送事件（SSE）\n\n', '#### Web Sockets\n\n'].join('')),
+		js11: (0, _marked2.default)(['### 设计模式-工厂模式.\n\n', '工厂模式是一种实现“工厂”概念的面上对象设计模式。实质是定义一个创建对象的接口，\
+	  			但是让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行\n\n', '```\n	function createPerson(name,age,job){\n		var o = new Object();\n		o.name = name;\n', '		o.age = age;\n		o.job = job;\n		o.sayName = function(){\n			alert(this.name);\n', '		};\n		return o;	}\n	var per1 = createPerson("Sheel",22,"Student");\n', '	var per2 = createPerson("Sheel-d",22,"student");```\n\n', '优点缺点'].join('')),
+		js12: (0, _marked2.default)(['### 设计模式-构造函数模式.\n\n', 'ECMAScript中的构造函数的可用来创建特定的类型的对象，\
+	  			也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。\n\n', '```\n	function Person(name,age,job){\n		this.name = name;\n		this.age = age;\n', '		this.job = job;\n		this.sayName = function(){\n			alert(this.name);\n', '		};\n	}\n	var per1 = new Person("sheel",22,"student");\n', '	var per2 = new Person("sheel-d",22,"student");```\n\n', '与工厂模式的区别：没有显示的创建对象；直接将属性和方法赋给了this对象；没有return语句。\n\n', '使用构造函数时需要注意：按照惯例，函数名的首字母；使用new创建对象；能够识别对象；\n\n', '优点缺点：缺点->使用构造函数的最大的问题在于每次创建实例的时候都要重新创建一次方法\n\n'].join('')),
+		js13: (0, _marked2.default)(['### 设计模式-原型模式.\n\n', '我们创建的每个函数都有prototype（原型）属性，这个属性是一个指针，指向一个对象，\
+	  			而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。\
+	  			使用原型对象的好处就是可以让所有对象实例共享它所包含的属性及方法。\n\n', '```\n	function Per(){}\n	Per.prptotype.name = "sheel";\n', '	Per.prptotype.age = 22;\n	Per.prptotype.job = "student";\n', '	Per.prptotype.sayName = function(){\n		alert(this.name);\n	};\n', '	var per1 = new Per();\n	per1.sayName();```\n\n', '原型模式也不是没有缺点，首先，它省略了构造函数传递初始化参数这一环节，\
+	  			结果所有实例在默认情况下都取得了相同的属性值，这样非常不方便，但这还是不是原型的最大问题，\
+	  			原型模式的最大问题在于共享的本性所导致的，由于共享，因此因此一个实例修改了引用，\
+	  			另一个也随之更改了引用。因此我们通常不单独使用原型，而是结合原型模式与构造函数模式。\n\n'].join('')),
+		js14: (0, _marked2.default)(['### 设计模式-混合模式.\n\n', '混合模式中构造函数模式用于定义实例属性，而原型模式用于定义方法和共享属性。\
+	  			每个实例都会有自己的一份实例属性，但同时又共享着方法，最大限度的节省了内存。\
+	  			另外这种模式还支持传递初始参数。优点甚多。这种模式在ECMAScript中是使用最广泛、\
+	  			认同度最高的一种创建自定义对象的方法。'].join('')),
+		H5C3_1: (0, _marked2.default)(['### localStorage和sessionStorage的区别和联系.\n\n', 'localStorage和sessionStorage一样都是用来存储客户端临时信息的对象。\n\n', 'localStorage生命周期是永久，除非用户显示在浏览器提供的UI上清除localStorage信息，否则使用localStorage保存的信息将永远存在。\n\n', 'sessionStorage生命周期为当前窗口或标签页，一旦窗口或标签页被永久关闭了，那么所有通过sessionStorage存储的数据也就被清空。\
+				第二次在打开窗口时，就不会有上一次打开窗口所保存的信息。\n\n'].join('')),
+		H5C3_2: (0, _marked2.default)(['### web storage和cookie的区别.\n\n', 'Web Storage的概念和cookie相似，区别是它是为了更大容量存储设计的。\
 				Cookie的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去，\
 				这样无形中浪费了带宽，另外cookie还需要指定作用域，不可以跨域调用。\n\n', '除此之外，Web Storage拥有setItem,getItem,removeItem,clear等方法，\
-				不像cookie需要自己封装setCookie，getCookie。\n\n', 'Cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在，而Web Storage仅仅是为了在本地“存储”数据而生。'].join(''))), _defineProperty(_workContentData, 'H5C3_3', (0, _marked2.default)(['### css3 animation.\n\n'].join(''))), _defineProperty(_workContentData, 'H5C3_4', (0, _marked2.default)(['### Css3实现动画的方式.\n\n'].join(''))), _defineProperty(_workContentData, 'H5C3_5', (0, _marked2.default)(['### 弹性盒模型.\n\n'].join(''))), _defineProperty(_workContentData, 'react1', (0, _marked2.default)(['### 标题1.\n\n'].join(''))), _defineProperty(_workContentData, 'ES2015_1', (0, _marked2.default)(['### 标题1.\n\n'].join(''))), _defineProperty(_workContentData, 'node1', (0, _marked2.default)(['### 标题1.\n\n'].join(''))), _workContentData);
+				不像cookie需要自己封装setCookie，getCookie。\n\n', 'Cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在，而Web Storage仅仅是为了在本地“存储”数据而生。'].join('')),
+		H5C3_3: (0, _marked2.default)(['### css3新增的属性.\n\n'].join('')),
+		H5C3_4: (0, _marked2.default)(['### Css3实现动画的方式.\n\n'].join('')),
+		H5C3_5: (0, _marked2.default)(['### 弹性盒模型.\n\n'].join('')),
+		react1: (0, _marked2.default)(['### 标题1.\n\n'].join('')),
+		ES2015_1: (0, _marked2.default)(['### 标题1.\n\n'].join('')),
+		node1: (0, _marked2.default)(['### 标题1.\n\n'].join(''))
+	};
 
 	exports.workData = workData;
 	exports.workTitleData = workTitleData;
 	exports.workContentData = workContentData;
-
-	/*'# Markdown demo\n\nChanges are automatically rendered as you type.\n\n* Follows the ',
-	'[CommonMark](http://commonmark.org/) spec\n* Renders actual, "native" React DOM ',
-	'elements\n* Allows you to escape or skip HTML (try toggling the checkboxes above)',
-	'\n* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!\n',
-	'\n## HTML block below\n\n<blockquote>\n    This blockquote will change based ',
-	'on the HTML settings above.\n</blockquote>\n\n## How about some code?\n',
-	'```js\nvar React = require(\'react\');\nvar Markdown = require(\'react-markdown\');',
-	'\n\nReact.render(\n    <Markdown source="# Your markdown here" />,\n    document.',
-	'getElementById(\'content\')\n);\n```\n\nPretty neat, eh?\n\n', '## More info?\n\n',
-	'Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)\n\n',
-	'---------------\n\n',
-	'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal'*/
 
 /***/ },
 /* 7 */
@@ -14287,6 +14261,8 @@
 		var $width = parseInt((0, _jquery2.default)('.profile').width());
 		var $height = parseInt((0, _jquery2.default)('.profile').height());
 
+		(0, _jquery2.default)('.articleBox').attr('_begin', 'F');
+
 		for (var i = 0; i < _profileData.data.length; i++) {
 			createArticle(_profileData.data[i].content, _profileData.data[i].time);
 			arr = randomNumber(40, 20);
@@ -14442,6 +14418,7 @@
 			}
 		}).delegate('.article', 'mouseleave', function () {
 			//移出
+			(0, _jquery2.default)('.articleBox').attr('_begin', 'F');
 			var $left = (0, _jquery2.default)(this).attr('_left');
 			var $top = (0, _jquery2.default)(this).attr('_top');
 			var $width = (0, _jquery2.default)(this).attr('_width');
@@ -14462,6 +14439,7 @@
 				height: $height
 			});
 		}).delegate('.article', 'click', function () {
+			(0, _jquery2.default)('.articleBox').attr('_begin', 'T');
 			(0, _jquery2.default)('.mark').css({
 				display: 'block'
 			});
@@ -14478,12 +14456,36 @@
 
 /***/ },
 /* 169 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
+	});
+	exports.data = undefined;
+
+	var _marked = __webpack_require__(7);
+
+	var _marked2 = _interopRequireDefault(_marked);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_marked2.default.setOptions({
+		renderer: new _marked2.default.Renderer(),
+		gfm: true,
+		tables: true,
+		breaks: false,
+		pedantic: false,
+		sanitize: true,
+		smartLists: true,
+		smartypants: false
+	});
+
+	_marked2.default.setOptions({
+		highlight: function highlight(code) {
+			return __webpack_require__(8).highlightAuto(code).value;
+		}
 	});
 
 	var data = [{
@@ -14492,15 +14494,6 @@
 	}, {
 		content: 'hello2',
 		time: '2016-6-13'
-	}, {
-		content: 'hello3',
-		time: '2016-6-14'
-	}, {
-		content: 'hello4',
-		time: '2016-6-15'
-	}, {
-		content: 'hello4',
-		time: '2016-6-16'
 	}];
 
 	exports.data = data;
@@ -14514,10 +14507,8 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.messageInit = messageInit;
-	exports.memoEvent = memoEvent;
-	exports.createMessage = createMessage;
-	exports.createFooter = createFooter;
+	exports.objectInit = objectInit;
+	exports.objectEvent = objectEvent;
 
 	var _jquery = __webpack_require__(3);
 
@@ -14528,62 +14519,99 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/*第五屏*/
-	function messageInit() {
-		var $height = (0, _jquery2.default)('.memo').height() - ((0, _jquery2.default)('.userMemo').height() + (0, _jquery2.default)('.footer').height() + 25);
-		(0, _jquery2.default)('.box').css('height', $height);
 
-		for (var i = 0; i < _footerData.footerData.length; i++) {
-			createMemoBox(_footerData.footerData[0]);
-		}
-	};
 
-	function memoEvent() {
-
-		(0, _jquery2.default)('.box').delegate('.memoBox', 'mouseenter', function () {
-			(0, _jquery2.default)(this).find('img').css({
-				transform: 'scale(0.5,0.5)',
-				transformOrigin: 'center center',
-				opacity: 0.5
-			});
-		}).delegate('.memoBox', 'mouseleave', function () {
-			(0, _jquery2.default)(this).find('img').css({
-				transform: 'scale(1,1)',
-				transformOrigin: 'center center',
-				opacity: 1
-			});
-		});
-	};
-
-	function createMessage() {
-		var str = '<div class="message">\
-	                <div class="messageMemo">\
-	                    <div class="userMemo">\
-	                        <p><span>sheel</span>发表于：<i>2016-6-15</i></p>\
-	                        <p>欢迎光临sheel的博客，给我留言吧！请相信这是个神奇的页面。</p>\
-	                        <p>有什么好建议，欢迎大家来说。或者你就给点广告也行，交个朋友，谢谢。</p>\
-	                    </div>\
-	                    <div class="box"></div>\
-	                </div>\
-	            </div>';
-		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
-	};
-
-	function createMemoBox(obj) {
-		var str = '<div class="memoBox">\
-	                        <div class="leftUser"><img src="' + obj.imgUrl + '" /></div>\
-	                        <div class="rightContent">\
-	                            <p><span>' + obj.author + '</span>发表于：<i>' + obj.time + '</i></p>\
-	                            <p>' + obj.content + '</p>\
-	                        </div>\
-	                    </div>';
-		(0, _jquery2.default)('.box').append((0, _jquery2.default)(str));
-	}
 	function createFooter() {
 		var str = '<div class="footer">\
 	                <span>&hearts;sheel-d 2016-5-24</span>\
 	            </div>';
 		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
+	}
+
+	function objectInit() {
+		createObj();
+		createText(_footerData.textData);
+		createFooter();
+
+		var $height = parseInt((0, _jquery2.default)('#memo').height()) - parseInt((0, _jquery2.default)('.footer').height());
+
+		(0, _jquery2.default)('.object').css({
+			height: $height
+		});
+
+		for (var i = 0; i < _footerData.footerData.length; i++) {
+			createSec(_footerData.footerData[i]);
+		}
+
+		var $top = parseInt((0, _jquery2.default)('.grid').height()) / 2 - 14;
+		var $left = parseInt((0, _jquery2.default)('.grid').width()) / 2 - 20;
+
+		(0, _jquery2.default)('.grid figcaption span').css({
+			top: $top,
+			left: $left
+		});
+		(0, _jquery2.default)('.grid figcaption h2').css({
+			top: 30,
+			left: 0
+		});
+		(0, _jquery2.default)('.grid figcaption p').css({
+			top: 97,
+			left: 0
+		});
 	};
+
+	function createObj() {
+		var str = '<div class="object"></div>';
+		(0, _jquery2.default)('#memo').append((0, _jquery2.default)(str));
+	}
+	function createSec(obj) {
+		var str = '<section class="grid">\
+	                    <figure>\
+	                        <img src="' + obj.url + '" />\
+	                        <svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="100%">\
+	                            <polygon points="0,0 0,232 98,172 216,232 216,0" style="fill:#fff; stroke:#fff;stroke-width:1"/>\
+	                        </svg>\
+	                        <figcaption>\
+	                            <h2>' + obj.title + '</h2>\
+	                            <p>' + obj.content + '</p>\
+	                            <span>view</span>\
+	                        </figcaption>\
+	                    </figure>\
+	                </section>';
+		(0, _jquery2.default)('.object').append((0, _jquery2.default)(str));
+	}
+	function createText(obj) {
+		var str = '<div class="text"><p>' + obj.text + '</p></div>';
+		(0, _jquery2.default)('.object').append((0, _jquery2.default)(str));
+	}
+	function objectEvent() {
+		(0, _jquery2.default)('.object').delegate('.grid', 'mouseenter', function () {
+			(0, _jquery2.default)(this).css('border', '3px solid #ccc');
+			(0, _jquery2.default)(this).find('polygon').attr('points', '0,0 0,40 98,55 216,40 216,0');
+			(0, _jquery2.default)(this).find('h2').css({
+				top: 15
+			});
+			(0, _jquery2.default)(this).find('p').css({
+				opacity: 0
+			});
+			(0, _jquery2.default)(this).find('span').css({
+				opacity: 1
+			});
+		}).delegate('.grid', 'mouseleave', function () {
+			(0, _jquery2.default)(this).find('polygon').attr('points', '0,0 0,232 98,172 216,232 216,0');
+			(0, _jquery2.default)(this).find('h2').css({
+				top: 30
+			});
+			(0, _jquery2.default)(this).find('p').css({
+				opacity: 1
+			});
+			(0, _jquery2.default)(this).find('span').css({
+				opacity: 0
+			});
+		}).delegate('.grid', 'click', function () {
+			console.log('OK');
+		});
+	}
 
 /***/ },
 /* 171 */
@@ -14597,17 +14625,23 @@
 
 
 	var footerData = [{
-		imgUrl: './img/' + minMaxNum(1, 10) + '.jpg',
-		author: 'sheel',
-		time: '2016-6-15',
-		content: '我是第一个留言的，嘻嘻'
+		url: './img/object-1.jpg',
+		title: '静谧网',
+		content: '2016-6-15'
+	}, {
+		url: './img/object-4.jpg',
+		title: '静谧网',
+		content: '2016-6-15'
 	}];
-
+	var textData = {
+		text: 'hello'
+	};
 	function minMaxNum(min, max) {
 		return Math.round(Math.random() * (max - min) + min);
 	}
 
 	exports.footerData = footerData;
+	exports.textData = textData;
 
 /***/ },
 /* 172 */
@@ -14616,7 +14650,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	        value: true
+	    value: true
 	});
 	exports.initScrollBar = initScrollBar;
 	exports.scrollBarEvent = scrollBarEvent;
@@ -14630,225 +14664,299 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function initScrollBar() {
-	        var $height = parseInt((0, _jquery2.default)('#main').height());
-	        (0, _jquery2.default)('.rectangle').css('height', $height / 5);
+	    var $height = parseInt((0, _jquery2.default)('#main').height());
+	    (0, _jquery2.default)('.rectangle').css('height', $height / 5);
 	};
 
 	function scrollBarEvent() {
 
-	        (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
-	        (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	    (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
+	    (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
 	};
 
 	function mousewheelfn(ev) {
 
-	        var $mainHeight = parseInt((0, _jquery2.default)('#main').height());
-	        var $index = (0, _jquery2.default)('.nav').find('.active').index();
+	    var $workBegin = (0, _jquery2.default)('.t-work').attr('_begin');
+	    var $articleBegin = (0, _jquery2.default)('.articleBox').attr('_begin');
 
-	        var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
+	    var $mainHeight = parseInt((0, _jquery2.default)('#main').height());
+	    var $index = (0, _jquery2.default)('.nav').find('.active').index();
 
-	        var t = new TimelineMax();
+	    var delta = ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1) || ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1);
 
-	        if (delta > 0) {
-	                // 向上滚
+	    var t = new TimelineMax();
 
-	                if ($index > 0) {
-	                        (0, _jquery2.default)('.line').animate({
-	                                left: ($index - 1) * 82 + 6
-	                        }, 700, function () {
-	                                (0, _jquery2.default)('.nav li').removeClass('active');
-	                                (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
-	                        });
-	                }
+	    if (delta > 0) {
+	        // 向上滚
 
-	                if ($index == 0) {
+	        if ($index == 0) {
 
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: 0
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                } else if ($index == 1) {
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: 0
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	        } else if ($index == 1) {
 
-	                        (0, _jquery2.default)('.note').animate({
-	                                top: $mainHeight,
-	                                opacity: 0
-	                        }, 800);
+	            (0, _jquery2.default)('.line').animate({
+	                left: ($index - 1) * 82 + 6
+	            }, 700, function () {
+	                (0, _jquery2.default)('.nav li').removeClass('active');
+	                (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
+	            });
 
-	                        (0, _jquery2.default)('.contentImg').css('top', -$mainHeight).animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
+	            (0, _jquery2.default)('.note').animate({
+	                top: $mainHeight,
+	                opacity: 0
+	            }, 800);
 
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: 0
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                } else if ($index == 2) {
+	            (0, _jquery2.default)('.contentImg').css('top', -$mainHeight).animate({
+	                top: 85,
+	                opacity: 1
+	            }, 800);
 
-	                        (0, _jquery2.default)('.work').animate({
-	                                top: $mainHeight,
-	                                opacity: 0
-	                        }, 800);
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: 0
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	        } else if ($index == 2) {
 
-	                        (0, _jquery2.default)('.note').css('top', -$mainHeight).animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
+	            if ($workBegin == 'F') {
 
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                } else if ($index == 3) {
+	                (0, _jquery2.default)('.line').animate({
+	                    left: ($index - 1) * 82 + 6
+	                }, 700, function () {
+	                    (0, _jquery2.default)('.nav li').removeClass('active');
+	                    (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
+	                });
 
-	                        (0, _jquery2.default)('.profile').animate({
-	                                top: $mainHeight,
-	                                opacity: 0
-	                        }, 800);
-
-	                        (0, _jquery2.default)('.work').css({
-	                                top: -$mainHeight
-	                        }).animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 2
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                        (0, _work.workAnimate)();
-	                } else if ($index == 4) {
-
-	                        (0, _jquery2.default)('.memo').animate({
-	                                top: $mainHeight,
-	                                opacity: 0
-	                        }, 800);
-
-	                        (0, _jquery2.default)('.profile').css('top', -$mainHeight).animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 3
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                }
-	        } else if (delta < 0) {
-	                // 向下滚 
-
-	                if ($index < 4) {
-	                        (0, _jquery2.default)('.line').animate({
-	                                left: ($index + 1) * 82 + 6
-	                        }, 700, function () {
-	                                (0, _jquery2.default)('.nav li').removeClass('active');
-	                                (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
-	                        });
-	                }
-
-	                if ($index == 0) {
-
-	                        (0, _jquery2.default)('.contentImg').animate({
-	                                top: -$mainHeight,
-	                                opacity: 0
-	                        }, 800, function () {
-	                                (0, _jquery2.default)(this).css('top', $mainHeight);
-	                        });
-
-	                        (0, _jquery2.default)('.note').animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 3);
-	                } else if ($index == 1) {
-
-	                        (0, _jquery2.default)('.note').animate({
-	                                top: -$mainHeight,
-	                                opacity: 0
-	                        }, 800, function () {
-	                                (0, _jquery2.default)(this).css('top', $mainHeight);
-	                        });
-
-	                        (0, _jquery2.default)('.work').animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 2
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-
-	                        (0, _work.workAnimate)();
-	                } else if ($index == 2) {
-
-	                        (0, _jquery2.default)('.work').animate({
-	                                top: -$mainHeight,
-	                                opacity: 0
-	                        }, 800, function () {
-	                                (0, _jquery2.default)(this).css('top', $mainHeight);
-	                        });
-
-	                        (0, _jquery2.default)('.profile').animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 3
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                } else if ($index == 3) {
-
-	                        (0, _jquery2.default)('.profile').animate({
-	                                top: -$mainHeight,
-	                                opacity: 0
-	                        }, 800, function () {
-	                                (0, _jquery2.default)(this).css('top', $mainHeight);
-	                        });
-
-	                        (0, _jquery2.default)('.memo').animate({
-	                                top: 85,
-	                                opacity: 1
-	                        }, 800);
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 4
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                } else if ($index == 4) {
-
-	                        t.to('.scrollBar', 1, {
-	                                opacity: 0.5,
-	                                top: $mainHeight / 5 * 4
-	                        }, 0);
-	                        t.to('.scrollBar', 1, { opacity: 0 }, 4);
-	                }
-	        }
-
-	        if (ev.originalEvent.detail) {
-	                setTimeout(function () {
-	                        (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
+	                (0, _jquery2.default)('.work').animate({
+	                    top: $mainHeight,
+	                    opacity: 0
 	                }, 800);
-	        } else {
-	                setTimeout(function () {
-	                        (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+
+	                (0, _jquery2.default)('.note').css('top', -$mainHeight).animate({
+	                    top: 85,
+	                    opacity: 1
 	                }, 800);
+
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            } else {
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 2
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            }
+	        } else if ($index == 3) {
+	            if ($articleBegin == 'F') {
+
+	                (0, _jquery2.default)('.line').animate({
+	                    left: ($index - 1) * 82 + 6
+	                }, 700, function () {
+	                    (0, _jquery2.default)('.nav li').removeClass('active');
+	                    (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
+	                });
+
+	                (0, _jquery2.default)('.profile').animate({
+	                    top: $mainHeight,
+	                    opacity: 0
+	                }, 800);
+
+	                (0, _jquery2.default)('.work').css({
+	                    top: -$mainHeight
+	                }).animate({
+	                    top: 85,
+	                    opacity: 1
+	                }, 800);
+
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 2
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	                (0, _work.workAnimate)();
+	            } else {
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 3
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            }
+	        } else if ($index == 4) {
+
+	            (0, _jquery2.default)('.line').animate({
+	                left: ($index - 1) * 82 + 6
+	            }, 700, function () {
+	                (0, _jquery2.default)('.nav li').removeClass('active');
+	                (0, _jquery2.default)('.nav li').eq($index - 1).addClass('active');
+	            });
+
+	            (0, _jquery2.default)('.memo').animate({
+	                top: $mainHeight,
+	                opacity: 0
+	            }, 800);
+
+	            (0, _jquery2.default)('.profile').css('top', -$mainHeight).animate({
+	                top: 85,
+	                opacity: 1
+	            }, 800);
+
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: $mainHeight / 5 * 3
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 4);
 	        }
+	    } else if (delta < 0) {
+	        // 向下滚 
+
+	        if ($index == 0) {
+
+	            (0, _jquery2.default)('.line').animate({
+	                left: ($index + 1) * 82 + 6
+	            }, 700, function () {
+	                (0, _jquery2.default)('.nav li').removeClass('active');
+	                (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
+	            });
+
+	            (0, _jquery2.default)('.contentImg').animate({
+	                top: -$mainHeight,
+	                opacity: 0
+	            }, 800, function () {
+	                (0, _jquery2.default)(this).css('top', $mainHeight);
+	            });
+
+	            (0, _jquery2.default)('.note').animate({
+	                top: 85,
+	                opacity: 1
+	            }, 800);
+
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: $mainHeight / 5
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 3);
+	        } else if ($index == 1) {
+
+	            (0, _jquery2.default)('.line').animate({
+	                left: ($index + 1) * 82 + 6
+	            }, 700, function () {
+	                (0, _jquery2.default)('.nav li').removeClass('active');
+	                (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
+	            });
+
+	            (0, _jquery2.default)('.note').animate({
+	                top: -$mainHeight,
+	                opacity: 0
+	            }, 800, function () {
+	                (0, _jquery2.default)(this).css('top', $mainHeight);
+	            });
+
+	            (0, _jquery2.default)('.work').animate({
+	                top: 85,
+	                opacity: 1
+	            }, 800);
+
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: $mainHeight / 5 * 2
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 4);
+
+	            (0, _work.workAnimate)();
+	        } else if ($index == 2) {
+
+	            if ($workBegin == 'F') {
+
+	                (0, _jquery2.default)('.line').animate({
+	                    left: ($index + 1) * 82 + 6
+	                }, 700, function () {
+	                    (0, _jquery2.default)('.nav li').removeClass('active');
+	                    (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
+	                });
+
+	                (0, _jquery2.default)('.work').animate({
+	                    top: -$mainHeight,
+	                    opacity: 0
+	                }, 800, function () {
+	                    (0, _jquery2.default)(this).css('top', $mainHeight);
+	                });
+
+	                (0, _jquery2.default)('.profile').animate({
+	                    top: 85,
+	                    opacity: 1
+	                }, 800);
+
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 3
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            } else {
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 2
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            }
+	        } else if ($index == 3) {
+	            if ($articleBegin == 'F') {
+
+	                (0, _jquery2.default)('.line').animate({
+	                    left: ($index + 1) * 82 + 6
+	                }, 700, function () {
+	                    (0, _jquery2.default)('.nav li').removeClass('active');
+	                    (0, _jquery2.default)('.nav li').eq($index + 1).addClass('active');
+	                });
+
+	                (0, _jquery2.default)('.profile').animate({
+	                    top: -$mainHeight,
+	                    opacity: 0
+	                }, 800, function () {
+	                    (0, _jquery2.default)(this).css('top', $mainHeight);
+	                });
+
+	                (0, _jquery2.default)('.memo').animate({
+	                    top: 85,
+	                    opacity: 1
+	                }, 800);
+
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 4
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            } else {
+	                t.to('.scrollBar', 1, {
+	                    opacity: 0.5,
+	                    top: $mainHeight / 5 * 3
+	                }, 0);
+	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	            }
+	        } else if ($index == 4) {
+	            t.to('.scrollBar', 1, {
+	                opacity: 0.5,
+	                top: $mainHeight / 5 * 4
+	            }, 0);
+	            t.to('.scrollBar', 1, { opacity: 0 }, 4);
+	        }
+	    }
+
+	    if (ev.originalEvent.detail) {
+	        setTimeout(function () {
+	            (0, _jquery2.default)('#main').one('DOMMouseScroll', mousewheelfn);
+	        }, 800);
+	    } else {
+	        setTimeout(function () {
+	            (0, _jquery2.default)('#main').one('mousewheel', mousewheelfn);
+	        }, 800);
+	    }
 	}
 
 /***/ },

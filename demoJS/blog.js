@@ -3,8 +3,8 @@ import {navEvent} from './nav.js';
 import {note} from './photo.js';
 import {contentImgArr,imgAnimate} from './contentImg.js';
 import {workAnimate,workEvent} from './work.js';
-import {profileInit,profileEvent} from './profile.js';
-import {messageInit,memoEvent} from './footer.js';
+import {/*profileInit,*/profileEvent} from './profile.js';
+import {objectEvent} from './footer.js';
 import {scrollBarEvent} from './scrollBar.js';
 
 import $ from 'jquery';
@@ -42,18 +42,12 @@ window.onload = function(){
 	sheel.workEvent();
 
 	//第四屏
-	sheel.profileInit = profileInit;
-	sheel.profileInit();
-
 	sheel.profileEvent = profileEvent;
 	sheel.profileEvent();
 
 	//第五屏
-	sheel.messageInit = messageInit;
-	sheel.messageInit();
-
-	sheel.memoEvent = memoEvent;
-	sheel.memoEvent();
+	sheel.objectEvent = objectEvent;
+	sheel.objectEvent();
 
 	//滚动条
 	sheel.scrollBarEvent = scrollBarEvent;

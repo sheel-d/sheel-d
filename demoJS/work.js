@@ -75,7 +75,7 @@ function circleSecond(index,num,time){
 }
 
 export function createWork(){
-	var str = ' <div class="t-work"></div>';
+	var str = ' <div class="t-work" _begin="F"></div>';
     $('.work').append($(str));
     for(let i=0;i<workData.length;i++){
     	createCircle(workData[i]);
@@ -96,6 +96,7 @@ export function createWorkContent(){
                    <ul class="list"></ul>\
                </div>\
                <div class="workRight">\
+               		<div class="return"><span>返回</span></div>\
 		            <div class="title"></div>\
 		            <div class="content"></div>\
                </div>\
@@ -135,6 +136,7 @@ export function styleWorkContent(){
 export function workEvent(){//点击事件
 	var num = 0;
 	$('.t-work').delegate('.v-content','click',function(){
+		$('.t-work').attr('_begin','T');
 		$('.list').html('');
 		$('.title').html('');
 		var $_title = $(this).attr('_title');
@@ -164,5 +166,17 @@ export function workEvent(){//点击事件
 		createContentBox(workContentData[$_id]);
 		$('.title').css('display','none');
 		$('.content').css('display','block');
+	});
+	$('.return').on('click',function(){
+		var $conDisplay = $('.content').css('display');
+		var $titDisplay = $('.title').css('display');
+		if( $conDisplay == 'block' ){
+			$('.content').css('display','none');
+			$('.title').css('display','block');
+		}else if($titDisplay == 'block'){
+			$('.t-work').attr('_begin','F');
+			$('.workContent').css('display','none');
+			$('.t-work').css('display','block');
+		}
 	});
 };

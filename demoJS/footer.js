@@ -1,61 +1,95 @@
 /*第五屏*/
 import $ from 'jquery';
-import {footerData} from './footerData.js';
+import {footerData,textData} from './footerData.js';
 
-export function messageInit(){
-	var $height = $('.memo').height() - ($('.userMemo').height() + $('.footer').height() + 25 );
-	$('.box').css('height',$height);
-
-	for(let i=0;i<footerData.length;i++){
-		createMemoBox(footerData[0]);
-	}
-	
-};
-
-export function memoEvent(){
-
-	$('.box').delegate('.memoBox','mouseenter',function(){
-		$(this).find('img').css({
-			transform : 'scale(0.5,0.5)',
-			transformOrigin : 'center center',
-			opacity : 0.5
-		});
-	}).delegate('.memoBox','mouseleave',function(){
-		$(this).find('img').css({
-			transform : 'scale(1,1)',
-			transformOrigin : 'center center',
-			opacity : 1
-		});
-	});
-};
-
-export function createMessage(){
-	var str = '<div class="message">\
-                <div class="messageMemo">\
-                    <div class="userMemo">\
-                        <p><span>sheel</span>发表于：<i>2016-6-15</i></p>\
-                        <p>欢迎光临sheel的博客，给我留言吧！请相信这是个神奇的页面。</p>\
-                        <p>有什么好建议，欢迎大家来说。或者你就给点广告也行，交个朋友，谢谢。</p>\
-                    </div>\
-                    <div class="box"></div>\
-                </div>\
-            </div>';
-    $('#memo').append($(str));
-};
-
-function createMemoBox(obj){
-	var str = '<div class="memoBox">\
-                        <div class="leftUser"><img src="'+obj.imgUrl+'" /></div>\
-                        <div class="rightContent">\
-                            <p><span>' + obj.author + '</span>发表于：<i>' + obj.time + '</i></p>\
-                            <p>'+ obj.content + '</p>\
-                        </div>\
-                    </div>';
-    $('.box').append($(str));
-}
-export function createFooter(){
+function createFooter(){
 	var str = '<div class="footer">\
                 <span>&hearts;sheel-d 2016-5-24</span>\
             </div>';
     $('#memo').append($(str));
+}
+
+export function objectInit(){
+	createObj();
+	createText(textData);
+	createFooter();
+
+	var $height = parseInt($('#memo').height()) - parseInt($('.footer').height());
+
+	$('.object').css({
+		height:$height
+	});
+
+	for(let i = 0; i < footerData.length; i++){
+		createSec(footerData[i]);
+	}
+
+	var $top = parseInt($('.grid').height())/2 - 14 ;
+	var $left = parseInt($('.grid').width())/2 - 20;
+
+	$('.grid figcaption span').css({
+		top:$top,
+		left:$left
+	});
+	$('.grid figcaption h2').css({
+		top:30,
+		left:0
+	});
+	$('.grid figcaption p').css({
+		top:97,
+		left:0
+	});
 };
+
+function createObj(){
+	var str = '<div class="object"></div>';
+    $('#memo').append($(str));
+}
+function createSec(obj){
+	var str = '<section class="grid">\
+                    <figure>\
+                        <img src="' + obj.url + '" />\
+                        <svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="100%">\
+                            <polygon points="0,0 0,232 98,172 216,232 216,0" style="fill:#fff; stroke:#fff;stroke-width:1"/>\
+                        </svg>\
+                        <figcaption>\
+                            <h2>'+ obj.title +'</h2>\
+                            <p>'+  obj.content +'</p>\
+                            <span>view</span>\
+                        </figcaption>\
+                    </figure>\
+                </section>';
+    $('.object').append($(str));
+}
+function createText(obj){
+	var str = '<div class="text"><p>' + obj.text +'</p></div>';
+	$('.object').append($(str));
+}
+export function objectEvent(){
+	$('.object').delegate('.grid','mouseenter',function(){
+		$(this).css('border','3px solid #ccc');
+		$(this).find('polygon').attr('points','0,0 0,40 98,55 216,40 216,0');
+		$(this).find('h2').css({
+			top:15
+		});
+		$(this).find('p').css({
+			opacity:0
+		});
+		$(this).find('span').css({
+			opacity:1
+		});
+	}).delegate('.grid','mouseleave',function(){
+		$(this).find('polygon').attr('points','0,0 0,232 98,172 216,232 216,0');
+		$(this).find('h2').css({
+			top:30
+		});
+		$(this).find('p').css({
+			opacity:1
+		});
+		$(this).find('span').css({
+			opacity:0
+		});
+	}).delegate('.grid','click',function(){
+		console.log('OK');
+	});
+}

@@ -1,4 +1,23 @@
 
+import marked from 'marked';
+
+marked.setOptions({
+	renderer: new marked.Renderer(),
+	gfm: true,
+	tables: true,
+	breaks: false,
+	pedantic: false,
+	sanitize: true,
+	smartLists: true,
+	smartypants: false
+});
+
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
+
 var data = [
 	{
 		content : 'hello',
@@ -7,18 +26,6 @@ var data = [
 	{
 		content : 'hello2',
 		time : '2016-6-13'
-	},
-	{
-		content : 'hello3',
-		time : '2016-6-14'
-	},
-	{
-		content : 'hello4',
-		time : '2016-6-15'
-	},
-	{
-		content : 'hello4',
-		time : '2016-6-16'
 	}
 ]; 
 

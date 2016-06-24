@@ -3,22 +3,12 @@ import {createNav} from './nav.js';
 import {cUserHeight,imgInitAnimate,createImg,createUser} from './contentImg.js';
 import {} from './photo.js';
 import {createWork,createWorkContent,styleWorkContent} from './work.js';
-import {} from './profile.js';
-import {createMessage,createFooter} from './footer.js';
+import {profileInit} from './profile.js';
+import {objectInit} from './footer.js';
 import {initScrollBar} from './scrollBar.js';
 
 import $ from 'jquery';
 
-
-/*
-	初始化需要做的事：
-		1、设置每一屏的快高
-		2、导航条的动画
-		3、第一屏的动画
-		4、第一屏需要做的事
-		5、滚动条隐藏，使用自己做的滚动条
-		
-*/
 export function init(){
 	Height();
 	createNav('#menu');
@@ -26,17 +16,16 @@ export function init(){
 	createUser();
 	cUserHeight();
 	initAnimate();
-	//滚动条
+
 	initScrollBar();
 	
-	//第三屏
 	createWork();
 	createWorkContent();
 	styleWorkContent();
 
-	//第五屏
-	createMessage();
-	createFooter();
+	profileInit();
+
+	objectInit();
 };
 
 function Height(){
