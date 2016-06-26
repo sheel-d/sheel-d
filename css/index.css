@@ -332,13 +332,13 @@ textarea { resize:none; overflow:auto; }
     font-size: 14px;
     line-height: 1.5em;
     font-family: Chinese;
-    padding: 10px 5px;
+    padding: 5px 10px;
 }
 .desc:nth-child(1){
-    transform:rotate(-15deg);
+    text-indent: 10px;
 }
 .desc:nth-child(2){
-    transform:rotate(-15deg);
+    text-indent: 40px;
 }
 .photo-wrap{
     position: absolute;
@@ -677,7 +677,7 @@ textarea { resize:none; overflow:auto; }
     left: 0;
     right:0;
     background-color: #FFF;
-    opacity: 0.2;
+    opacity: 0.1;
     display: none;
 }
 /* message */

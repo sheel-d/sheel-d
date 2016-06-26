@@ -8,8 +8,11 @@ export function note(){
 
     var data = photoData;
     
-    var $heightNum = parseInt($('.wrap').height())/160;
-    var $widthNum = parseInt($('.wrap').width())/210;
+    console.log($('.wrap').width(),$('.wrap').height());
+
+    var $heightNum = Math.floor(parseInt($('.wrap').height())/160);
+    var $widthNum = Math.floor(parseInt($('.wrap').width())/210);
+    console.log($heightNum,$widthNum);
     var length = parseInt($heightNum * $widthNum);
 
     for(var i=0;i<length;i++){
