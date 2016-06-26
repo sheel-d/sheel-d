@@ -10,11 +10,11 @@ export function createNav(obj){
                 </a>\
             </div>\
             <ul class="nav">\
-                <li _show=reveal class="active"><a href="#">首页</a></li>\
-                <li><a>照片</a></li>\
-                <li><a>学海无涯</a></li>\
-                <li><a>随笔</a></li>\
-                <li><a>留言板</a></li>\
+                <li _show=reveal class="active"><a>Index</a></li>\
+                <li><a>Photo</a></li>\
+                <li><a>Learn</a></li>\
+                <li><a>Myself</a></li>\
+                <li><a>Object</a></li>\
                 <div class="line"></div>\
             </ul>\
             <div class="item">\
@@ -55,7 +55,7 @@ export function navEvent(){
 		$('.workContent').css('display','none');
 		$('.t-work').css('display','block');
 
-		if($text == '首页'){
+		if($text == 'Index'){
 
 			if( $conTop == '85'){
 				t.to('.scrollBar',1,{
@@ -77,7 +77,7 @@ export function navEvent(){
 				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
-		} else if($text == '照片'){
+		} else if($text == 'Photo'){
 
 			if( $nTop == '85'){
 				t.to('.scrollBar',1,{
@@ -98,7 +98,7 @@ export function navEvent(){
 				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
-		} else if($text == '学海无涯'){
+		} else if($text == 'Learn'){
 
 			if( $('.t-work').css('display') == 'block' ){
 				if( $wTop == '85'){
@@ -139,7 +139,7 @@ export function navEvent(){
 				workAnimate();
 			}
 			
-		}else if($text == '随笔'){
+		}else if($text == 'Myself'){
 
 			if( $pTop == '85'){
 				t.to('.scrollBar',1,{
@@ -160,7 +160,7 @@ export function navEvent(){
 				t.to('.scrollBar',1,{opacity:0},4);
 			}
 
-		}else if($text == '留言板'){
+		}else if($text == 'Object'){
 
 			if( $mTop == '85'){
 				t.to('.scrollBar',1,{

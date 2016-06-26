@@ -169,8 +169,8 @@ export function profileEvent(){
 		$('.articleBox').attr('_begin','F');
 		var $left = $(this).attr('_left');
 		var $top = $(this).attr('_top');
-		var $width = $(this).attr('_width');
-		var $height = $(this).attr('_height');
+		var $width1 = $(this).attr('_width');
+		var $height1 = $(this).attr('_height');
 
 		var arr = randomNumber(20,10);
 
@@ -183,8 +183,13 @@ export function profileEvent(){
 			border : 'none',
 			transform : "skew("+ arr[0] +"deg," + arr[1] + "deg)",
 			zIndex : 2,
-			width : $width,
-			height : $height
+			width : $width1,
+			height : $height1
+		});
+
+		$(this).find('.articleContent').css({
+			height: ($height-80)/2 - 34,
+			padding: 3
 		});
 
 	}).delegate('.article','click',function(){
@@ -193,12 +198,16 @@ export function profileEvent(){
 			display : 'block'
 		});
 		$(this).css({
-			width : $width * 0.8,
-			height : $height * 0.8,
+			width : $width,
+			height : $height * 0.9,
 			zIndex : 4,
 			transform : "skew(0deg,0deg)",
-			left : $width * 0.1,
+			left : 0,
 			top : $height * 0.1
+		});
+		$(this).find('.articleContent').css({
+			height: $height * 0.9 - 34,
+			padding: 3
 		});
 	});
 };

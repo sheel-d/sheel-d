@@ -163,28 +163,28 @@ var workTitleData = {//每一类别有几个标题的数据
 			num : '4'
 		},
 		{
-			title : '弹性盒模型',
+			title : '弹性盒模型--display:flex;',
 			id: 'H5C3_5', 
 			num : '5'
 		}
 	],
 	react : [
 		{
-			title : '这是第一条react数据',
+			title : 'React-初学',
 			id : 'react1',
 			num : '1'
 		}
 	],
 	es6 : [
 		{
-			title : '这是第一条ES2015_数据',
+			title : 'ES6-初学',
 			id : 'ES2015_1',
 			num : '1'
 		}
 	],
 	node : [
 		{
-			title : '这是第一条node数据',
+			title : 'node-初学',
 			id : 'node1',
 			num : '1'
 		}
@@ -351,23 +351,49 @@ var workContentData = {
 			并且返回接受余下的参数而且返回结果的新函数的技术。\n\n',
 			'柯里化函数通常有以下不走动态创建：调用另一个函数并为它传入要柯里化的函数和必要参数。\n\n',
 			'创建柯里化函数的通用方式：\n\n',
-			'```	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n',
+			'```js\n	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n',
 			'		return function(){\n			var innerArgs = Array.prptotype.slice.call(arguments);\n',
-			'			var finalArgs = args.concat(innerArgs);\n		};\n	}```'
+			'			var finalArgs = args.concat(innerArgs);\n		};\n	}\n```\n\n'
 		].join('')),
 	js8 : marked([
 			'### 函数节流.\n\n',
 			'函数节流的基本思想是指：某些代码不可在没有间断的情况连续重复执行。可以用setTimeout来完成，第一次调用函数，创建一个\
 			定时器，在指定的时间间隔之后运行代码。当第二次调用该函数时，它会清除前一次的定时器并设置另一个。\n\n',
 			'在jq中可以用setTimeout+one()来完成：\n\n',
-			'```	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n',
+			'```html\n	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n',
             '			$("#id").one("mousewheel",mousewheelfn);\n		},800);\n	}```\n\n',
             '不过在使用mousewheel事件时，要注意做兼容，Opera、Chrome、Safari支持该事件，Firefox不支持；\
             Firefox浏览器支持的是DOMMouseScroll的类似事件，在鼠标滚轮滚动的时候触发。'
 		].join('')),
 	js9 : marked([
-			'### js动画.\n\n',
-			''
+			'### 性能更好的js动画实现方式——requestAnimationFrame.---转（无双：http://www.cnblogs.com/2050）\n\n',
+			'用js来实现动画，我们一般是借助setTimeout或setInterval这两个函数，\
+			css3动画出来后，我们又可以使用css3来实现动画了，而且性能和流畅度也得到了很大的提升。但是css3动画还是有不少局限性，\
+			比如不是所有属性都能参与动画、动画缓动效果太少、无法完全控制动画过程等等。所以有的时候我们还是不得不使用setTimeout或\
+			setInterval的方式来实现动画，可是setTimeout和setInterval有着严重的性能问题，虽然某些现代浏览器对这两函个数进行了一些优化，\
+			但还是无法跟css3的动画性能相提并论。这个时候，就该requestAnimationFrame出马了。\n\n',
+			'requestAnimationFrame 是专门为实现高性能的帧动画而设计的一个API，目前已在多个浏览器得到了支持，\
+			包括IE10+，Firefox，Chrome，Safari，Opera等，在移动设备上，ios6以上版本以及IE mobile 10以上也支持\
+			requestAnimationFrame，唯一比较遗憾的是目前安卓上的原生浏览器并不支持requestAnimationFrame，\
+			不过对requestAnimationFrame的支持应该是大势所趋了，安卓版本的chrome 16+也是支持requestAnimationFrame的。\n\n',
+			'#### requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：\n\n',
+			'1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，\
+			并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。\n\n',
+			'2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。\n\n',
+			'像setTimeout、setInterval一样，requestAnimationFrame是一个全局函数。调用requestAnimationFrame后，\
+			它会要求浏览器根据自己的频率进行一次重绘，它接收一个回调函数作为参数，在即将开始的浏览器重绘时，会调用这个函数，\
+			并会给这个函数传入调用回调函数时的时间作为参数。由于requestAnimationFrame的功效只是一次性的，所以若想达到动画效果，\
+			则必须连续不断的调用requestAnimationFrame，就像我们使用setTimeout来实现动画所做的那样。\
+			requestAnimationFrame函数会返回一个资源标识符，可以把它作为参数传入cancelAnimationFrame函数来取消\
+			requestAnimationFrame的回调。怎么样，是不是也跟setTimeout的clearTimeout很相似啊。\n\n',
+			'所以，可以这么说，requestAnimationFrame就是一个性能优化版、专为动画量身打造的setTimeout，\
+			不同的是requestAnimationFrame不是自己指定回调函数运行的时间，而是跟着浏览器内建的刷新频率来执行回调，\
+			这当然就能达到浏览器所能实现动画的最佳效果了。\n\n',
+			'目前，各个支持requestAnimationFrame的浏览器有些还是自己的私有实现，所以必须加前缀，对于不支持requestAnimationFrame的浏览器，\
+			我们只能使用setTimeout，因为两者的使用方式几近相同，所以这两者的兼容并不难。对于支持requestAnimationFrame的浏览器，\
+			我们使用requestAnimationFrame，而不支持的我们优雅降级使用传统的setTimeout。把它们封装一下，\
+			就能得到一个统一兼容各大浏览器的API了。\n\n',
+			'代码可以到这里来查看：`https://gist.github.com/chaping/88813f56e75b0fd43f8c`.\n\n'
 		].join('')),
 	js10 : marked([
 			'### 跨域及跨域问题解决.\n\n',
@@ -446,22 +472,54 @@ var workContentData = {
 			'Cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在，而Web Storage仅仅是为了在本地“存储”数据而生。'
 		].join('')),
 	H5C3_3 : marked([
-			'### css3新增的属性.\n\n'
+			'### css3的新特性.\n\n',
+			'1. CSS3实现圆角（border-radius），阴影（box-shadow）\n\n',
+			'2. 对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）\n\n',
+			'3. transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);// 旋转,缩放,定位,倾斜\n\n',
+			'4. 增加了更多的CSS选择器  多背景 rgba \n\n',
+			'5. 在CSS3中唯一引入的伪元素是 ::selection.\n\n',
+			'6. 媒体查询，多栏布局\n\n',
+			'7. border-image\n\n'
 		].join('')),
 	H5C3_4 : marked([
-			'### Css3实现动画的方式.\n\n'
+			'### Css3实现动画的方式.\n\n',
+			'#### Transitions\n\n',
+			'特点：平滑的改变CSS的值\n\n',
+			'#### transforms\n\n',
+			'特点：变换主要实现（拉伸，压缩，旋转，偏移）\n\n',
+			'#### Animations\n\n',
+			'特点：适用于CSS2，CSS3\n\n'
 		].join('')),
 	H5C3_5 : marked([
-			'### 弹性盒模型.\n\n'
+			'### 弹性盒模型.\n\n',
+			'弹性布局（flexible box）模块（目前是w3c候选的推荐）旨在提供一个更加有效的方式来布置，对齐和分布在容器之间的各项\
+			内容，即使它们的大小是未知或者动态变化的。弹性布局的主要思想是让容器有能力来改变项目的宽度和高度，以填满可用空间\
+			（主要是为了容纳所有类型的显示设备和屏幕尺寸）的能力。最重要的是弹性盒子布局与方向无关，相对于常规的布局（块是垂直和内联水平为基础），\
+			很显然，这些工作以及网页设计缺乏支持大型和复杂的应用程序（特别当它涉及到改变方向，缩放、拉伸和收缩等）。\n\n',
+			'由于flexbox是一个整体模块，而不是单一的一个属性，它涉及到了很多东西，包括它的整个属性集。它们之中有一些是在父容\
+			器上设置，而有一些则是在子容器上设置。\n\n',
+			'#### 属性介绍：\n\n',
+			'`display: flex | inline-flex;` (适用于父类容器元素上):定义一个flex容器，内联或者根据指定的值，来作用于下面的子类容器.\n\n',
+			'`flex-direction `(适用于父类容器的元素上): 设置或检索伸缩盒对象的子元素在父容器中的位置。\n\n',
+			'`flex-wrap` (适用于父类容器上):设置或检索伸缩盒对象的子元素超出父容器时是否换行。\n\n',
+			'`flex-flow `(适用于父类容器上):复合属性。设置或检索伸缩盒对象的子元素排列方式。\n\n',
+			'`justify-content` (适用于父类容器上):设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式。\n\n',
+			'`align-items` (适用于父类容器上):设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式。\n\n',
+			'`align-content` (适用于父类容器上):设置或检索弹性盒堆叠伸缩行的对齐方式。\n\n',
+			'`flex-grow` (适用于弹性盒模型容器子元素):设置或检索弹性盒的扩展比率。\n\n',
+			'`flex-shrink` (适用于弹性盒模型容器子元素):设置或检索弹性盒的收缩比率（根据弹性盒子元素所设置的收缩因子作为比率来收缩空间）。\n\n',
+			'`flex-basis` (适用于弹性盒模型容器子元素):设置或检索弹性盒伸缩基准值。\n\n',
+			'`flex` (适用于弹性盒模型子元素):复合属性。设置或检索伸缩盒对象的子元素如何分配空间。\n\n',
+			'`align-self` (适用于弹性盒模型子元素):设置或检索弹性盒子元素自身在侧轴（纵轴）方向上的对齐方式。\n\n',
 		].join('')),
 	react1 : marked([
-			'### 标题1.\n\n'
+			'### react初学.\n\n'
 		].join('')),
 	ES2015_1 : marked([
-			'### 标题1.\n\n'
+			'### es6初学.\n\n'
 		].join('')),
 	node1 : marked([
-			'### 标题1.\n\n'
+			'### node初学.\n\n'
 		].join(''))
 };
 

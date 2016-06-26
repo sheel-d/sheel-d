@@ -66,7 +66,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	__webpack_require__(173);
+	__webpack_require__(174);
 
 	var _highlight = __webpack_require__(8);
 
@@ -75,7 +75,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/*import '../css/index.css';*/
-	__webpack_require__(174);
+	__webpack_require__(175);
 
 	window.onload = function () {
 		(0, _jquery2.default)('pre code').each(function (i, block) {
@@ -143,6 +143,8 @@
 
 	var _scrollBar = __webpack_require__(172);
 
+	var _contentImgData = __webpack_require__(173);
+
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -153,7 +155,7 @@
 		Height();
 		(0, _nav.createNav)('#menu');
 		(0, _contentImg.createImg)();
-		(0, _contentImg.createUser)();
+		(0, _contentImg.createUser)(_contentImgData.contentImgData.data);
 		(0, _contentImg.cUserHeight)();
 		initAnimate();
 
@@ -185,7 +187,9 @@
 	function initAnimate() {
 		var t = new TimelineMax();
 		t.to('#menu', 1, { left: 0 });
-		t.to('.item', 4, { rotation: 360 }, 1);
+		t.to('.item', 4, {
+			rotation: 360
+		}, 1);
 		t.to('.logo', 1, {
 			rotation: 360,
 			opacity: 1
@@ -194,7 +198,9 @@
 		t.to('.line', 0.5, { left: 6 }, 3);
 		t.to('.contentImg', 1, { top: 85, opacity: 1 }, 1.5);
 		t.to('.c_img', 1, { opacity: 1 }, 1.75);
-		t.to('.c_user', 1, { opacity: 1 }, 2);
+		t.to('.c_user', 1, {
+			opacity: 1
+		}, 2);
 	}
 
 /***/ },
@@ -227,11 +233,11 @@
 	                </a>\
 	            </div>\
 	            <ul class="nav">\
-	                <li _show=reveal class="active"><a href="#">首页</a></li>\
-	                <li><a>照片</a></li>\
-	                <li><a>学海无涯</a></li>\
-	                <li><a>随笔</a></li>\
-	                <li><a>留言板</a></li>\
+	                <li _show=reveal class="active"><a>Index</a></li>\
+	                <li><a>Photo</a></li>\
+	                <li><a>Learn</a></li>\
+	                <li><a>Myself</a></li>\
+	                <li><a>Object</a></li>\
 	                <div class="line"></div>\
 	            </ul>\
 	            <div class="item">\
@@ -272,7 +278,7 @@
 			(0, _jquery2.default)('.workContent').css('display', 'none');
 			(0, _jquery2.default)('.t-work').css('display', 'block');
 
-			if ($text == '首页') {
+			if ($text == 'Index') {
 
 				if ($conTop == '85') {
 					t.to('.scrollBar', 1, {
@@ -293,7 +299,7 @@
 					}, 0);
 					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				}
-			} else if ($text == '照片') {
+			} else if ($text == 'Photo') {
 
 				if ($nTop == '85') {
 					t.to('.scrollBar', 1, {
@@ -313,7 +319,7 @@
 					}, 0);
 					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				}
-			} else if ($text == '学海无涯') {
+			} else if ($text == 'Learn') {
 
 				if ((0, _jquery2.default)('.t-work').css('display') == 'block') {
 					if ($wTop == '85') {
@@ -353,7 +359,7 @@
 					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 					(0, _work.workAnimate)();
 				}
-			} else if ($text == '随笔') {
+			} else if ($text == 'Myself') {
 
 				if ($pTop == '85') {
 					t.to('.scrollBar', 1, {
@@ -373,7 +379,7 @@
 					}, 0);
 					t.to('.scrollBar', 1, { opacity: 0 }, 4);
 				}
-			} else if ($text == '留言板') {
+			} else if ($text == 'Object') {
 
 				if ($mTop == '85') {
 					t.to('.scrollBar', 1, {
@@ -2409,22 +2415,22 @@
 			id: 'H5C3_4',
 			num: '4'
 		}, {
-			title: '弹性盒模型',
+			title: '弹性盒模型--display:flex;',
 			id: 'H5C3_5',
 			num: '5'
 		}],
 		react: [{
-			title: '这是第一条react数据',
+			title: 'React-初学',
 			id: 'react1',
 			num: '1'
 		}],
 		es6: [{
-			title: '这是第一条ES2015_数据',
+			title: 'ES6-初学',
 			id: 'ES2015_1',
 			num: '1'
 		}],
 		node: [{
-			title: '这是第一条node数据',
+			title: 'node-初学',
 			id: 'node1',
 			num: '1'
 		}]
@@ -2468,11 +2474,29 @@
 				BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。计算BFC的高度时，\
 				浮动元素也参与计算。'].join('')),
 		js7: (0, _marked2.default)(['### 函数柯里化.\n\n', '函数柯里化是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，\
-				并且返回接受余下的参数而且返回结果的新函数的技术。\n\n', '柯里化函数通常有以下不走动态创建：调用另一个函数并为它传入要柯里化的函数和必要参数。\n\n', '创建柯里化函数的通用方式：\n\n', '```	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n', '		return function(){\n			var innerArgs = Array.prptotype.slice.call(arguments);\n', '			var finalArgs = args.concat(innerArgs);\n		};\n	}```'].join('')),
+				并且返回接受余下的参数而且返回结果的新函数的技术。\n\n', '柯里化函数通常有以下不走动态创建：调用另一个函数并为它传入要柯里化的函数和必要参数。\n\n', '创建柯里化函数的通用方式：\n\n', '```js\n	function curry(fn){\n		var args = Array.prptotype.slice.call(arguments,1);\n', '		return function(){\n			var innerArgs = Array.prptotype.slice.call(arguments);\n', '			var finalArgs = args.concat(innerArgs);\n		};\n	}\n```\n\n'].join('')),
 		js8: (0, _marked2.default)(['### 函数节流.\n\n', '函数节流的基本思想是指：某些代码不可在没有间断的情况连续重复执行。可以用setTimeout来完成，第一次调用函数，创建一个\
-				定时器，在指定的时间间隔之后运行代码。当第二次调用该函数时，它会清除前一次的定时器并设置另一个。\n\n', '在jq中可以用setTimeout+one()来完成：\n\n', '```	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n', '			$("#id").one("mousewheel",mousewheelfn);\n		},800);\n	}```\n\n', '不过在使用mousewheel事件时，要注意做兼容，Opera、Chrome、Safari支持该事件，Firefox不支持；\
+				定时器，在指定的时间间隔之后运行代码。当第二次调用该函数时，它会清除前一次的定时器并设置另一个。\n\n', '在jq中可以用setTimeout+one()来完成：\n\n', '```html\n	$("#id").one("mousewheel",fn);\n	function fn(){\n		//执行的代码 \n		setTimeout(function(){\n', '			$("#id").one("mousewheel",mousewheelfn);\n		},800);\n	}```\n\n', '不过在使用mousewheel事件时，要注意做兼容，Opera、Chrome、Safari支持该事件，Firefox不支持；\
 	            Firefox浏览器支持的是DOMMouseScroll的类似事件，在鼠标滚轮滚动的时候触发。'].join('')),
-		js9: (0, _marked2.default)(['### js动画.\n\n', ''].join('')),
+		js9: (0, _marked2.default)(['### 性能更好的js动画实现方式——requestAnimationFrame.---转（无双：http://www.cnblogs.com/2050）\n\n', '用js来实现动画，我们一般是借助setTimeout或setInterval这两个函数，\
+				css3动画出来后，我们又可以使用css3来实现动画了，而且性能和流畅度也得到了很大的提升。但是css3动画还是有不少局限性，\
+				比如不是所有属性都能参与动画、动画缓动效果太少、无法完全控制动画过程等等。所以有的时候我们还是不得不使用setTimeout或\
+				setInterval的方式来实现动画，可是setTimeout和setInterval有着严重的性能问题，虽然某些现代浏览器对这两函个数进行了一些优化，\
+				但还是无法跟css3的动画性能相提并论。这个时候，就该requestAnimationFrame出马了。\n\n', 'requestAnimationFrame 是专门为实现高性能的帧动画而设计的一个API，目前已在多个浏览器得到了支持，\
+				包括IE10+，Firefox，Chrome，Safari，Opera等，在移动设备上，ios6以上版本以及IE mobile 10以上也支持\
+				requestAnimationFrame，唯一比较遗憾的是目前安卓上的原生浏览器并不支持requestAnimationFrame，\
+				不过对requestAnimationFrame的支持应该是大势所趋了，安卓版本的chrome 16+也是支持requestAnimationFrame的。\n\n', '#### requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：\n\n', '1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，\
+				并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。\n\n', '2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。\n\n', '像setTimeout、setInterval一样，requestAnimationFrame是一个全局函数。调用requestAnimationFrame后，\
+				它会要求浏览器根据自己的频率进行一次重绘，它接收一个回调函数作为参数，在即将开始的浏览器重绘时，会调用这个函数，\
+				并会给这个函数传入调用回调函数时的时间作为参数。由于requestAnimationFrame的功效只是一次性的，所以若想达到动画效果，\
+				则必须连续不断的调用requestAnimationFrame，就像我们使用setTimeout来实现动画所做的那样。\
+				requestAnimationFrame函数会返回一个资源标识符，可以把它作为参数传入cancelAnimationFrame函数来取消\
+				requestAnimationFrame的回调。怎么样，是不是也跟setTimeout的clearTimeout很相似啊。\n\n', '所以，可以这么说，requestAnimationFrame就是一个性能优化版、专为动画量身打造的setTimeout，\
+				不同的是requestAnimationFrame不是自己指定回调函数运行的时间，而是跟着浏览器内建的刷新频率来执行回调，\
+				这当然就能达到浏览器所能实现动画的最佳效果了。\n\n', '目前，各个支持requestAnimationFrame的浏览器有些还是自己的私有实现，所以必须加前缀，对于不支持requestAnimationFrame的浏览器，\
+				我们只能使用setTimeout，因为两者的使用方式几近相同，所以这两者的兼容并不难。对于支持requestAnimationFrame的浏览器，\
+				我们使用requestAnimationFrame，而不支持的我们优雅降级使用传统的setTimeout。把它们封装一下，\
+				就能得到一个统一兼容各大浏览器的API了。\n\n', '代码可以到这里来查看：`https://gist.github.com/chaping/88813f56e75b0fd43f8c`.\n\n'].join('')),
 		js10: (0, _marked2.default)(['### 跨域及跨域问题解决.\n\n', '跨域问题是由于javascript语言安全限制中的同源策略造成的.\n\n', '同源策略是指一段脚本只能读取来自同一来源的窗口和文档的属性,这里的同一来源指的是主机名、协议和端口号的组合.\n\n', '### 解决跨域的方案\n\n', '#### 图像Ping\n\n', '使用动态创建图像，使用onload和onerror事件处理程序来确定是否接收到响应，添加src属性值是是一个URL；例：\n\n', '```\nvar img = new Image();\nimg.onload = img.onerror = function(){\n	alert("done");\n};\n', 'img.src = "http://www.example.com/test?name=Nice";```\n\n', '图像Ping这种方式的优点很明显：兼容性非常好。\n\n', '不过图像Ping有两个主要的缺点，一是只能发送GET请求的时候才能用，二是无法访问服务器的响应文本。因此，图像Ping\
 				只能用于浏览器与服务器间的单向通信。\n\n', '#### JSONP\n\n', '#### Comet\n\n', '#### 服务器发送事件（SSE）\n\n', '#### Web Sockets\n\n'].join('')),
 		js11: (0, _marked2.default)(['### 设计模式-工厂模式.\n\n', '工厂模式是一种实现“工厂”概念的面上对象设计模式。实质是定义一个创建对象的接口，\
@@ -2495,12 +2519,16 @@
 				Cookie的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去，\
 				这样无形中浪费了带宽，另外cookie还需要指定作用域，不可以跨域调用。\n\n', '除此之外，Web Storage拥有setItem,getItem,removeItem,clear等方法，\
 				不像cookie需要自己封装setCookie，getCookie。\n\n', 'Cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在，而Web Storage仅仅是为了在本地“存储”数据而生。'].join('')),
-		H5C3_3: (0, _marked2.default)(['### css3新增的属性.\n\n'].join('')),
-		H5C3_4: (0, _marked2.default)(['### Css3实现动画的方式.\n\n'].join('')),
-		H5C3_5: (0, _marked2.default)(['### 弹性盒模型.\n\n'].join('')),
-		react1: (0, _marked2.default)(['### 标题1.\n\n'].join('')),
-		ES2015_1: (0, _marked2.default)(['### 标题1.\n\n'].join('')),
-		node1: (0, _marked2.default)(['### 标题1.\n\n'].join(''))
+		H5C3_3: (0, _marked2.default)(['### css3的新特性.\n\n', '1. CSS3实现圆角（border-radius），阴影（box-shadow）\n\n', '2. 对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）\n\n', '3. transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);// 旋转,缩放,定位,倾斜\n\n', '4. 增加了更多的CSS选择器  多背景 rgba \n\n', '5. 在CSS3中唯一引入的伪元素是 ::selection.\n\n', '6. 媒体查询，多栏布局\n\n', '7. border-image\n\n'].join('')),
+		H5C3_4: (0, _marked2.default)(['### Css3实现动画的方式.\n\n', '#### Transitions\n\n', '特点：平滑的改变CSS的值\n\n', '#### transforms\n\n', '特点：变换主要实现（拉伸，压缩，旋转，偏移）\n\n', '#### Animations\n\n', '特点：适用于CSS2，CSS3\n\n'].join('')),
+		H5C3_5: (0, _marked2.default)(['### 弹性盒模型.\n\n', '弹性布局（flexible box）模块（目前是w3c候选的推荐）旨在提供一个更加有效的方式来布置，对齐和分布在容器之间的各项\
+				内容，即使它们的大小是未知或者动态变化的。弹性布局的主要思想是让容器有能力来改变项目的宽度和高度，以填满可用空间\
+				（主要是为了容纳所有类型的显示设备和屏幕尺寸）的能力。最重要的是弹性盒子布局与方向无关，相对于常规的布局（块是垂直和内联水平为基础），\
+				很显然，这些工作以及网页设计缺乏支持大型和复杂的应用程序（特别当它涉及到改变方向，缩放、拉伸和收缩等）。\n\n', '由于flexbox是一个整体模块，而不是单一的一个属性，它涉及到了很多东西，包括它的整个属性集。它们之中有一些是在父容\
+				器上设置，而有一些则是在子容器上设置。\n\n', '#### 属性介绍：\n\n', '`display: flex | inline-flex;` (适用于父类容器元素上):定义一个flex容器，内联或者根据指定的值，来作用于下面的子类容器.\n\n', '`flex-direction `(适用于父类容器的元素上): 设置或检索伸缩盒对象的子元素在父容器中的位置。\n\n', '`flex-wrap` (适用于父类容器上):设置或检索伸缩盒对象的子元素超出父容器时是否换行。\n\n', '`flex-flow `(适用于父类容器上):复合属性。设置或检索伸缩盒对象的子元素排列方式。\n\n', '`justify-content` (适用于父类容器上):设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式。\n\n', '`align-items` (适用于父类容器上):设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式。\n\n', '`align-content` (适用于父类容器上):设置或检索弹性盒堆叠伸缩行的对齐方式。\n\n', '`flex-grow` (适用于弹性盒模型容器子元素):设置或检索弹性盒的扩展比率。\n\n', '`flex-shrink` (适用于弹性盒模型容器子元素):设置或检索弹性盒的收缩比率（根据弹性盒子元素所设置的收缩因子作为比率来收缩空间）。\n\n', '`flex-basis` (适用于弹性盒模型容器子元素):设置或检索弹性盒伸缩基准值。\n\n', '`flex` (适用于弹性盒模型子元素):复合属性。设置或检索伸缩盒对象的子元素如何分配空间。\n\n', '`align-self` (适用于弹性盒模型子元素):设置或检索弹性盒子元素自身在侧轴（纵轴）方向上的对齐方式。\n\n'].join('')),
+		react1: (0, _marked2.default)(['### react初学.\n\n'].join('')),
+		ES2015_1: (0, _marked2.default)(['### es6初学.\n\n'].join('')),
+		node1: (0, _marked2.default)(['### node初学.\n\n'].join(''))
 	};
 
 	exports.workData = workData;
@@ -13740,7 +13768,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	exports.imgInitAnimate = imgInitAnimate;
 	exports.contentImgArr = contentImgArr;
@@ -13756,73 +13784,73 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function imgInitAnimate() {
-	  var iHeight = parseInt(document.documentElement.clientWidth);
-	  var $height = (iHeight - parseInt((0, _jquery2.default)('.contentImg').width())) / 2;
-	  var t = new TimelineMax();
-	  t.to('.contentImg', 1, {
-	    top: 0,
-	    left: $height,
-	    opacity: 1
-	  }, 4);
+		var iHeight = parseInt(document.documentElement.clientWidth);
+		var $height = (iHeight - parseInt((0, _jquery2.default)('.contentImg').width())) / 2;
+		var t = new TimelineMax();
+		t.to('.contentImg', 1, {
+			top: 0,
+			left: $height,
+			opacity: 1
+		}, 4);
 	};
 
 	function contentImgArr() {
 
-	  var arr = [];
-	  var $len = (0, _jquery2.default)('.c_img ul').find('li').length;
-	  for (var q = 0; q < $len; q++) {
-	    var $img = (0, _jquery2.default)('.c_img ul').find('li').eq(q).find('img');
-	    var $liLeft = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('left');
-	    var $liTop = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('top');
-	    var $liOpacity = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('opacity');
-	    var $liZindex = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('zIndex');
-	    var $liBorder = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('borderWidth');
-	    arr.push([parseInt($liLeft), parseInt($liTop), $liOpacity, parseInt($liZindex), $img.width(), $liBorder]);
-	  }
+		var arr = [];
+		var $len = (0, _jquery2.default)('.c_img ul').find('li').length;
+		for (var q = 0; q < $len; q++) {
+			var $img = (0, _jquery2.default)('.c_img ul').find('li').eq(q).find('img');
+			var $liLeft = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('left');
+			var $liTop = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('top');
+			var $liOpacity = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('opacity');
+			var $liZindex = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('zIndex');
+			var $liBorder = (0, _jquery2.default)('.c_img ul').find('li').eq(q).css('borderWidth');
+			arr.push([parseInt($liLeft), parseInt($liTop), $liOpacity, parseInt($liZindex), $img.width(), $liBorder]);
+		}
 
-	  return arr;
+		return arr;
 	};
 
 	function imgAnimate(obj) {
 
-	  var timer = null;
-	  var $len = (0, _jquery2.default)('.c_img ul').find('li').length;
-	  timer = setInterval(function () {
-	    obj.unshift(obj[obj.length - 1]);
-	    obj.pop();
+		var timer = null;
+		var $len = (0, _jquery2.default)('.c_img ul').find('li').length;
+		timer = setInterval(function () {
+			obj.unshift(obj[obj.length - 1]);
+			obj.pop();
 
-	    for (var e = 0; e < $len; e++) {
-	      var $img = (0, _jquery2.default)('.c_img ul').find('li').eq(e).find('img');
-	      var $li = (0, _jquery2.default)('.c_img ul').find('li').eq(e);
-	      (0, _jquery2.default)('.c_img ul').find('li').eq(e).css('z-index', obj[e][3]);
-	      $li.animate({
-	        left: obj[e][0],
-	        top: obj[e][1],
-	        opacity: obj[e][2],
-	        "border-width": obj[e][5]
-	      });
-	      $img.animate({
-	        width: obj[e][4]
-	      });
-	    }
-	  }, 3000);
+			for (var e = 0; e < $len; e++) {
+				var $img = (0, _jquery2.default)('.c_img ul').find('li').eq(e).find('img');
+				var $li = (0, _jquery2.default)('.c_img ul').find('li').eq(e);
+				(0, _jquery2.default)('.c_img ul').find('li').eq(e).css('z-index', obj[e][3]);
+				$li.animate({
+					left: obj[e][0],
+					top: obj[e][1],
+					opacity: obj[e][2],
+					"border-width": obj[e][5]
+				});
+				$img.animate({
+					width: obj[e][4]
+				});
+			}
+		}, 3000);
 	};
 
 	function cUserHeight() {
-	  var $height = parseInt((0, _jquery2.default)('.contentImg').eq(0).css('height'));
-	  var $cHeight = $height - parseInt((0, _jquery2.default)('.c_img').eq(0).css('height')) - 10;
-	  var $parentHeight = $cHeight - 10;
+		var $height = parseInt((0, _jquery2.default)('.contentImg').eq(0).css('height'));
+		var $cHeight = $height - parseInt((0, _jquery2.default)('.c_img').eq(0).css('height')) - 10;
+		var $parentHeight = $cHeight - 10;
 
-	  (0, _jquery2.default)('.c_user').css({
-	    'height': $cHeight,
-	    'margin-top': '8px'
-	  });
+		(0, _jquery2.default)('.c_user').css({
+			'height': $cHeight,
+			'margin-top': '8px'
+		});
 
-	  (0, _jquery2.default)('.userContent').css('height', $parentHeight);
+		(0, _jquery2.default)('.userContent').css('height', $parentHeight);
 	};
 
 	function createImg() {
-	  var str = '<div class="c_img">\
+		var str = '<div class="c_img">\
 	                <ul>\
 	                    <li class="img_0"><img src="./img/contentImg1.jpg" style="width:100px"></li>\
 	                    <li class="img_1"><img src="./img/contentImg2.jpg" style="width:270px"></li>\
@@ -13834,22 +13862,14 @@
 	                    <li class="img_6"><img src="./img/contentImg8.jpg" style="width:270px"></li>\
 	                </ul>\
 	            </div>';
-	  (0, _jquery2.default)('.contentImg').append((0, _jquery2.default)(str));
+		(0, _jquery2.default)('.contentImg').append((0, _jquery2.default)(str));
 	}
-	function createUser() {
-	  var str = '<div class="c_user">\
+	function createUser(data) {
+		var str = '<div class="c_user">\
 	                <div class="userImg"><img src="./img/user-img.jpg" /></div>\
-	                <div class="userContent">\
-	                    <p><span>Hi I`m Sheel</span></p>\
-	                    <p><span>Sheel的由来是源于，一次和寝室大哥一起做火车回家</span>\
-	                    <p><span>火车走了48小时，而我也睡了48小时，然后就没有然后了…………</span></p>\
-	                    <p><span>就读于黑龙江大学2013级电子商务专业</span></p>\
-	                    <p><span>程序员，Web前端开发，在学校的信管创业教育基地学习</span></p>\
-	                    <p><span>爱好：看书、象棋、足球、跑步、游戏、睡觉、动漫</span></p>\
-	                    <p><span>——丁泽华</span></p>\
-	                </div>\
+	                <div class="userContent">' + data + '</div>\
 	            </div>';
-	  (0, _jquery2.default)('.contentImg').append((0, _jquery2.default)(str));
+		(0, _jquery2.default)('.contentImg').append((0, _jquery2.default)(str));
 	}
 
 /***/ },
@@ -14438,18 +14458,27 @@
 				width: $width,
 				height: $height
 			});
+
+			(0, _jquery2.default)(this).find('.articleContent').css({
+				height: ($height - 80) / 2 - 34,
+				padding: 3
+			});
 		}).delegate('.article', 'click', function () {
 			(0, _jquery2.default)('.articleBox').attr('_begin', 'T');
 			(0, _jquery2.default)('.mark').css({
 				display: 'block'
 			});
 			(0, _jquery2.default)(this).css({
-				width: $width * 0.8,
-				height: $height * 0.8,
+				width: $width,
+				height: $height * 0.9,
 				zIndex: 4,
 				transform: "skew(0deg,0deg)",
-				left: $width * 0.1,
+				left: 0,
 				top: $height * 0.1
+			});
+			(0, _jquery2.default)(this).find('.articleContent').css({
+				height: $height * 0.9 - 34,
+				padding: 3
 			});
 		});
 	};
@@ -14489,11 +14518,11 @@
 	});
 
 	var data = [{
-		content: 'hello',
-		time: '2016-6-12'
+		content: (0, _marked2.default)(['### 标题1\n\n'].join('')),
+		time: '2016-6-15'
 	}, {
-		content: 'hello2',
-		time: '2016-6-13'
+		content: (0, _marked2.default)(['### 清静经\n\n', '老君曰：\n\n', '大道无形，生育天地；大道无情，运行日月；大道无名，长养万物；吾不知其名，强名曰道。\n\n', '夫道者：有清有浊，有动有静；天清地浊，天动地静。男清女浊，男动女静。降本流末，而生万物。\n\n', '清者浊之源，动者静之基。人能常清静，天地悉皆归。 夫人神好清，而心扰之；人心好静，而欲牵之。\n\n', '常能遣其欲，而心自静，澄其心而神自清。自然六欲不生，三毒消灭。所以不能者，为心未澄，欲未遣也。\n\n', '能遣之者，内观其心，心无其心；外观其形，形无其形；远观其物，物无其物。三者既悟，唯见於空；观空亦空，空无所空；\n\n', '所空既无，无无亦无；无无既无，湛然常寂；寂无所寂，欲岂能生？欲既不生，即是真静。真常应物，真常得性；\n\n', '常应常静，常清静矣。如此清静，渐入真道；既入真道，名为得道，虽名得道，实无所得；为化众生，名为得道；\n\n', '能悟之者，可传圣道。\n\n', '老君曰：\n\n', '上士无争，下士好争；上德不德，下德执德。执著之者，不名道德。众生所以不得真道者，为有妄心。\n\n', '既有妄心，即惊其神；既惊其神，即著万物；既著万物，即生贪求；即生贪求，即是烦恼。烦恼妄想，忧苦身心。\n\n', '但遭浊辱。流浪生死，常沉苦海，永失真道。真常之道，悟者自得，得悟道者，常清静矣。\n\n'].join('')),
+		time: '2016-6-20'
 	}];
 
 	exports.data = data;
@@ -14581,7 +14610,7 @@
 		(0, _jquery2.default)('.object').append((0, _jquery2.default)(str));
 	}
 	function createText(obj) {
-		var str = '<div class="text"><p>' + obj.text + '</p></div>';
+		var str = '<div class="text">' + obj.text + '</div>';
 		(0, _jquery2.default)('.object').append((0, _jquery2.default)(str));
 	}
 	function objectEvent() {
@@ -14609,36 +14638,61 @@
 				opacity: 0
 			});
 		}).delegate('.grid', 'click', function () {
-			console.log('OK');
+			var $text = (0, _jquery2.default)(this).find('h2').text();
+			if ($text == '静谧网-首页') {
+				window.location = "http://www.jingmi.date/";
+			} else {
+				window.location = "http://www.jingmi.date/bbs/";
+			}
 		});
 	}
 
 /***/ },
 /* 171 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.textData = exports.footerData = undefined;
 
+	var _marked = __webpack_require__(7);
+
+	var _marked2 = _interopRequireDefault(_marked);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_marked2.default.setOptions({
+		renderer: new _marked2.default.Renderer(),
+		gfm: true,
+		tables: true,
+		breaks: false,
+		pedantic: false,
+		sanitize: true,
+		smartLists: true,
+		smartypants: false
+	});
+
+	_marked2.default.setOptions({
+		highlight: function highlight(code) {
+			return __webpack_require__(8).highlightAuto(code).value;
+		}
+	});
 
 	var footerData = [{
 		url: './img/object-1.jpg',
-		title: '静谧网',
+		title: '静谧网-首页',
 		content: '2016-6-15'
 	}, {
 		url: './img/object-4.jpg',
-		title: '静谧网',
+		title: '静谧网-论坛',
 		content: '2016-6-15'
 	}];
 	var textData = {
-		text: 'hello'
+		text: (0, _marked2.default)(['本来这里是想放一些作品的，由于博主还是一个技术很`low`的前端攻城狮，', '没有好的作品可以展示，只能将做过的一个项目，分成两个模块来展示了，', '以后我会多做一些作品，放在这里展示，供游客观看、点评。\n\n', '这是博主建立的一个前端攻城狮技术讨论群：有兴趣的可以加，大家一起探讨技术！！', '也可以给我发邮件，这是我的邮箱：1103314650@qq.com！！(^_^)'].join(''))
 	};
-	function minMaxNum(min, max) {
-		return Math.round(Math.random() * (max - min) + min);
-	}
 
 	exports.footerData = footerData;
 	exports.textData = textData;
@@ -14961,6 +15015,46 @@
 
 /***/ },
 /* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+	exports.contentImgData = undefined;
+
+	var _marked = __webpack_require__(7);
+
+	var _marked2 = _interopRequireDefault(_marked);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_marked2.default.setOptions({
+			renderer: new _marked2.default.Renderer(),
+			gfm: true,
+			tables: true,
+			breaks: false,
+			pedantic: false,
+			sanitize: true,
+			smartLists: true,
+			smartypants: false
+	});
+
+	_marked2.default.setOptions({
+			highlight: function highlight(code) {
+					return __webpack_require__(8).highlightAuto(code).value;
+			}
+	});
+
+	var contentImgData = {
+			data: (0, _marked2.default)(['欢迎来到`Sheel`的博客：\n\n', '博主现就读于黑龙江大学2013级电子商务专业\n\n', '爱好：看书、象棋、足球、跑步、游戏、睡觉、动漫\n\n', '现在是一枚前端攻城狮(菜鸟级别)\n\n', '——丁泽华'].join(''))
+	};
+
+	exports.contentImgData = contentImgData;
+
+/***/ },
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;}; /*!
@@ -15831,16 +15925,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(175);
+	var content = __webpack_require__(176);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(177)(content, {});
+	var update = __webpack_require__(178)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -15857,10 +15951,10 @@
 	}
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(176)();
+	exports = module.exports = __webpack_require__(177)();
 	// imports
 
 
@@ -15871,7 +15965,7 @@
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15926,7 +16020,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

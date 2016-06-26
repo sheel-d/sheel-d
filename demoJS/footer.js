@@ -62,7 +62,7 @@ function createSec(obj){
     $('.object').append($(str));
 }
 function createText(obj){
-	var str = '<div class="text"><p>' + obj.text +'</p></div>';
+	var str = '<div class="text">' + obj.text +'</div>';
 	$('.object').append($(str));
 }
 export function objectEvent(){
@@ -90,6 +90,11 @@ export function objectEvent(){
 			opacity:0
 		});
 	}).delegate('.grid','click',function(){
-		console.log('OK');
+	 	var $text = $(this).find('h2').text();
+	 	if( $text == '静谧网-首页'){
+	 		window.location = "http://www.jingmi.date/";
+	 	}else{
+	 		window.location = "http://www.jingmi.date/bbs/";
+	 	}
 	});
 }

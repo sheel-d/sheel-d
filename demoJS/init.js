@@ -7,13 +7,15 @@ import {profileInit} from './profile.js';
 import {objectInit} from './footer.js';
 import {initScrollBar} from './scrollBar.js';
 
+import {contentImgData} from './contentImgData.js';
+
 import $ from 'jquery';
 
 export function init(){
 	Height();
 	createNav('#menu');
 	createImg();
-	createUser();
+	createUser(contentImgData.data);
 	cUserHeight();
 	initAnimate();
 
@@ -45,7 +47,9 @@ function Height(){
 function initAnimate(){
 	var t = new TimelineMax();
 	t.to('#menu',1,{left:0});
-	t.to('.item',4,{rotation:360},1);
+	t.to('.item',4,{
+		rotation:360
+	},1);
 	t.to('.logo',1,{
 		rotation:360,
 		opacity:1
@@ -54,5 +58,7 @@ function initAnimate(){
 	t.to('.line',0.5,{left:6},3);
 	t.to('.contentImg',1,{top:85,opacity:1},1.5);
 	t.to('.c_img',1,{opacity:1},1.75);
-	t.to('.c_user',1,{opacity:1},2);
+	t.to('.c_user',1,{
+		opacity:1
+	},2);
 }
