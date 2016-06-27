@@ -1,4 +1,4 @@
-/*第五屏*/
+
 import $ from 'jquery';
 import {footerData,textData} from './footerData.js';
 

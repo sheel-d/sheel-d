@@ -94,6 +94,16 @@ function mousewheelfn(ev){
             }
 
         }else if( $index == 3 ){
+            $('.work').find('.circle').css({
+                opacity:0,
+                width:0,
+                height:0
+            });
+            $('.work').find('.v-line').css({
+                opacity:0,
+                height:0
+            });
+            $('.work').find('.v-content').css('opacity','0');
             if( $articleBegin == 'F' ){
 
                 $('.line').animate({
@@ -186,6 +196,16 @@ function mousewheelfn(ev){
 			t.to('.scrollBar',1,{opacity:0},3);
 
         }else if( $index == 1 ){
+            $('.work').find('.circle').css({
+                opacity:0,
+                width:0,
+                height:0
+            });
+            $('.work').find('.v-line').css({
+                opacity:0,
+                height:0
+            });
+            $('.work').find('.v-content').css('opacity','0');
 
             $('.line').animate({
                 left : ($index+1) * 82 + 6

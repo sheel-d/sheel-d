@@ -133,7 +133,7 @@ export function styleWorkContent(){
 	});
 };
 
-export function workEvent(){//点击事件
+export function workEvent(){
 	var num = 0;
 	$('.t-work').delegate('.v-content','click',function(){
 		$('.t-work').attr('_begin','T');
@@ -149,6 +149,7 @@ export function workEvent(){//点击事件
 		$('.t-work').css('display','none');
 		$('.workContent').css('display','block');
 		$('.title').css('display','block');
+		$('.content').css('display','none');
 		num++;
 	});
 	$('.list').delegate('li','click',function(){

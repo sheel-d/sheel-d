@@ -1,5 +1,4 @@
 
-
 var photoData = [
             {
                 src:"./img/photo-1.jpg",

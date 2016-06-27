@@ -521,6 +521,7 @@ textarea { resize:none; overflow:auto; }
     text-align: left;
     position: relative;
     cursor: pointer;
+    font-family: English;
 }
 .list li a:nth-child(1){
     width: 100%;

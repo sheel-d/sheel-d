@@ -81,39 +81,32 @@
 		(0, _jquery2.default)('pre code').each(function (i, block) {
 			_highlight2.default.highlightBlock(block);
 		});
-		//Animate:动画
+
 		var sheel = {};
-		//初始化
+
 		sheel.init = _init.init;
 		sheel.init();
 
-		//导航条
-		sheel.navEvent = _nav.navEvent; //导航条事件
+		sheel.navEvent = _nav.navEvent;
 		sheel.navEvent();
 
-		//第一屏
 		sheel.contentImgArr = (0, _contentImg.contentImgArr)();
 
 		sheel.imgAnimate = _contentImg.imgAnimate;
 		sheel.imgAnimate(sheel.contentImgArr);
 
-		//第二屏
 		sheel.note = _photo.note;
 		sheel.note();
 
-		//第三屏
 		sheel.workEvent = _work.workEvent;
 		sheel.workEvent();
 
-		//第四屏
 		sheel.profileEvent = _profile.profileEvent;
 		sheel.profileEvent();
 
-		//第五屏
 		sheel.objectEvent = _footer.objectEvent;
 		sheel.objectEvent();
 
-		//滚动条
 		sheel.scrollBarEvent = _scrollBar.scrollBarEvent;
 		sheel.scrollBarEvent();
 	};
@@ -2217,7 +2210,6 @@
 	};
 
 	function workEvent() {
-		//点击事件
 		var num = 0;
 		(0, _jquery2.default)('.t-work').delegate('.v-content', 'click', function () {
 			(0, _jquery2.default)('.t-work').attr('_begin', 'T');
@@ -2233,6 +2225,7 @@
 			(0, _jquery2.default)('.t-work').css('display', 'none');
 			(0, _jquery2.default)('.workContent').css('display', 'block');
 			(0, _jquery2.default)('.title').css('display', 'block');
+			(0, _jquery2.default)('.content').css('display', 'none');
 			num++;
 		});
 		(0, _jquery2.default)('.list').delegate('li', 'click', function () {
@@ -14872,7 +14865,7 @@
 		content: '2016-6-15'
 	}];
 	var textData = {
-		text: (0, _marked2.default)(['本来这里是想放一些作品的，由于博主还是一个技术很`low`的前端攻城狮，', '没有好的作品可以展示，只能将做过的一个项目，分成两个模块来展示了，', '以后我会多做一些作品，放在这里展示，供游客观看、点评。\n\n', '这是博主建立的一个前端攻城狮技术讨论群：`572060219`有兴趣的可以加，大家一起探讨技术！！', '也可以给我发邮件，这是我的邮箱：`1103314650@qq.com`！！(^_^)'].join(''))
+		text: (0, _marked2.default)(['本来这里是想放一些作品的，由于博主还是一个技术很`low`的前端攻城狮，', '没有好的作品可以展示，只能将做过的一个项目，分成两个模块来展示了，', '以后我会多做一些作品，放在这里展示，供游客观看、点评。\n\n', '这是博主建立的一个前端攻城狮技术讨论群：`572060219`，有兴趣的可以加，大家一起探讨技术！！', '也可以给我发邮件，这是我的邮箱：`1103314650@qq.com`！！(^_^)'].join(''))
 	};
 
 	exports.footerData = footerData;
@@ -14989,6 +14982,16 @@
 	                t.to('.scrollBar', 1, { opacity: 0 }, 4);
 	            }
 	        } else if ($index == 3) {
+	            (0, _jquery2.default)('.work').find('.circle').css({
+	                opacity: 0,
+	                width: 0,
+	                height: 0
+	            });
+	            (0, _jquery2.default)('.work').find('.v-line').css({
+	                opacity: 0,
+	                height: 0
+	            });
+	            (0, _jquery2.default)('.work').find('.v-content').css('opacity', '0');
 	            if ($articleBegin == 'F') {
 
 	                (0, _jquery2.default)('.line').animate({
@@ -15078,6 +15081,16 @@
 	            }, 0);
 	            t.to('.scrollBar', 1, { opacity: 0 }, 3);
 	        } else if ($index == 1) {
+	            (0, _jquery2.default)('.work').find('.circle').css({
+	                opacity: 0,
+	                width: 0,
+	                height: 0
+	            });
+	            (0, _jquery2.default)('.work').find('.v-line').css({
+	                opacity: 0,
+	                height: 0
+	            });
+	            (0, _jquery2.default)('.work').find('.v-content').css('opacity', '0');
 
 	            (0, _jquery2.default)('.line').animate({
 	                left: ($index + 1) * 82 + 6
