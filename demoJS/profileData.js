@@ -20,12 +20,6 @@ marked.setOptions({
 
 var data = [
 	{
-		content :  marked([
-			'### 标题1\n\n'
-		].join('')),
-		time : '2016-6-15'
-	},
-	{
 		content : marked([
 			'### 清静经\n\n',
 			'老君曰：\n\n',
