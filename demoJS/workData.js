@@ -317,7 +317,7 @@ var workContentData = {
 			'事件冒泡指事件开始时由最具体的元素接收，然后逐级向上传播到较为不具体的节点。\n\n',
 			'```\n<html>\n	<head></head>\n	<body>\n	<div></div>\n	</body>\n</html>```\n\n',
 			'像这段`HTML`代码，当点击`div`标签时，`click`事件的传播顺序是:div->body->html->document.\n\n',
-			'#### Netscape:事件铺货流\n\n',
+			'#### Netscape:事件捕获流\n\n',
 			'事件捕获的思想是不太具体的节点应该更早的接收到事件，而最具体的节点应该最后接收到事件。以上面的`HTML`代码\
 			为例，当点击`div`时,`click`事件的传播顺序是：document->html->body->div.\n\n',
 			'#### DOM事件流\n\n',
